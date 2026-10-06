@@ -53,3 +53,4 @@
 - **Install recipe:** `melty.json`. Melty unzips `@bloonsops/` into `{game}/@bloonsops` and launches Arma 3 with `-mod=@bloonsops -skipIntro -noSplash`. It's set as multiplayer with maxPlayers 4 and no connect section: Arma has no relay, so players join from the in-game browser.
 - **Check results:** `validate_recipe` says valid, and `one_click_check` says yes.
 - **Main-menu tile:** a "Play Bloons Ops" spotlight (sheets/ui.json; art from tools/make_art.py, converted with `hemtt utils paa convert`) starts the solo mission.
+- **0.1.1:** on the user's PC (Arma 2.22.154.45), Melty installed and launched the mod, but the spotlight tile didn't appear. Arma's own spotlights probably take the slots. Added `menuButton` (postInit, runs in the main-menu background scene): a red PLAY BLOONS OPS button at the top of RscDisplayMain.

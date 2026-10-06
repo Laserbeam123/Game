@@ -33,7 +33,7 @@
     ]
   },
   "notes": {
-    "firstLaunch": "On Arma 3's main menu, click PLAY BLOONS OPS to play solo. For co-op, the host picks Multiplayer > Host > Bloons Ops - Co-op 1-4, and friends join that server."
+    "firstLaunch": "On Arma 3's main menu, click the red PLAY BLOONS OPS button at the top to play solo (it is also under Singleplayer > Scenarios). For co-op, the host picks Multiplayer > Host > Bloons Ops - Co-op 1-4, and friends join that server."
   },
   "multiplayer": {
     "maxPlayers": 4

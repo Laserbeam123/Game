@@ -36,6 +36,7 @@ class CfgFunctions {
             class syncJIP {};
             class gameOver {};
             class selfTest {};
+            class menuButton { postInit = 1;};
         };
     };
 };
