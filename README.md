@@ -36,7 +36,10 @@ The design lives in `sheets/*.json`, one row per bloon, tower, upgrade, round, c
 python3 tools/make_sounds.py   # synthesise the sound effects (numpy + ffmpeg)
 python3 tools/gen.py gen       # preflight the sheets, write generated SQF/config
 hemtt release                  # build @bloonsops into releases/
+SQFVM=path/to/sqfvm python3 tests/run_sqfvm.py   # headless logic tests (SQF-VM)
 ```
+
+To test it in game, play Singleplayer → Scenarios → *Bloons Ops - Self Test*. It plays every round by itself and writes `[BloonsOps][TEST] PASS/FAIL` lines to the RPT log.
 
 ## Credits
 - Made with Claude Code. All code, sheets and sound effects are original. Sounds are synthesised by `tools/make_sounds.py`.

@@ -21,6 +21,19 @@
 - `tools/gen.py preflight`: all 84 rows, 604 cells and every cross-sheet reference resolve.
 - `hemtt check` / `hemtt release`: 34 SQF files compile, 4 configs rapify, 2 PBOs are built and signed, and there are 0 lint warnings.
 
+## Headless logic tests (SQF-VM)
+- **What runs:** `tests/run_sqfvm.py` loads the real `fn_initData`, `fn_pathPos`, `fn_spawnBloons`, `fn_damageBloon` and `fn_towerCoverage` into SQF-VM. SQF-VM was built from github.com/SQFvm/runtime with `-fpermissive -Wno-changes-meaning`.
+- **Shims:** SQF-VM lacks `getOrDefault`, `isServer`, `getDir` and hashmap `forEach`, `keys` and `values`. The runner swaps only `getOrDefault` and `isServer` for equivalent helpers.
+- **What they check:**
+  - track maths, including around a corner and clamping at the end;
+  - tower reach;
+  - bloon layers popping into their children, damage carrying through layers, and children staying in place;
+  - lead immunity, and explosives splitting lead into 2 pinks;
+  - cash: fully popping each bloon pays exactly its lives_cost;
+  - stale ids, and no pops after game over;
+  - that the start cash can afford a tower.
+- **Result:** 28/28 pass. Red-bloon equivalents per round: 20,35,35,71,59,57,75,92,90,120,78,80,169,146,120,92,48,240,115,114.
+
 ## Not yet verified in game (needs Arma 3 on the player's PC)
 - That walking the Altis road network from [14100,16300] gives a ≥400 m track. A straight fallback exists if it doesn't.
 - `BIS_fnc_fire` on static weapons and infantry, with projectile deletion.
