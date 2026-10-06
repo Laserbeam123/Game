@@ -26,7 +26,7 @@ reach the end. Play solo, or co-op with up to 4 players sharing cash and lives.
     - Ninja Monkey (sees camo)
     - Super Monkey
     - Banana Farm (cash every round)
-- **Players are invincible.** Your own gun still pops bloons, and grenades and launchers pop lead.
+- **Players are invincible and run 2.5x faster on foot.** Your own gun still pops bloons, and grenades and launchers pop lead.
 - **20 rounds,** with shared cash and lives, round bonuses, and selling towers back for 70%. Solo or co-op for up to 4.
 
 ## How to play

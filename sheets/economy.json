@@ -42,6 +42,7 @@
     {"id": "flatten_keep", "value": 0.25, "unit": "ratio", "desc": "share of the original bumps kept (0 = superflat, 1 = untouched)", "status": "built"},
     {"id": "flatten_max_dev_m", "value": 2.5, "unit": "m", "desc": "largest bump left after smoothing", "status": "built"},
     {"id": "flatten_window_m", "value": 150, "unit": "m", "desc": "track stretch averaged for the local ground level", "status": "built"},
-    {"id": "players_invincible", "value": true, "unit": "bool", "desc": "players take no damage (mortar and rockets are real)", "status": "built"}
+    {"id": "players_invincible", "value": true, "unit": "bool", "desc": "players take no damage (mortar and rockets are real)", "status": "built"},
+    {"id": "player_speed_mult", "value": 2.5, "unit": "x", "desc": "on-foot speed boost (setAnimSpeedCoef): zip around the map", "status": "built"}
   ]
 }

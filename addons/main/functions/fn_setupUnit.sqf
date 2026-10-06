@@ -3,6 +3,7 @@
 // sphere monkeys and helipads have no geometry for actions of their own.
 params ["_unit"];
 if (BO_Cfg get "players_invincible") then { _unit allowDamage false };
+_unit setAnimSpeedCoef (BO_Cfg get "player_speed_mult");   // zip around on foot
 _unit addAction [
     "<t color='#FFD700' size='1.1'>Start Next Round</t>",
     { remoteExecCall ["BO_fnc_startRound", 2] },

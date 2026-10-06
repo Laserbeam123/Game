@@ -47,8 +47,34 @@ def bloon_textures():
         print("wrote", png.relative_to(ROOT))
 
 
+def monkey_textures():
+    """Painted fur/hat colours for the sphere monkeys: the colour with a soft top-lit gradient and light grain."""
+    import json
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from palette import tex_name, tower_colours
+    towers = json.loads((ROOT / "sheets" / "towers.json").read_text())["rows"]
+    out_dir = ROOT / "addons" / "main" / "data"
+    out_dir.mkdir(exist_ok=True)
+    S = 64
+    for c in tower_colours(towers):
+        base = [int(v * 255) for v in c[:3]]
+        rnd = random.Random(tex_name(c))
+        img = Image.new("RGB", (S, S))
+        px = img.load()
+        for y in range(S):
+            k = 1.15 - 0.35 * (y / S)
+            for x in range(S):
+                g = rnd.randint(-8, 8)
+                px[x, y] = tuple(max(0, min(255, int(v * k) + g)) for v in base)
+        png = out_dir / f"{tex_name(c)}_co.png"
+        img.save(png)
+        print("wrote", png.relative_to(ROOT))
+
+
 def main():
     bloon_textures()
+    monkey_textures()
     img = Image.new("RGB", (W, H))
     d = ImageDraw.Draw(img)
     for y in range(H):  # sky to dry hills

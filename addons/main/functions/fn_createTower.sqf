@@ -11,10 +11,10 @@ private _noBullets = {
     _this addEventHandler ["Fired", { params ["_u"]; if (!isPlayer (gunner vehicle _u) && !isPlayer _u) then { deleteVehicle (_this select 6) } }];
 };
 private _ball = {
-    // one coloured sphere, attached to _attach at _offset (model space) unless _attach is null
-    params ["_cls", "_rgba", "_attach", "_offset", ["_pos", [0, 0, 0]]];
+    // one painted sphere (texture path from the sheets), attached to _attach at _offset unless _attach is null
+    params ["_cls", "_tex", "_attach", "_offset", ["_pos", [0, 0, 0]]];
     private _o = createVehicle [_cls, _pos, [], 0, "CAN_COLLIDE"];
-    _o setObjectTextureGlobal [0, format ["#(argb,8,8,3)color(%1,%2,%3,%4,ca)", _rgba select 0, _rgba select 1, _rgba select 2, _rgba select 3]];
+    _o setObjectTextureGlobal [0, _tex];
     if (!isNull _attach) then { _o attachTo [_attach, _offset]; _parts pushBack _o };
     _o
 };
@@ -65,23 +65,23 @@ switch (_kind) do {
         _parts pushBack _h;
     };
     case "monkey": {
-        private _fur = _row get "body_rgba";
-        private _acc = _row get "accent_rgba";
-        private _tan = [0.95, 0.78, 0.55, 1];
+        private _fur = _row get "body_tex";
+        private _acc = _row get "accent_tex";
+        private _tan = BO_TexTan;
         _anchor = ["Sign_Sphere100cm_F", _fur, objNull, [], _posATL vectorAdd [0, 0, 0.55]] call _ball;
         _anchor setDir _dir;
         ["Sign_Sphere100cm_F", _fur, _anchor, [0, 0, 0.85]] call _ball;            // head
         ["Sign_Sphere25cm_F", _tan, _anchor, [0, 0.42, 0.75]] call _ball;          // face
         ["Sign_Sphere25cm_F", _tan, _anchor, [0.5, 0, 1.0]] call _ball;            // ears
         ["Sign_Sphere25cm_F", _tan, _anchor, [-0.5, 0, 1.0]] call _ball;
-        ["Sign_Sphere10cm_F", [1, 1, 1, 1], _anchor, [0.16, 0.44, 0.98]] call _ball; // eyes
-        ["Sign_Sphere10cm_F", [1, 1, 1, 1], _anchor, [-0.16, 0.44, 0.98]] call _ball;
+        ["Sign_Sphere10cm_F", BO_TexWhite, _anchor, [0.16, 0.44, 0.98]] call _ball; // eyes
+        ["Sign_Sphere10cm_F", BO_TexWhite, _anchor, [-0.16, 0.44, 0.98]] call _ball;
         ["Sign_Sphere25cm_F", _acc, _anchor, [0, 0, 1.38]] call _ball;             // hat / headband
         ["Sign_Sphere25cm_F", _acc, _anchor, [0.45, 0.35, 0.05]] call _ball;       // what it throws
     };
     case "farm": {
-        _anchor = ["Sign_Sphere200cm_F", _row get "body_rgba", objNull, [], _posATL vectorAdd [0, 0, 1.2]] call _ball;
-        { ["Sign_Sphere25cm_F", _row get "accent_rgba", _anchor, _x] call _ball } forEach [[0.6, 0.6, 0.4], [-0.6, 0.5, 0.2], [0.1, -0.7, 0.5], [0.5, -0.4, -0.1], [-0.4, -0.5, 0.6]];
+        _anchor = ["Sign_Sphere200cm_F", _row get "body_tex", objNull, [], _posATL vectorAdd [0, 0, 1.2]] call _ball;
+        { ["Sign_Sphere25cm_F", _row get "accent_tex", _anchor, _x] call _ball } forEach [[0.6, 0.6, 0.4], [-0.6, 0.5, 0.2], [0.1, -0.7, 0.5], [0.5, -0.4, -0.1], [-0.4, -0.5, 0.6]];
     };
 };
 

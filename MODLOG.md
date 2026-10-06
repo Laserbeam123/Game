@@ -69,3 +69,4 @@
 - **Cartoon bloons:** painted PAA textures from `tools/make_art.py`, plus a knot sphere and a drawn string.
 - **Flatter ground:** `flattenTrack` uses setTerrainHeight on grid points within 80 m of the track. Each point goes to the local track level ±25% of its original bump, capped at 2.5 m, with the edges faded.
 - **Tests:** SQF-VM logic tests cover slow, freeze and inherited-freeze rules, and all pass. HEMTT check is clean.
+- **0.2.1:** from the first real playtest screenshot (co-op with friends worked): monkeys looked washed-out yellow because flat colours wash out on the helper spheres, so they now use painted PAA textures (tools/palette.py) like the bloons. The HUD heart glyph rendered as "d", so it says "Lives" now. Added `player_speed_mult` (setAnimSpeedCoef 2.5).

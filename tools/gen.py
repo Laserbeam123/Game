@@ -12,6 +12,9 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from palette import TAN, WHITE, tex_name, tex_path, tower_colours  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 SHEETS = ROOT / "sheets"
 MAIN = ROOT / "addons" / "main"
@@ -151,6 +154,9 @@ def preflight(sheets):
             errors.append(f"ui[{u['id']}]: {u['picture']} missing (run tools/make_art.py + hemtt utils paa convert)")
         if u["mission"] not in mission_classes:
             errors.append(f"ui[{u['id']}].mission: {u['mission']} is not a CfgMissions class")
+    for c in tower_colours(sheets["towers"]["rows"]):
+        if not (MAIN / "data" / f"{tex_name(c)}_co.paa").exists():
+            errors.append(f"towers: painted texture data/{tex_name(c)}_co.paa missing (tools/make_art.py + paa convert)")
     for b in sheets["bloons"]["rows"]:
         if not (MAIN / "data" / f"bloon_{b['id']}_co.paa").exists():
             errors.append(f"bloons[{b['id']}]: data/bloon_{b['id']}_co.paa missing (tools/make_art.py + hemtt utils paa convert)")
@@ -188,6 +194,13 @@ def generate(sheets):
         for r in sheets[name]["rows"]:
             out.append(f"BO_{name.capitalize()} set [{sqf(r['id'])}, {row_struct(r)}];")
         out.append("")
+    # painted textures for the sphere monkeys (derived from body_rgba / accent_rgba)
+    for t in sheets["towers"]["rows"]:
+        out.append(f"(BO_Towers get {sqf(t['id'])}) set [\"body_tex\", {sqf(tex_path(t['body_rgba']))}];")
+        out.append(f"(BO_Towers get {sqf(t['id'])}) set [\"accent_tex\", {sqf(tex_path(t['accent_rgba']))}];")
+    out.append(f"BO_TexTan = {sqf(tex_path(TAN))};")
+    out.append(f"BO_TexWhite = {sqf(tex_path(WHITE))};")
+    out.append("")
     out.append("BO_Rounds = [];")
     for r in sorted(sheets["rounds"]["rows"], key=lambda r: r["id"]):
         out.append(f"BO_Rounds pushBack {row_struct(r)};")
