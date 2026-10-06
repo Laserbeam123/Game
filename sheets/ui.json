@@ -1,0 +1,15 @@
+{
+  "sheet": "ui",
+  "about": "Main-menu entries (CfgMainMenuSpotlight), generated into addons/main/CfgMainMenuSpotlight.hpp. mission is a CfgMissions class in addons/missions.",
+  "columns": [
+    {"name": "id", "type": "id"},
+    {"name": "text", "type": "string"},
+    {"name": "action_text", "type": "string"},
+    {"name": "picture", "type": "string", "desc": "PAA inside addons/main"},
+    {"name": "mission", "type": "string"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": "BloonsOps_Solo", "text": "Bloons Ops: pop 20 rounds of bloons on Altis. Co-op: Multiplayer > Host.", "action_text": "Play Bloons Ops", "picture": "ui\\spotlight_co.paa", "mission": "BloonsOps_Altis", "status": "built"}
+  ]
+}

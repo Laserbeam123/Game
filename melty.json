@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed",
+  "games": [
+    {
+      "slug": "arma-3",
+      "role": "primary"
+    }
+  ],
+  "components": [
+    {
+      "id": "main",
+      "fileName": "bloonsops-*.zip",
+      "label": "Bloons Ops mod (@bloonsops)",
+      "kind": "main",
+      "required": true
+    }
+  ],
+  "requirements": [],
+  "mappings": [
+    {
+      "component": "main",
+      "from": "@bloonsops/",
+      "to": "{game}/@bloonsops"
+    }
+  ],
+  "launch": {
+    "kind": "game",
+    "args": [
+      "-mod=@bloonsops",
+      "-skipIntro",
+      "-noSplash"
+    ]
+  },
+  "notes": {
+    "firstLaunch": "On Arma 3's main menu, click PLAY BLOONS OPS to play solo. For co-op, the host picks Multiplayer > Host > Bloons Ops - Co-op 1-4, and friends join that server."
+  },
+  "multiplayer": {
+    "maxPlayers": 4
+  }
+}

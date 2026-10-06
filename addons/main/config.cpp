@@ -11,6 +11,7 @@ class CfgPatches {
 };
 
 #include "CfgFunctions.hpp"
+#include "CfgMainMenuSpotlight.hpp"
 
 class RscStructuredText;
 class RscTitles {

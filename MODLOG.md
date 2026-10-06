@@ -47,3 +47,9 @@
 - **Run it:** Singleplayer → Scenarios → *Bloons Ops - Self Test*.
 - **What it does:** builds and upgrades every tower, plays all 20 rounds at 4× speed, and checks the track length, the sound files, the static guns' gunners and weapons, the infantry crews, tower coverage, and whether the bloon textures show and the bloons move.
 - **Where results go:** `[BloonsOps][TEST] PASS/FAIL ...` lines in `%LOCALAPPDATA%\Arma 3\Arma3_x64_*.rpt`, ending with a `DONE: N failure(s)` line.
+
+## Melty
+- **Draft:** "Bloons Ops", modId ec2625fa-f337-4aa5-9180-843c3c9f5b89 (slug bloons-ops), linked to Laserbeam123/Game.
+- **Install recipe:** `melty.json`. Melty unzips `@bloonsops/` into `{game}/@bloonsops` and launches Arma 3 with `-mod=@bloonsops -skipIntro -noSplash`. It's set as multiplayer with maxPlayers 4 and no connect section: Arma has no relay, so players join from the in-game browser.
+- **Check results:** `validate_recipe` says valid, and `one_click_check` says yes.
+- **Main-menu tile:** a "Play Bloons Ops" spotlight (sheets/ui.json; art from tools/make_art.py, converted with `hemtt utils paa convert`) starts the solo mission.
