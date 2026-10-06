@@ -10,7 +10,7 @@ patch = 0
 git_hash = 0
 
 [files]
-include = ["mod.cpp", "README.md"]
+include = ["mod.cpp", "README.md", "LICENSE"]
 
 [hemtt.release]
 folder = "bloonsops"

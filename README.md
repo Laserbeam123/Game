@@ -45,3 +45,6 @@ To test it in game, play Singleplayer → Scenarios → *Bloons Ops - Self Test*
 - Made with Claude Code. All code, sheets and sound effects are original. Sounds are synthesised by `tools/make_sounds.py`.
 - Built with [HEMTT](https://github.com/BrettMayson/HEMTT).
 - Arma 3 © Bohemia Interactive. Bloons TD 6 © Ninja Kiwi. This is a fan-made homage: it ships no files or assets from either game.
+
+## License
+MIT (see LICENSE). Others may remix it on Melty.
