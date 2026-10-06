@@ -1,0 +1,394 @@
+{
+ "sheet": "hooks",
+ "about": "One row per function (where it runs, which game hook calls it, whether it can be called over the network) and one per config hook into Arma 3.",
+ "columns": {
+  "id": "string",
+  "where": "enum:all|server|client",
+  "hook": "string",
+  "net": "enum:none|server|clients",
+  "file": "string",
+  "about": "string"
+ },
+ "rows": [
+  {
+   "id": "initData",
+   "where": "all",
+   "hook": "preInit",
+   "net": "none",
+   "file": "fn_initData.sqf",
+   "about": "Generated: every sheet row as a hashmap (one struct per row)."
+  },
+  {
+   "id": "now",
+   "where": "all",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_now.sqf",
+   "about": "Shared clock: serverTime in multiplayer, time in single player."
+  },
+  {
+   "id": "trackPos",
+   "where": "all",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_trackPos.sqf",
+   "about": "Distance along the track -> [position ATL, direction]."
+  },
+  {
+   "id": "trackNear",
+   "where": "all",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_trackNear.sqf",
+   "about": "Shortest ground distance from a spot to the track's centre line (build spacing)."
+  },
+  {
+   "id": "bloonDist",
+   "where": "all",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_bloonDist.sqf",
+   "about": "How far a bloon has travelled now, from [type,d0,t0,mult,until,hp] (handles slow/freeze)."
+  },
+  {
+   "id": "buildTrack",
+   "where": "all",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_buildTrack.sqf",
+   "about": "Turns the maps row into the track polyline (ATL points, cumulative lengths)."
+  },
+  {
+   "id": "start",
+   "where": "all",
+   "hook": "mission:init.sqf",
+   "net": "none",
+   "file": "fn_start.sqf",
+   "about": "Mission entry: picks the map row, starts server and player parts."
+  },
+  {
+   "id": "initServer",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_initServer.sqf",
+   "about": "Server: track, hidden clutter, shared state, the server loop."
+  },
+  {
+   "id": "serverTick",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_serverTick.sqf",
+   "about": "Server loop step: spawn schedule, leaks, tower shots, round end."
+  },
+  {
+   "id": "spawnBloon",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_spawnBloon.sqf",
+   "about": "Server: adds one bloon at a track distance, queued for the next client batch."
+  },
+  {
+   "id": "damageBloon",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_damageBloon.sqf",
+   "about": "Server: pops layers, releases children with leftover damage, pays cash, honours lead and MOAB rules."
+  },
+  {
+   "id": "slowBloon",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_slowBloon.sqf",
+   "about": "Server: re-bases a bloon onto a slow or freeze."
+  },
+  {
+   "id": "towerFire",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_towerFire.sqf",
+   "about": "Server: one tower picks the first bloon in range and hits it with its row's numbers."
+  },
+  {
+   "id": "towerStats",
+   "where": "all",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_towerStats.sqf",
+   "about": "A tower's row merged with its upgrade, if bought."
+  },
+  {
+   "id": "createTower",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_createTower.sqf",
+   "about": "Server: spawns the Arma object and crew, or the BTD6 pad."
+  },
+  {
+   "id": "requestBuild",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_requestBuild.sqf",
+   "about": "Client->server: build a tower (checks cash, track and tower spacing)."
+  },
+  {
+   "id": "requestUpgrade",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_requestUpgrade.sqf",
+   "about": "Client->server: buy a tower's upgrade."
+  },
+  {
+   "id": "requestSell",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_requestSell.sqf",
+   "about": "Client->server: sell a tower."
+  },
+  {
+   "id": "requestRound",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_requestRound.sqf",
+   "about": "Client->server: start the next round."
+  },
+  {
+   "id": "requestSpeed",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_requestSpeed.sqf",
+   "about": "Client->server: toggle fast forward."
+  },
+  {
+   "id": "requestSnapshot",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_requestSnapshot.sqf",
+   "about": "Client->server on join: send the live bloons to that client."
+  },
+  {
+   "id": "playerHit",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_playerHit.sqf",
+   "about": "Client->server: a player's bullet crossed a bloon."
+  },
+  {
+   "id": "playerBlast",
+   "where": "server",
+   "hook": "net",
+   "net": "server",
+   "file": "fn_playerBlast.sqf",
+   "about": "Client->server: a player's grenade or rocket exploded."
+  },
+  {
+   "id": "flushBatch",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_flushBatch.sqf",
+   "about": "Server: sends this tick's spawns, pops, slows and shot effects to every client in one message."
+  },
+  {
+   "id": "gameOver",
+   "where": "server",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_gameOver.sqf",
+   "about": "Server: ends the game (win or loss) for everyone."
+  },
+  {
+   "id": "clientBatch",
+   "where": "client",
+   "hook": "net",
+   "net": "clients",
+   "file": "fn_clientBatch.sqf",
+   "about": "Server->clients: apply spawns, pops, slows and draw shot effects."
+  },
+  {
+   "id": "clientSnapshot",
+   "where": "client",
+   "hook": "net",
+   "net": "clients",
+   "file": "fn_clientSnapshot.sqf",
+   "about": "Server->joining client: full list of live bloons."
+  },
+  {
+   "id": "clientEnd",
+   "where": "client",
+   "hook": "net",
+   "net": "clients",
+   "file": "fn_clientEnd.sqf",
+   "about": "Server->clients: end screen."
+  },
+  {
+   "id": "notify",
+   "where": "client",
+   "hook": "net",
+   "net": "clients",
+   "file": "fn_notify.sqf",
+   "about": "Server->clients: short message on screen."
+  },
+  {
+   "id": "initPlayer",
+   "where": "client",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_initPlayer.sqf",
+   "about": "Client: invincible, glide, actions, HUD, draw and shot handlers."
+  },
+  {
+   "id": "glideTick",
+   "where": "client",
+   "hook": "EachFrame",
+   "net": "none",
+   "file": "fn_glideTick.sqf",
+   "about": "Client: hover-glide movement for the player."
+  },
+  {
+   "id": "draw3D",
+   "where": "client",
+   "hook": "Draw3D",
+   "net": "none",
+   "file": "fn_draw3D.sqf",
+   "about": "Client: draws bloons, BTD6 monkeys, range ring and shot effects as billboards."
+  },
+  {
+   "id": "onFiredMan",
+   "where": "client",
+   "hook": "FiredMan",
+   "net": "none",
+   "file": "fn_onFiredMan.sqf",
+   "about": "Client: follows the player's bullets and grenades for pops."
+  },
+  {
+   "id": "shotTick",
+   "where": "client",
+   "hook": "EachFrame",
+   "net": "none",
+   "file": "fn_shotTick.sqf",
+   "about": "Client: moves followed bullets and tests them against bloons."
+  },
+  {
+   "id": "hud",
+   "where": "client",
+   "hook": "RscTitles",
+   "net": "none",
+   "file": "fn_hud.sqf",
+   "about": "Client: Cash / Lives / Round bar."
+  },
+  {
+   "id": "openTablet",
+   "where": "client",
+   "hook": "action",
+   "net": "none",
+   "file": "fn_openTablet.sqf",
+   "about": "Client: opens the build tablet dialog."
+  },
+  {
+   "id": "build",
+   "where": "client",
+   "hook": "ui",
+   "net": "none",
+   "file": "fn_build.sqf",
+   "about": "Client: tablet button -> build at the spot you look at."
+  },
+  {
+   "id": "nearestTower",
+   "where": "client",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_nearestTower.sqf",
+   "about": "Client: the tower within 6 m of the player."
+  },
+  {
+   "id": "towerActions",
+   "where": "client",
+   "hook": "action",
+   "net": "none",
+   "file": "fn_towerActions.sqf",
+   "about": "Client: upgrade / sell actions for the nearest tower, kept up to date."
+  },
+  {
+   "id": "artTexture",
+   "where": "client",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_artTexture.sqf",
+   "about": "Client: BTD6 picture from the converted art pack if present, else the stand-in."
+  },
+  {
+   "id": "playSfx",
+   "where": "client",
+   "hook": "call",
+   "net": "none",
+   "file": "fn_playSfx.sqf",
+   "about": "Client: plays a sounds-sheet effect at a position."
+  },
+  {
+   "id": "selfTest",
+   "where": "server",
+   "hook": "mission:init.sqf",
+   "net": "none",
+   "file": "fn_selfTest.sqf",
+   "about": "Self Test scenario: builds every tower, plays all rounds fast, checks glide, writes PASS/FAIL to the RPT log."
+  }
+ ],
+ "config_hooks": [
+  {
+   "id": "CfgFunctions",
+   "where": "config",
+   "about": "Function library: every function row above."
+  },
+  {
+   "id": "CfgRemoteExec",
+   "where": "mission",
+   "about": "Only rows with net server/clients may be called over the network."
+  },
+  {
+   "id": "CfgSounds",
+   "where": "config",
+   "about": "Every sounds row."
+  },
+  {
+   "id": "RscTitles",
+   "where": "config",
+   "about": "HUD bar (hud)."
+  },
+  {
+   "id": "BTD_Tablet",
+   "where": "config",
+   "about": "Build tablet dialog: one button per towers row, ARMA and BTD6 columns."
+  },
+  {
+   "id": "RscDisplayMain",
+   "where": "config",
+   "about": "Red PLAY BTD OPS button on the main menu (solo mission)."
+  },
+  {
+   "id": "CfgMissions",
+   "where": "config",
+   "about": "Solo, Co-op 1-4 and Self Test scenarios."
+  }
+ ],
+ "verify": {
+  "RscDisplayMain": "The red PLAY BLOONS TD OPS button shows on Arma 3's main menu and playMission starts the solo scenario from the addon path.",
+  "glideTick": "In the running game: the player hovers with the gun up (no falling animation). The Self Test logs the animations it saw.",
+  "draw3D": "Billboards draw through hills and buildings (drawIcon3D has no depth test); judge in game whether that needs hiding behind terrain.",
+  "btd6_converter": "On a real BTD6 install: which sprite names it finds (btdops_art_pictures.txt) and that Arma shows the converted PAAs.",
+  "coop": "Host and join with two PCs: towers, bloons and cash stay in step for the joiner."
+ }
+}

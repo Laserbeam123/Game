@@ -1,0 +1,149 @@
+{
+ "sheet": "constants",
+ "about": "One row per tuning number. verify lists cells that need a look in the running game before they count as done.",
+ "columns": {
+  "id": "string",
+  "value": "number|bool|string",
+  "unit": "string",
+  "about": "string"
+ },
+ "rows": [
+  {
+   "id": "start_cash",
+   "value": 850,
+   "unit": "cash",
+   "about": "Shared cash at round 1."
+  },
+  {
+   "id": "start_lives",
+   "value": 150,
+   "unit": "lives",
+   "about": "Shared lives."
+  },
+  {
+   "id": "sell_ratio",
+   "value": 0.7,
+   "unit": "ratio",
+   "about": "Selling refunds this share of everything spent on the tower."
+  },
+  {
+   "id": "speed_base_mps",
+   "value": 9.0,
+   "unit": "m/s",
+   "about": "A red bloon's speed; other bloons multiply it by speed_rel."
+  },
+  {
+   "id": "server_tick_s",
+   "value": 0.1,
+   "unit": "s",
+   "about": "How often towers think and bloons are checked for leaking."
+  },
+  {
+   "id": "max_players",
+   "value": 4,
+   "unit": "players",
+   "about": "Co-op slots in the multiplayer mission."
+  },
+  {
+   "id": "build_reach_m",
+   "value": 30,
+   "unit": "m",
+   "about": "A tower goes where you look, up to this far away."
+  },
+  {
+   "id": "build_min_track_m",
+   "value": 4,
+   "unit": "m",
+   "about": "Towers keep this far from the track's centre line."
+  },
+  {
+   "id": "build_min_tower_m",
+   "value": 3,
+   "unit": "m",
+   "about": "Towers keep this far from each other."
+  },
+  {
+   "id": "track_clear_m",
+   "value": 12,
+   "unit": "m",
+   "about": "Trees, rocks and buildings this close to the track are hidden for the game."
+  },
+  {
+   "id": "glide_hover_m",
+   "value": 1.0,
+   "unit": "m",
+   "about": "Height the player floats above the ground while gliding."
+  },
+  {
+   "id": "glide_speed_mps",
+   "value": 14,
+   "unit": "m/s",
+   "about": "Top gliding speed."
+  },
+  {
+   "id": "glide_boost_mult",
+   "value": 1.8,
+   "unit": "x",
+   "about": "Holding the sprint key multiplies top speed."
+  },
+  {
+   "id": "glide_accel",
+   "value": 30,
+   "unit": "m/s2",
+   "about": "How fast you reach top speed."
+  },
+  {
+   "id": "glide_drag",
+   "value": 3.5,
+   "unit": "1/s",
+   "about": "How quickly you coast to a stop with no key held."
+  },
+  {
+   "id": "glide_hover_gain",
+   "value": 8,
+   "unit": "1/s",
+   "about": "How firmly the hover height is held (vertical speed per metre off target)."
+  },
+  {
+   "id": "player_shot_damage",
+   "value": 1,
+   "unit": "layers",
+   "about": "Layers one of your bullets pops."
+  },
+  {
+   "id": "player_blast_m",
+   "value": 4,
+   "unit": "m",
+   "about": "Pop radius of your grenades and rockets (these pop lead)."
+  },
+  {
+   "id": "player_blast_pierce",
+   "value": 20,
+   "unit": "bloons",
+   "about": "Most bloons one of your blasts pops."
+  },
+  {
+   "id": "icon_scale",
+   "value": 22,
+   "unit": "icon*m",
+   "about": "drawIcon3D size for a 1 m billboard seen from 1 m: size = icon_scale * metres / distance."
+  },
+  {
+   "id": "icon_min_size",
+   "value": 0.35,
+   "unit": "icon",
+   "about": "Smallest a billboard is drawn, so far bloons stay visible."
+  },
+  {
+   "id": "fast_forward_mult",
+   "value": 2,
+   "unit": "x",
+   "about": "Game speed when Fast Forward is on (the host's choice)."
+  }
+ ],
+ "verify": {
+  "glide_hover_m": "Hover feel in the running game: does the unit stay upright with its gun up while 1 m off the ground?",
+  "icon_scale": "Billboard size in the running game: a 1 m bloon should look 1 m wide next to a soldier.",
+  "glide_speed_mps": "Feel in the running game."
+ }
+}

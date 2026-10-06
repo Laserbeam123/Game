@@ -1,0 +1,24 @@
+Bloons TD Ops - BTD6 art converter
+==================================
+This folder turns pictures from YOUR OWN Bloons TD 6 install into a private Arma 3 add-on
+(<Arma 3>/@btdops/addons/btdops_art.pbo) on your PC. It only reads BTD6's files; it never starts, changes or patches
+BTD6, and nothing it makes is uploaded or shared. Bloons TD 6 (c) Ninja Kiwi.
+
+Converter code (btd6art.py, armafmt.py): Bloons TD Ops contributors, MIT licence.
+PAA and PBO layouts follow HEMTT (github.com/BrettMayson/HEMTT, GPL-2.0); no HEMTT code is included.
+
+Bundled third-party software (each keeps its own licence; the licence files are inside python/):
+- CPython 3.12.10 for Windows (NuGet package "python"), Python Software Foundation - PSF License
+- UnityPy 1.25.4, K0lb3 - MIT
+- texture2ddecoder, K0lb3 - MIT (wraps AssetStudio's Texture2DDecoder, MIT)
+- astc-encoder-py, K0lb3 - MIT (wraps ARM astc-encoder, Apache-2.0)
+- etcpak, K0lb3 - MIT (wraps wolfpld/etcpak, BSD-3-Clause)
+- archspec - Apache-2.0 / MIT
+- tpk_ar - MIT
+- Pillow - MIT-CMU
+- NumPy - BSD-3-Clause
+- lz4 (python-lz4) - BSD-3-Clause
+- Brotli - MIT
+- fsspec - BSD-3-Clause
+- attrs - MIT
+FMOD (fmod_toolkit) is NOT included: audio is not extracted.

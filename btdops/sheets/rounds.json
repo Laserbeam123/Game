@@ -1,0 +1,219 @@
+{
+ "sheet": "rounds",
+ "about": "One row per round. groups: [bloon, count, spacing_s, start_at_s]. boss marks the MOAB rounds.",
+ "columns": {
+  "id": "string",
+  "round": "int",
+  "groups": "group[]",
+  "boss": "bool",
+  "bonus_cash": "int"
+ },
+ "rows": [
+  {
+   "id": "r01",
+   "round": 1,
+   "groups": [
+    [
+     "red",
+     20,
+     0.9,
+     0
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 160
+  },
+  {
+   "id": "r02",
+   "round": 2,
+   "groups": [
+    [
+     "red",
+     25,
+     0.7,
+     0
+    ],
+    [
+     "blue",
+     5,
+     1.0,
+     10
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 170
+  },
+  {
+   "id": "r03",
+   "round": 3,
+   "groups": [
+    [
+     "blue",
+     18,
+     0.7,
+     0
+    ],
+    [
+     "green",
+     4,
+     1.2,
+     8
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 180
+  },
+  {
+   "id": "r04",
+   "round": 4,
+   "groups": [
+    [
+     "green",
+     16,
+     0.6,
+     0
+    ],
+    [
+     "red",
+     30,
+     0.3,
+     4
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 190
+  },
+  {
+   "id": "r05",
+   "round": 5,
+   "groups": [
+    [
+     "blue",
+     30,
+     0.4,
+     0
+    ],
+    [
+     "lead",
+     2,
+     3.0,
+     8
+    ],
+    [
+     "moab",
+     1,
+     1.0,
+     16
+    ]
+   ],
+   "boss": true,
+   "bonus_cash": 300
+  },
+  {
+   "id": "r06",
+   "round": 6,
+   "groups": [
+    [
+     "yellow",
+     10,
+     0.9,
+     0
+    ],
+    [
+     "green",
+     20,
+     0.4,
+     3
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 210
+  },
+  {
+   "id": "r07",
+   "round": 7,
+   "groups": [
+    [
+     "pink",
+     8,
+     1.0,
+     0
+    ],
+    [
+     "lead",
+     4,
+     2.0,
+     6
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 220
+  },
+  {
+   "id": "r08",
+   "round": 8,
+   "groups": [
+    [
+     "yellow",
+     25,
+     0.5,
+     0
+    ],
+    [
+     "pink",
+     10,
+     0.7,
+     6
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 230
+  },
+  {
+   "id": "r09",
+   "round": 9,
+   "groups": [
+    [
+     "pink",
+     25,
+     0.45,
+     0
+    ],
+    [
+     "lead",
+     8,
+     1.2,
+     4
+    ]
+   ],
+   "boss": false,
+   "bonus_cash": 240
+  },
+  {
+   "id": "r10",
+   "round": 10,
+   "groups": [
+    [
+     "pink",
+     30,
+     0.35,
+     0
+    ],
+    [
+     "lead",
+     10,
+     1.0,
+     5
+    ],
+    [
+     "moab",
+     2,
+     6.0,
+     14
+    ]
+   ],
+   "boss": true,
+   "bonus_cash": 0
+  }
+ ]
+}

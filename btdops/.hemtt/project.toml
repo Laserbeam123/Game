@@ -1,0 +1,16 @@
+name = "Bloons TD Ops"
+author = "Bloons TD Ops contributors"
+prefix = "btdops"
+mainprefix = "z"
+
+[version]
+major = 0
+minor = 1
+patch = 0
+git_hash = 0
+
+[files]
+include = ["mod.cpp", "README.md", "LICENSE"]
+
+[hemtt.release]
+folder = "btdops"

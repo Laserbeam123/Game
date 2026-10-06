@@ -1,0 +1,17 @@
+{
+  "sheet": "sounds",
+  "about": "One row per sound effect the mod ships, synthesised from scratch by tools/make_sounds.py (no game audio). id 'none' means the tower uses its real Arma weapon sound.",
+  "columns": {"id": "string", "recipe": "enum:none|pop|throw|boom|freeze|place|sell|lose|win|round", "volume_db": "number", "range_m": "number"},
+  "rows": [
+    {"id": "none",   "recipe": "none",   "volume_db": 0,  "range_m": 0},
+    {"id": "pop",    "recipe": "pop",    "volume_db": 0,  "range_m": 80},
+    {"id": "throw",  "recipe": "throw",  "volume_db": -4, "range_m": 50},
+    {"id": "boom",   "recipe": "boom",   "volume_db": 0,  "range_m": 150},
+    {"id": "freeze", "recipe": "freeze", "volume_db": -2, "range_m": 60},
+    {"id": "place",  "recipe": "place",  "volume_db": -2, "range_m": 40},
+    {"id": "sell",   "recipe": "sell",   "volume_db": -2, "range_m": 40},
+    {"id": "lose",   "recipe": "lose",   "volume_db": 0,  "range_m": 0},
+    {"id": "win",    "recipe": "win",    "volume_db": 0,  "range_m": 0},
+    {"id": "round",  "recipe": "round",  "volume_db": -3, "range_m": 0}
+  ]
+}

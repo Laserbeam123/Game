@@ -1,0 +1,9 @@
+.hemttout/
+releases/
+build/
+*.pbo
+__pycache__/
+.hemttprivatekey
+*.biprivatekey
+addons/main/data/
+addons/main/sounds/

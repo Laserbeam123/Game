@@ -1,0 +1,13 @@
+{
+  "sheet": "maps",
+  "about": "One row per playable map. track is a polyline in metres relative to center (x east, y north), bloons enter at the first point. spawn is where players start, relative to center.",
+  "columns": {"id": "string", "world": "string", "name": "string", "center": "xy", "track": "xy[]", "spawn": "xy"},
+  "rows": [
+    {"id": "altis_airfield", "world": "Altis", "name": "Altis Airfield", "center": [14740, 16560],
+     "track": [[-110, -55], [100, -55], [100, 0], [-100, 0], [-100, 55], [110, 55]],
+     "spawn": [-120, -25]}
+  ],
+  "verify": {
+    "center": "In the running game: the track should sit on open, fairly flat ground near the main airport. The game hides objects within track_clear_m of the track and logs the steepest slope along it ([BTDOPS] track slope)."
+  }
+}

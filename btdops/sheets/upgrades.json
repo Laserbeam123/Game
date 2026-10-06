@@ -1,0 +1,13 @@
+{
+  "sheet": "upgrades",
+  "about": "One upgrade per tower. Multipliers apply to the tower's row; adds are added after.",
+  "columns": {"id": "string", "tower": "ref:towers", "name": "string", "cost": "int", "range_mult": "number", "interval_mult": "number", "damage_add": "int", "pierce_add": "int", "aoe_mult": "number", "pops_lead": "bool", "slow_s_add": "number"},
+  "rows": [
+    {"id": "m2_ap",          "tower": "m2_nest", "name": "AP Rounds",           "cost": 400, "range_mult": 1.0,  "interval_mult": 1.0,  "damage_add": 0, "pierce_add": 1,  "aoe_mult": 1.0, "pops_lead": true,  "slow_s_add": 0},
+    {"id": "mortar_he",      "tower": "mortar",  "name": "Heavy Shells",        "cost": 600, "range_mult": 1.0,  "interval_mult": 0.8,  "damage_add": 1, "pierce_add": 8,  "aoe_mult": 1.4, "pops_lead": true,  "slow_s_add": 0},
+    {"id": "sniper_50",      "tower": "sniper",  "name": ".50 Cal",             "cost": 450, "range_mult": 1.25, "interval_mult": 1.0,  "damage_add": 3, "pierce_add": 0,  "aoe_mult": 1.0, "pops_lead": true,  "slow_s_add": 0},
+    {"id": "dart_sharp",     "tower": "dart",    "name": "Sharp Shots",         "cost": 140, "range_mult": 1.0,  "interval_mult": 1.0,  "damage_add": 0, "pierce_add": 1,  "aoe_mult": 1.0, "pops_lead": false, "slow_s_add": 0},
+    {"id": "bomb_bigger",    "tower": "bomb",    "name": "Bigger Bombs",        "cost": 350, "range_mult": 1.0,  "interval_mult": 1.0,  "damage_add": 0, "pierce_add": 10, "aoe_mult": 1.5, "pops_lead": true,  "slow_s_add": 0},
+    {"id": "ice_permafrost", "tower": "ice",     "name": "Permafrost",          "cost": 100, "range_mult": 1.0,  "interval_mult": 1.0,  "damage_add": 0, "pierce_add": 0,  "aoe_mult": 1.0, "pops_lead": false, "slow_s_add": 1.0}
+  ]
+}

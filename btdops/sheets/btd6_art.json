@@ -1,0 +1,203 @@
+{
+ "sheet": "btd6_art",
+ "about": "One row per picture taken from the player's own Bloons TD 6 by the converter (tools/btd6art). candidates are Unity Sprite/Texture2D names tried in order (regular expressions, case-insensitive); the first match wins. fallback is the stand-in picture this mod ships, drawn from scratch by tools/make_art.py. Nothing from BTD6 is ever shipped.",
+ "columns": {
+  "id": "string",
+  "kind": "enum:tower|bloon",
+  "candidates": "string[]",
+  "size_px": "int",
+  "fallback_label": "string?",
+  "fallback_rgb": "rgb"
+ },
+ "rows": [
+  {
+   "id": "none",
+   "kind": "tower",
+   "candidates": [],
+   "size_px": 0,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "tower_dart",
+   "kind": "tower",
+   "candidates": [
+    "^DartMonkey-?000$",
+    "^DartMonkeyPortrait$",
+    "^DartMonkeyIcon$",
+    "^DartMonkey$",
+    "^DartMonkey"
+   ],
+   "size_px": 256,
+   "fallback_label": "DART",
+   "fallback_rgb": [
+    0.55,
+    0.35,
+    0.15
+   ]
+  },
+  {
+   "id": "tower_bomb",
+   "kind": "tower",
+   "candidates": [
+    "^BombShooter-?000$",
+    "^BombShooterPortrait$",
+    "^BombShooterIcon$",
+    "^BombShooter$",
+    "^BombShooter"
+   ],
+   "size_px": 256,
+   "fallback_label": "BOMB",
+   "fallback_rgb": [
+    0.15,
+    0.15,
+    0.18
+   ]
+  },
+  {
+   "id": "tower_ice",
+   "kind": "tower",
+   "candidates": [
+    "^IceMonkey-?000$",
+    "^IceMonkeyPortrait$",
+    "^IceMonkeyIcon$",
+    "^IceMonkey$",
+    "^IceMonkey"
+   ],
+   "size_px": 256,
+   "fallback_label": "ICE",
+   "fallback_rgb": [
+    0.55,
+    0.85,
+    1.0
+   ]
+  },
+  {
+   "id": "bloon_red",
+   "kind": "bloon",
+   "candidates": [
+    "^Red$",
+    "^RedBloon$",
+    "^Red(Bloon)?Icon$",
+    "^BloonRed$"
+   ],
+   "size_px": 128,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0.9,
+    0.1,
+    0.1
+   ]
+  },
+  {
+   "id": "bloon_blue",
+   "kind": "bloon",
+   "candidates": [
+    "^Blue$",
+    "^BlueBloon$",
+    "^Blue(Bloon)?Icon$",
+    "^BloonBlue$"
+   ],
+   "size_px": 128,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0.15,
+    0.45,
+    0.95
+   ]
+  },
+  {
+   "id": "bloon_green",
+   "kind": "bloon",
+   "candidates": [
+    "^Green$",
+    "^GreenBloon$",
+    "^Green(Bloon)?Icon$",
+    "^BloonGreen$"
+   ],
+   "size_px": 128,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0.3,
+    0.8,
+    0.2
+   ]
+  },
+  {
+   "id": "bloon_yellow",
+   "kind": "bloon",
+   "candidates": [
+    "^Yellow$",
+    "^YellowBloon$",
+    "^Yellow(Bloon)?Icon$",
+    "^BloonYellow$"
+   ],
+   "size_px": 128,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0.98,
+    0.88,
+    0.1
+   ]
+  },
+  {
+   "id": "bloon_pink",
+   "kind": "bloon",
+   "candidates": [
+    "^Pink$",
+    "^PinkBloon$",
+    "^Pink(Bloon)?Icon$",
+    "^BloonPink$"
+   ],
+   "size_px": 128,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0.95,
+    0.45,
+    0.7
+   ]
+  },
+  {
+   "id": "bloon_lead",
+   "kind": "bloon",
+   "candidates": [
+    "^Lead$",
+    "^LeadBloon$",
+    "^Lead(Bloon)?Icon$",
+    "^BloonLead$"
+   ],
+   "size_px": 128,
+   "fallback_label": "",
+   "fallback_rgb": [
+    0.45,
+    0.47,
+    0.52
+   ]
+  },
+  {
+   "id": "bloon_moab",
+   "kind": "bloon",
+   "candidates": [
+    "^Moab$",
+    "^MoabIcon$",
+    "^Moab(Bloon)?Portrait$",
+    "^BloonMoab$",
+    "^Moab"
+   ],
+   "size_px": 256,
+   "fallback_label": "MOAB",
+   "fallback_rgb": [
+    0.2,
+    0.4,
+    0.9
+   ]
+  }
+ ],
+ "verify": {
+  "candidates": "Every row's names are a best guess until the converter runs against a real BTD6 install. It writes every sprite name it saw to btd6art.log; fix the candidates from that list."
+ }
+}

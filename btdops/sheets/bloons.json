@@ -1,0 +1,165 @@
+{
+ "sheet": "bloons",
+ "about": "One row per bloon type. speed is metres per second along the track. children are the bloons released when this one's last layer pops. BTD6 speeds (red 1, blue 1.4, green 1.8, yellow 3.2, pink 3.5, lead 1, MOAB 1) times speed_base_mps from constants. Balance: the MOAB is slower (0.6) and has 80 hp so a few towers can catch it on an open track; tuned by the headless full-game test.",
+ "columns": {
+  "id": "string",
+  "name": "string",
+  "rbe_hp": "int",
+  "speed_rel": "number",
+  "children": "ref[]:bloons",
+  "lead": "bool",
+  "is_moab": "bool",
+  "lives_cost": "int",
+  "pop_cash": "int",
+  "size_m": "number",
+  "fallback_rgb": "rgb",
+  "art": "ref:btd6_art"
+ },
+ "rows": [
+  {
+   "id": "red",
+   "name": "Red Bloon",
+   "rbe_hp": 1,
+   "speed_rel": 1.0,
+   "children": [],
+   "lead": false,
+   "is_moab": false,
+   "lives_cost": 1,
+   "pop_cash": 1,
+   "size_m": 1.0,
+   "fallback_rgb": [
+    0.9,
+    0.1,
+    0.1
+   ],
+   "art": "bloon_red"
+  },
+  {
+   "id": "blue",
+   "name": "Blue Bloon",
+   "rbe_hp": 1,
+   "speed_rel": 1.4,
+   "children": [
+    "red"
+   ],
+   "lead": false,
+   "is_moab": false,
+   "lives_cost": 2,
+   "pop_cash": 1,
+   "size_m": 1.05,
+   "fallback_rgb": [
+    0.15,
+    0.45,
+    0.95
+   ],
+   "art": "bloon_blue"
+  },
+  {
+   "id": "green",
+   "name": "Green Bloon",
+   "rbe_hp": 1,
+   "speed_rel": 1.8,
+   "children": [
+    "blue"
+   ],
+   "lead": false,
+   "is_moab": false,
+   "lives_cost": 3,
+   "pop_cash": 1,
+   "size_m": 1.1,
+   "fallback_rgb": [
+    0.3,
+    0.8,
+    0.2
+   ],
+   "art": "bloon_green"
+  },
+  {
+   "id": "yellow",
+   "name": "Yellow Bloon",
+   "rbe_hp": 1,
+   "speed_rel": 3.2,
+   "children": [
+    "green"
+   ],
+   "lead": false,
+   "is_moab": false,
+   "lives_cost": 4,
+   "pop_cash": 1,
+   "size_m": 1.15,
+   "fallback_rgb": [
+    0.98,
+    0.88,
+    0.1
+   ],
+   "art": "bloon_yellow"
+  },
+  {
+   "id": "pink",
+   "name": "Pink Bloon",
+   "rbe_hp": 1,
+   "speed_rel": 3.5,
+   "children": [
+    "yellow"
+   ],
+   "lead": false,
+   "is_moab": false,
+   "lives_cost": 5,
+   "pop_cash": 1,
+   "size_m": 1.2,
+   "fallback_rgb": [
+    0.95,
+    0.45,
+    0.7
+   ],
+   "art": "bloon_pink"
+  },
+  {
+   "id": "lead",
+   "name": "Lead Bloon",
+   "rbe_hp": 1,
+   "speed_rel": 1.0,
+   "children": [
+    "pink",
+    "pink"
+   ],
+   "lead": true,
+   "is_moab": false,
+   "lives_cost": 11,
+   "pop_cash": 1,
+   "size_m": 1.2,
+   "fallback_rgb": [
+    0.45,
+    0.47,
+    0.52
+   ],
+   "art": "bloon_lead"
+  },
+  {
+   "id": "moab",
+   "name": "M.O.A.B.",
+   "rbe_hp": 80,
+   "speed_rel": 0.6,
+   "children": [
+    "pink",
+    "pink",
+    "pink",
+    "pink"
+   ],
+   "lead": false,
+   "is_moab": true,
+   "lives_cost": 100,
+   "pop_cash": 1,
+   "size_m": 6.0,
+   "fallback_rgb": [
+    0.2,
+    0.4,
+    0.9
+   ],
+   "art": "bloon_moab"
+  }
+ ],
+ "notes": [
+  "In BTD6 a MOAB holds 4 Ceramics. Ceramics are not in the first playable set, so here it holds 4 Pinks and has 200 hp of its own."
+ ]
+}
