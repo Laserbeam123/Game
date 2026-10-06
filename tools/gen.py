@@ -136,11 +136,10 @@ def preflight(sheets):
     for s in sheets["sounds"]["rows"]:
         if not (MAIN / s["file"].replace("\\", "/")).exists():
             errors.append(f"sounds[{s['id']}]: {s['file']} missing (run tools/make_sounds.py)")
-    for m in sheets["maps"]["rows"]:
-        d = MISSIONS / m["mission_dir"]
+    for d in [MISSIONS / m["mission_dir"] for m in sheets["maps"]["rows"]] + [MISSIONS / "BloonsOps_Test.Altis"]:
         for need in ("mission.sqm", "description.ext", "initServer.sqf", "initPlayerLocal.sqf", "onPlayerRespawn.sqf"):
             if not (d / need).exists():
-                errors.append(f"maps[{m['id']}]: {d.relative_to(ROOT)}/{need} missing")
+                errors.append(f"{d.relative_to(ROOT)}/{need} missing")
     return errors, notes, status_count
 
 

@@ -35,6 +35,7 @@ class CfgFunctions {
             class remanTower {};
             class syncJIP {};
             class gameOver {};
+            class selfTest {};
         };
     };
 };

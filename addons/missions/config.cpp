@@ -15,6 +15,10 @@ class CfgMissions {
             briefingName = "Bloons Ops (Altis)";
             directory = "z\bloonsops\addons\missions\BloonsOps.Altis";
         };
+        class BloonsOps_Test_Altis {
+            briefingName = "Bloons Ops - Self Test";
+            directory = "z\bloonsops\addons\missions\BloonsOps_Test.Altis";
+        };
     };
     class MPMissions {
         class BloonsOps_Altis {

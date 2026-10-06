@@ -70,6 +70,7 @@
     {"id": "moveInGunnerLocal", "locality": "client", "hook": "remoteExecCall from manTower", "purpose": "moveInGunner where the player is local", "depends": [], "generated": false, "status": "built"},
     {"id": "remanTower", "locality": "server", "hook": "called by serverTick when a mannable gun has stood empty for 5 s", "purpose": "put an AI gunner back when the player leaves", "depends": [], "generated": false, "status": "built"},
     {"id": "syncJIP", "locality": "server", "hook": "remoteExecCall from initPlayer", "purpose": "send live bloons to a player who joined mid-round", "depends": ["bloonLocal"], "generated": false, "status": "built"},
-    {"id": "gameOver", "locality": "server", "hook": "called by serverTick / startRound", "purpose": "end the mission for everyone (BO_Win / BO_Lose debriefing)", "depends": [], "generated": false, "status": "built"}
+    {"id": "gameOver", "locality": "server", "hook": "called by serverTick / startRound", "purpose": "end the mission for everyone (BO_Win / BO_Lose debriefing)", "depends": [], "generated": false, "status": "built"},
+    {"id": "selfTest", "locality": "server", "hook": "Self Test scenario initServer.sqf", "purpose": "build/upgrade every tower, play all rounds at 4x, log PASS/FAIL to the RPT", "depends": ["requestBuild", "requestUpgrade", "startRound"], "generated": false, "status": "built"}
   ]
 }

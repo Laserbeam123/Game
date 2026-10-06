@@ -29,3 +29,8 @@
 - Taking the HMG gun (moveInGunner) and the AI re-manning it.
 - Co-op hosting and joining. Joining by address (`-connect`) is untested.
 - One-click launch straight into the mission, for example with `-init=playMission[...]`.
+
+## In-game test harness
+- **Run it:** Singleplayer → Scenarios → *Bloons Ops - Self Test*.
+- **What it does:** builds and upgrades every tower, plays all 20 rounds at 4× speed, and checks the track length, the sound files, the static guns' gunners and weapons, the infantry crews, tower coverage, and whether the bloon textures show and the bloons move.
+- **Where results go:** `[BloonsOps][TEST] PASS/FAIL ...` lines in `%LOCALAPPDATA%\Arma 3\Arma3_x64_*.rpt`, ending with a `DONE: N failure(s)` line.
