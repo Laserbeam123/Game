@@ -1,7 +1,7 @@
 class CfgPatches {
     class btdops_main {
-        name = "Bloons TD Ops";
-        author = "Bloons TD Ops contributors";
+        name = "Bloon Strike: Altis";
+        author = "Bloon Strike contributors";
         units[] = {};
         weapons[] = {};
         requiredVersion = 2.14;

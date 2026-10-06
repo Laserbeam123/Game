@@ -1,10 +1,10 @@
-Bloons TD Ops - BTD6 art converter
+Bloon Strike: Altis - BTD6 art converter
 ==================================
 This folder turns pictures from YOUR OWN Bloons TD 6 install into a private Arma 3 add-on
 (<Arma 3>/@btdops/addons/btdops_art.pbo) on your PC. It only reads BTD6's files; it never starts, changes or patches
 BTD6, and nothing it makes is uploaded or shared. Bloons TD 6 (c) Ninja Kiwi.
 
-Converter code (btd6art.py, armafmt.py): Bloons TD Ops contributors, MIT licence.
+Converter code (btd6art.py, armafmt.py): Bloon Strike contributors, MIT licence.
 PAA and PBO layouts follow HEMTT (github.com/BrettMayson/HEMTT, GPL-2.0); no HEMTT code is included.
 
 Bundled third-party software (each keeps its own licence; the licence files are inside python/):

@@ -1,4 +1,4 @@
-# Bloons TD Ops: build log
+# Bloon Strike: Altis: build log
 
 ## Route
 - **Host game:** Arma 3 (Real Virtuality 4, SQF). Official mod route: an `@btdops` folder of PBOs loaded with `-mod=@btdops`. No loader, no game files touched. Melty installs no loader for Arma 3 and needs none.
@@ -19,7 +19,7 @@
 
 ## Not yet verified (needs Arma 3 on the user's PC) - also listed by `tools/gen.py verify`
 - Glide feel and animation, billboard size (icon_scale), the track's spot on Altis (slope is logged), main-menu button, all towers' Arma classes firing, sounds, BTD6 sprite names on a real install, co-op with two PCs.
-- In-game self test: Singleplayer > Scenarios > Bloons TD Ops - Self Test, then `[BTDOPS][TEST]` lines in `%LOCALAPPDATA%\Arma 3\Arma3_x64_*.rpt`.
+- In-game self test: Singleplayer > Scenarios > Bloon Strike: Altis - Self Test, then `[BTDOPS][TEST]` lines in `%LOCALAPPDATA%\Arma 3\Arma3_x64_*.rpt`.
 
 ## Balance (from the headless full game)
 - MOAB 80 hp at 0.6x speed; start cash 850; round bonus 150 + 10/round (+100 on MOAB rounds); dart $170 / 0.8 s; M2 $400 / 0.2 s.

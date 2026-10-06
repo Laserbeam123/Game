@@ -385,7 +385,7 @@
   }
  ],
  "verify": {
-  "RscDisplayMain": "The red PLAY BLOONS TD OPS button shows on Arma 3's main menu and playMission starts the solo scenario from the addon path.",
+  "RscDisplayMain": "The red PLAY BLOON STRIKE button shows on Arma 3's main menu and playMission starts the solo scenario from the addon path.",
   "glideTick": "In the running game: the player hovers with the gun up (no falling animation). The Self Test logs the animations it saw.",
   "draw3D": "Billboards draw through hills and buildings (drawIcon3D has no depth test); judge in game whether that needs hiding behind terrain.",
   "btd6_converter": "On a real BTD6 install: which sprite names it finds (btdops_art_pictures.txt) and that Arma shows the converted PAAs.",

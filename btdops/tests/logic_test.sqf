@@ -1,4 +1,4 @@
-// Headless logic tests for Bloons TD Ops, run by tests/run_sqfvm.py against the real functions.
+// Headless logic tests for Bloon Strike: Altis, run by tests/run_sqfvm.py against the real functions.
 TEST_fails = 0;
 TEST_check = {
     params ["_name", "_ok", ["_info", ""]];

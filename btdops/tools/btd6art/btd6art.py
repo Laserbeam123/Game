@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bloons TD Ops - BTD6 art converter. Runs once on the player's PC (Melty starts it before the
+"""Bloon Strike: Altis - BTD6 art converter. Runs once on the player's PC (Melty starts it before the
 first launch). It reads the player's OWN Bloons TD 6 install, read-only, and writes a private
 Arma add-on with those pictures into the mod's own folder:  <Arma 3>/@btdops/addons/btdops_art.pbo
 Nothing is uploaded or shared, and BTD6 is never started, changed or patched.
@@ -156,7 +156,7 @@ def write_addon(out_dir, rows, images, sources):
         files[tex] = armafmt.paa_dxt5(fit(images[r["id"]], r["size_px"]))
         src = sources.get(r["id"], "").replace('"', "'")
         cls.append(f'    class {r["id"]} {{ texture = "\\{PREFIX}\\{tex}"; source = "{src}"; }};\n')
-    config = ("class CfgPatches {\n    class btdops_art {\n        name = \"Bloons TD Ops - your BTD6 art (made on this PC)\";\n"
+    config = ("class CfgPatches {\n    class btdops_art {\n        name = \"Bloon Strike: Altis - your BTD6 art (made on this PC)\";\n"
               "        units[] = {};\n        weapons[] = {};\n        requiredVersion = 2.14;\n        requiredAddons[] = {};\n    };\n};\n"
               "class BTD_ArtPack {\n" + "".join(cls) + "};\n")
     files["config.cpp"] = config.encode()
@@ -185,7 +185,7 @@ def main():
     count = 0
     names = []
     try:
-        log("Bloons TD Ops: making your BTD6 art pack (reads your Bloons TD 6, changes nothing)")
+        log("Bloon Strike: Altis: making your BTD6 art pack (reads your Bloons TD 6, changes nothing)")
         btd6 = find_btd6(a.game, a.btd6)
         images, sources = {}, {}
         if btd6:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bloons TD Ops generator. The sheets in sheets/*.json are the source of truth.
+"""Bloon Strike: Altis generator. The sheets in sheets/*.json are the source of truth.
 
   python3 tools/gen.py preflight   # lay every sheet over the others: unfilled cells, bad types, dangling refs
   python3 tools/gen.py gen         # preflight, then write the generated SQF/config files
@@ -222,9 +222,9 @@ def gen(S):
 
 
 DESCRIPTION = GEN_NOTE + """#include "map.hpp"
-onLoadName = "Bloons TD Ops";
+onLoadName = "Bloon Strike: Altis";
 onLoadMission = "Glide anywhere, build Arma 3 and Bloons TD 6 towers, pop every bloon.";
-author = "Bloons TD Ops";
+author = "Bloon Strike: Altis";
 briefing = 0;
 debriefing = 1;
 respawn = 3;
@@ -284,7 +284,7 @@ class AddonsMetaData
 randomSeed=4242;
 class ScenarioData
 {{
-	author="Bloons TD Ops";
+	author="Bloon Strike: Altis";
 {header}}};
 class Mission
 {{

@@ -83,4 +83,4 @@ for "_r" from 1 to BTD_RoundCount do {
 };
 ["all rounds cleared", BTD_GameOver && BTD_Lives > 0, format ["lives %1 of %2", BTD_Lives, _livesStart]] call _check;
 diag_log format ["[BTDOPS][TEST] DONE: %1 failure(s)", _fails];
-hint format ["Bloons TD Ops self test done: %1 failure(s). Details in the RPT log.", _fails];
+hint format ["Bloon Strike: Altis self test done: %1 failure(s). Details in the RPT log.", _fails];

@@ -1,4 +1,4 @@
-# Bloons TD Ops
+# Bloon Strike: Altis
 
 Bloons TD 6 inside **Arma 3**. You hover-glide in first person anywhere on Altis, place **Arma 3 towers** (M2 HMG nest, Mk6 mortar, sniper team) and **Bloons TD 6 monkeys** (Dart Monkey, Bomb Shooter, Ice Monkey) beside the bloon track, and pop 10 rounds of bloons with them and your own gun. Rounds 5 and 10 end with a M.O.A.B. Solo, or co-op for up to 4 players sharing cash and lives.
 
@@ -17,8 +17,8 @@ Bloons TD 6 inside **Arma 3**. You hover-glide in first person anywhere on Altis
 - **Solo or co-op 1-4:** shared cash and lives; friends join the host's game.
 
 ## How to play
-- **Solo:** the red **PLAY BLOONS TD OPS** button on Arma 3's main menu (also Singleplayer > Scenarios > *Bloons TD Ops (Altis)*).
-- **Co-op:** the host picks Multiplayer > Host > *Bloons TD Ops - Co-op 1-4 (Altis)*; friends join that game from the server browser.
+- **Solo:** the red **PLAY BLOON STRIKE** button on Arma 3's main menu (also Singleplayer > Scenarios > *Bloon Strike: Altis*).
+- **Co-op:** the host picks Multiplayer > Host > *Bloon Strike: Altis - Co-op 1-4*; friends join that game from the server browser.
 1. Scroll menu > **Build Tablet**, pick a tower: it goes where you are looking (not on the track, not on another tower).
 2. Scroll menu > **Start next round**.
 3. Stand next to a tower to **Upgrade** or **Sell** it (scroll menu); its range ring shows.
@@ -33,7 +33,7 @@ tools/build.sh                                     # art, sounds, sheets -> code
 SQFVM=path/to/sqfvm python3 tests/run_sqfvm.py     # headless rule tests on the real functions
 python3 tools/package_btd6art.py <ver> <python.nupkg> <wheels>   # the converter package
 ```
-In game: Singleplayer > Scenarios > *Bloons TD Ops - Self Test* builds every tower, checks the glide and plays all rounds by itself, writing `[BTDOPS][TEST] PASS/FAIL` lines to the RPT log.
+In game: Singleplayer > Scenarios > *Bloon Strike: Altis - Self Test* builds every tower, checks the glide and plays all rounds by itself, writing `[BTDOPS][TEST] PASS/FAIL` lines to the RPT log.
 
 ## Credits
 - Made with Claude Code. Code, sheets, stand-in pictures and sound effects are original (pictures drawn by `tools/make_art.py`, sounds synthesised by `tools/make_sounds.py`).

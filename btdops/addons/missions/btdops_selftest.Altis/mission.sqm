@@ -23,7 +23,7 @@ class AddonsMetaData
 randomSeed=4242;
 class ScenarioData
 {
-	author="Bloons TD Ops";
+	author="Bloon Strike: Altis";
 };
 class Mission
 {

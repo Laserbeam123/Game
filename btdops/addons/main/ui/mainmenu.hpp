@@ -2,7 +2,7 @@ class RscDisplayMain: RscStandardDisplay {
     class controls {
         class BTD_PlayButton: RscButton {
             idc = 9200;
-            text = "PLAY BLOONS TD OPS";
+            text = "PLAY BLOON STRIKE";
             font = "PuristaBold";
             sizeEx = "0.05";
             x = "safeZoneX + safeZoneW * 0.5 - 0.3";
@@ -13,7 +13,7 @@ class RscDisplayMain: RscStandardDisplay {
             colorBackground[] = {0.8, 0.1, 0.1, 0.95};
             colorBackgroundActive[] = {1, 0.25, 0.2, 1};
             colorFocused[] = {0.9, 0.15, 0.15, 1};
-            tooltip = "Solo game. Co-op: Multiplayer > Host > Bloons TD Ops - Co-op 1-4";
+            tooltip = "Solo game. Co-op: Multiplayer > Host > Bloon Strike: Altis - Co-op 1-4";
             action = "playMission ['', '\z\btdops\addons\missions\btdops_solo.Altis', true]";
         };
     };
