@@ -1,0 +1,151 @@
+version=11;
+class Mission
+{
+	addOns[]=
+	{
+		"CAUI",
+		"CA_E",
+		"Takistan"
+	};
+	addOnsAuto[]=
+	{
+		"CA_E"
+	};
+	randomSeed=4242;
+	class Intel
+	{
+		startWeather=0.1;
+		forecastWeather=0.1;
+		year=2012;
+		month=6;
+		day=24;
+		hour=9;
+		minute=30;
+	};
+	class Groups
+	{
+		items=1;
+		class Item0
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=4;
+				class Item0
+				{
+					position[]={6000,0,11200};
+					id=0;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					player="PLAYER COMMANDER";
+					leader=1;
+					skill=0.6;
+					text="bloonPopper1";
+					description="Bloon Popper 1";
+				};
+				class Item1
+				{
+					position[]={6002,0,11200};
+					id=1;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
+					
+					skill=0.6;
+					text="bloonPopper2";
+					description="Bloon Popper 2";
+				};
+				class Item2
+				{
+					position[]={6004,0,11200};
+					id=2;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
+					
+					skill=0.6;
+					text="bloonPopper3";
+					description="Bloon Popper 3";
+				};
+				class Item3
+				{
+					position[]={6006,0,11200};
+					id=3;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
+					
+					skill=0.6;
+					text="bloonPopper4";
+					description="Bloon Popper 4";
+				};
+			};
+		};
+	};
+};
+class Intro
+{
+	addOns[]=
+	{
+		"Takistan"
+	};
+	addOnsAuto[]=
+	{
+		"Takistan"
+	};
+	randomSeed=4242;
+	class Intel
+	{
+		startWeather=0.1;
+		forecastWeather=0.1;
+		year=2012;
+		month=6;
+		day=24;
+		hour=9;
+		minute=30;
+	};
+};
+class OutroWin
+{
+	addOns[]=
+	{
+		"Takistan"
+	};
+	addOnsAuto[]=
+	{
+		"Takistan"
+	};
+	randomSeed=4242;
+	class Intel
+	{
+		startWeather=0.1;
+		forecastWeather=0.1;
+		year=2012;
+		month=6;
+		day=24;
+		hour=9;
+		minute=30;
+	};
+};
+class OutroLoose
+{
+	addOns[]=
+	{
+		"Takistan"
+	};
+	addOnsAuto[]=
+	{
+		"Takistan"
+	};
+	randomSeed=4242;
+	class Intel
+	{
+		startWeather=0.1;
+		forecastWeather=0.1;
+		year=2012;
+		month=6;
+		day=24;
+		hour=9;
+		minute=30;
+	};
+};

@@ -1,0 +1,25 @@
+name = "Bloons Ops Arrowhead"
+author = "Bloons Ops contributors"
+prefix = "bloonsops_oa"
+mainprefix = "z"
+
+[version]
+major = 0
+minor = 1
+patch = 0
+git_hash = 0
+
+[files]
+include = ["mod.cpp", "README.md", "LICENSE"]
+
+[hemtt.release]
+folder = "bloonsops_oa"
+
+# Arma 2: OA has no pushBack, `private _x = v`, isNotEqualTo, distance2D or vectorDistance, so these Arma 3
+# style suggestions do not apply; addPublicVariableEventHandler is only "broken" in Arma 3.
+[lints.sqf.var_all_caps]
+enabled = false
+[lints.sqf.command_case]
+enabled = false
+[lints.sqf.banned_commands]
+options.ignore = ["addPublicVariableEventHandler"]

@@ -70,3 +70,34 @@
 - **Flatter ground:** `flattenTrack` uses setTerrainHeight on grid points within 80 m of the track. Each point goes to the local track level ±25% of its original bump, capped at 2.5 m, with the edges faded.
 - **Tests:** SQF-VM logic tests cover slow, freeze and inherited-freeze rules, and all pass. HEMTT check is clean.
 - **0.2.1:** from the first real playtest screenshot (co-op with friends worked): monkeys looked washed-out yellow because flat colours wash out on the helper spheres, so they now use painted PAA textures (tools/palette.py) like the bloons. The HUD heart glyph rendered as "d", so it says "Lives" now. Added `player_speed_mult` (setAnimSpeedCoef 2.5).
+
+## Arma 2: Operation Arrowhead edition (`oa/`)
+- **Who decided:** the user chose "inside Arma 2: OA itself".
+- **Can't go on Melty:** OA isn't in Melty's catalog, so it can't be installed or launched from Melty, and the edition can't be published there. The Arma 3 "Bloons Ops" draft is untouched.
+- **Same sheets, separate generator.** `tools/gen_oa.py` (called by `tools/gen.py gen`) turns every row into a plain array (a struct):
+  - `data.hpp` names the fields, rows and economy constants (`T_COST`, `TROW_GHOST_HAWK`, `CFG_START_CASH`, `PROP_HELIPAD`).
+  - Refs become row indexes.
+  - Also generated: the tablet dialog (one button per tower), CfgSounds, and the function loader (OA has no CfgFunctions without the Functions module).
+- **OA-specific sheet data:** columns `oa_name`, `oa_object_class`, `oa_crew_class` and `oa_turrets` in towers; a Takistan row in maps; `sheets/oa_props.json` (cone, sandbag, helipad, spheres, mortar shell); `sheets/oa_hooks.json` (41 functions, net allowlist).
+- **OA command check:** `tools/oa/check_oa.py` checks every command against OA's real command list, built from the community wiki's "since" data (github.com/acemod/arma3-wiki), plus a hand-verified allowlist for old commands the wiki dates to Arma 3 (addAction, removeAction). Result: 0 problems. The same tool finds 504 Arma 3-only uses in the Arma 3 edition.
+- **What OA lacks, and the replacements:**
+  - **Messaging between players:** publicVariable channels with an allowlist (netAll / netServer / netClient), instead of remoteExec.
+  - **Bloon state:** arrays indexed by id instead of hashmaps.
+  - **Sorting:** selection sort.
+  - **3D sounds:** say3D from an invisible emitter (no playSound3D).
+  - **Speed boost:** a per-frame push along the player's own movement (no setAnimSpeedCoef).
+  - **Tower actions:** re-added when the nearest tower changes (no setUserActionText).
+  - **Dropped:** shot streaks and name tags (no Draw3D) and terrain smoothing (no setTerrainHeight).
+- **Build:** HEMTT builds `@bloonsops_oa` (`oa/.hemtt`). Arma 3-style lint suggestions are switched off for OA. One harmless warning remains.
+- **Tests:** `tests/run_sqfvm_oa.py` runs the real OA functions in SQF-VM, 22/22 PASS.
+- **Not yet verified in OA (needs the user's PC):**
+  - the class names in `oa_props` and the towers' OA columns;
+  - Takistan roads near [6000, 11200];
+  - Sign_sphere hiddenSelections (do bloon textures show?);
+  - the Fired EH projectile parameter;
+  - `fire` on turret units;
+  - helicopters hovering;
+  - the dialog layout;
+  - say3D sounds;
+  - the speed boost;
+  - co-op over publicVariable.

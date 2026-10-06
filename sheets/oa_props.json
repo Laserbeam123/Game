@@ -1,0 +1,78 @@
+{
+  "sheet": "oa_props",
+  "about": "Arma 2: OA classes the OA edition places (not towers). All are OA/EP1 or base A2-in-OA classes; verify on the user's PC (status stays built until tested).",
+  "columns": [
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "class",
+      "type": "string"
+    },
+    {
+      "name": "use",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
+  ],
+  "rows": [
+    {
+      "id": "player_unit",
+      "class": "US_Soldier_EP1",
+      "use": "playable slots in mission.sqm",
+      "status": "built"
+    },
+    {
+      "id": "track_cone",
+      "class": "RoadCone",
+      "use": "cones lining the track",
+      "status": "built"
+    },
+    {
+      "id": "track_entry",
+      "class": "Sign_arrow_down_large_EP1",
+      "use": "marks where bloons enter",
+      "status": "built"
+    },
+    {
+      "id": "sandbag",
+      "class": "Land_fort_bagfence_round",
+      "use": "infantry tower anchor",
+      "status": "built"
+    },
+    {
+      "id": "helipad",
+      "class": "HeliH",
+      "use": "helicopter tower pad",
+      "status": "built"
+    },
+    {
+      "id": "bloon_sphere",
+      "class": "Sign_sphere100cm_EP1",
+      "use": "bloon body (until BTD6 billboards)",
+      "status": "built"
+    },
+    {
+      "id": "small_sphere",
+      "class": "Sign_sphere25cm_EP1",
+      "use": "bloon knot, monkey parts",
+      "status": "built"
+    },
+    {
+      "id": "tiny_sphere",
+      "class": "Sign_sphere10cm_EP1",
+      "use": "monkey eyes",
+      "status": "built"
+    },
+    {
+      "id": "mortar_shell",
+      "class": "Sh_81_HE",
+      "use": "real mortar impact (players invincible)",
+      "status": "built"
+    }
+  ]
+}

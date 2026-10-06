@@ -1,0 +1,4 @@
+# Commands OA certainly has that the wiki data dates to Arma 3 (it records when the *current* syntax appeared).
+# Each line: command  # why we are sure
+addAction        # scroll-menu actions since Operation Flashpoint; OA syntax: obj addAction [title, script, args, priority, showWindow, hideOnUse, shortcut, condition]
+removeAction     # since Operation Flashpoint

@@ -1,0 +1,82 @@
+{
+  "sheet": "oa_hooks",
+  "about": "Every function in the Arma 2: OA edition (oa/addons/main/functions/fn_<id>.sqf). init_functions.sqf is generated from this sheet; net = may be called through the publicVariable channels (allowlist).",
+  "columns": [
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "locality",
+      "type": "enum",
+      "values": [
+        "server",
+        "client",
+        "any"
+      ]
+    },
+    {
+      "name": "hook",
+      "type": "string"
+    },
+    {
+      "name": "purpose",
+      "type": "string"
+    },
+    {
+      "name": "generated",
+      "type": "bool"
+    },
+    {
+      "name": "net",
+      "type": "bool"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
+  ],
+  "rows": [
+    {"id": "initData", "locality": "any", "hook": "init_functions.sqf (generated loader)", "purpose": "sheet rows as arrays; field names in data.hpp", "generated": true, "net": false, "status": "built"},
+    {"id": "now", "locality": "any", "hook": "called by other functions", "purpose": "shared clock: serverTime in MP, time in SP", "generated": false, "net": false, "status": "built"},
+    {"id": "dist2D", "locality": "any", "hook": "called by other functions", "purpose": "2D distance (OA has no distance2D)", "generated": false, "net": false, "status": "built"},
+    {"id": "netInit", "locality": "any", "hook": "mission init.sqf", "purpose": "publicVariable event handlers for the three message channels", "generated": false, "net": false, "status": "built"},
+    {"id": "netAll", "locality": "server", "hook": "called by server functions", "purpose": "run a function on every machine (OA has no remoteExec)", "generated": false, "net": false, "status": "built"},
+    {"id": "netServer", "locality": "client", "hook": "called by client functions", "purpose": "run a function on the server", "generated": false, "net": false, "status": "built"},
+    {"id": "netClient", "locality": "server", "hook": "called by server functions", "purpose": "run a function on one player's machine", "generated": false, "net": false, "status": "built"},
+    {"id": "initServer", "locality": "server", "hook": "mission init.sqf (isServer)", "purpose": "build track, set cash/lives/round, start server loop", "generated": false, "net": false, "status": "built"},
+    {"id": "buildPath", "locality": "server", "hook": "called by initServer", "purpose": "walk Takistan roads into a track polyline", "generated": false, "net": false, "status": "built"},
+    {"id": "drawTrack", "locality": "server", "hook": "called by initServer", "purpose": "cones, entry arrow, map markers, respawn marker", "generated": false, "net": false, "status": "built"},
+    {"id": "pathPos", "locality": "any", "hook": "called by other functions", "purpose": "track distance -> ASL position", "generated": false, "net": false, "status": "built"},
+    {"id": "bloonDist", "locality": "any", "hook": "called by other functions", "purpose": "track distance of a bloon entry incl. slow/freeze", "generated": false, "net": false, "status": "built"},
+    {"id": "initPlayer", "locality": "client", "hook": "mission init.sqf (hasInterface)", "purpose": "wait for track, HUD, per-frame loop, JIP sync, set up unit", "generated": false, "net": false, "status": "built"},
+    {"id": "setupUnit", "locality": "client", "hook": "initPlayer and the Respawn event handler", "purpose": "invincible, Start Round / Build Tablet actions, Fired EH", "generated": false, "net": false, "status": "built"},
+    {"id": "tablet", "locality": "client", "hook": "player action 'Build Tablet'", "purpose": "open the generated BO_TabletDialog and show cash", "generated": false, "net": false, "status": "built"},
+    {"id": "tabletPick", "locality": "client", "hook": "tablet button action (generated)", "purpose": "request a tower in front of the player", "generated": false, "net": false, "status": "built"},
+    {"id": "hud", "locality": "client", "hook": "spawned by initPlayer", "purpose": "cash/lives/round readout; nearest-tower actions", "generated": false, "net": false, "status": "built"},
+    {"id": "notify", "locality": "client", "hook": "netAll / netClient from server", "purpose": "round tips, errors, win/lose", "generated": false, "net": true, "status": "built"},
+    {"id": "startRound", "locality": "server", "hook": "netServer from 'Start Next Round'", "purpose": "spawn the round's groups, pay bonus and banana income", "generated": false, "net": true, "status": "built"},
+    {"id": "spawnBloons", "locality": "server", "hook": "called by startRound / damageBloon", "purpose": "register bloons and queue them for broadcast", "generated": false, "net": false, "status": "built"},
+    {"id": "slowBloon", "locality": "server", "hook": "called by towerFire", "purpose": "slow/freeze and re-base a bloon", "generated": false, "net": false, "status": "built"},
+    {"id": "rebaseLocal", "locality": "client", "hook": "netAll from serverTick", "purpose": "apply slows to local bloons", "generated": false, "net": true, "status": "built"},
+    {"id": "bloonLocal", "locality": "client", "hook": "netAll / netClient from server", "purpose": "create local bloon objects", "generated": false, "net": true, "status": "built"},
+    {"id": "popLocal", "locality": "client", "hook": "netAll from serverTick", "purpose": "remove local bloons, pop sound", "generated": false, "net": true, "status": "built"},
+    {"id": "clientTick", "locality": "client", "hook": "per-frame loop from initPlayer", "purpose": "move local bloons; track player bullets; speed boost", "generated": false, "net": false, "status": "built"},
+    {"id": "onFired", "locality": "client", "hook": "player Fired event handler", "purpose": "start tracking a player's projectile", "generated": false, "net": false, "status": "built"},
+    {"id": "damageBloon", "locality": "server", "hook": "netServer from clients / called by towers", "purpose": "pop layers, pay cash, spawn children", "generated": false, "net": true, "status": "built"},
+    {"id": "serverTick", "locality": "server", "hook": "spawned by initServer", "purpose": "leaks, slows ending, helicopters, towers, broadcasts", "generated": false, "net": false, "status": "built"},
+    {"id": "towerFire", "locality": "server", "hook": "called by serverTick", "purpose": "aim, fire visuals, scripted hits", "generated": false, "net": false, "status": "built"},
+    {"id": "towerCoverage", "locality": "server", "hook": "called by createTower / requestUpgrade", "purpose": "stretches of track a tower reaches", "generated": false, "net": false, "status": "built"},
+    {"id": "requestBuild", "locality": "server", "hook": "netServer from tabletPick", "purpose": "check cash and placement, build", "generated": false, "net": true, "status": "built"},
+    {"id": "createTower", "locality": "server", "hook": "called by requestBuild", "purpose": "spawn soldiers / static + crew / hovering heli + crew / sphere monkey", "generated": false, "net": false, "status": "built"},
+    {"id": "towerLocal", "locality": "any", "hook": "netAll from createTower (and JIP sync)", "purpose": "visual-only shots on every machine; client tower list", "generated": false, "net": true, "status": "built"},
+    {"id": "requestUpgrade", "locality": "server", "hook": "netServer from nearest-tower action", "purpose": "pay and apply the upgrade row", "generated": false, "net": true, "status": "built"},
+    {"id": "requestSell", "locality": "server", "hook": "netServer from nearest-tower action", "purpose": "refund and remove", "generated": false, "net": true, "status": "built"},
+    {"id": "manTower", "locality": "server", "hook": "netServer from nearest-tower action", "purpose": "swap the AI gunner for the player", "generated": false, "net": true, "status": "built"},
+    {"id": "moveInGunnerLocal", "locality": "client", "hook": "netClient from manTower", "purpose": "moveInGunner where the player is local", "generated": false, "net": true, "status": "built"},
+    {"id": "remanTower", "locality": "server", "hook": "called by serverTick", "purpose": "AI gunner returns to an empty gun", "generated": false, "net": false, "status": "built"},
+    {"id": "syncJIP", "locality": "server", "hook": "netServer from initPlayer", "purpose": "send live bloons and towers to a joining player", "generated": false, "net": true, "status": "built"},
+    {"id": "gameOver", "locality": "server", "hook": "called by serverTick / startRound", "purpose": "end the mission for everyone", "generated": false, "net": false, "status": "built"},
+    {"id": "endLocal", "locality": "client", "hook": "netAll from gameOver", "purpose": "show the ending on each machine", "generated": false, "net": true, "status": "built"}
+  ]
+}

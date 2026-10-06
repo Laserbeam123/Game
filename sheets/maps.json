@@ -2,15 +2,46 @@
   "sheet": "maps",
   "about": "Where the track is built. The server walks Altis' road network from search_center to make a track; if no road gives track_min_m it falls back to a straight track along fallback_dir from the centre.",
   "columns": [
-    {"name": "id", "type": "id"},
-    {"name": "world", "type": "string"},
-    {"name": "mission_dir", "type": "string"},
-    {"name": "search_center", "type": "pos2"},
-    {"name": "search_radius_m", "type": "number"},
-    {"name": "fallback_dir_deg", "type": "number"},
-    {"name": "status", "type": "status"}
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "edition",
+      "type": "enum",
+      "values": [
+        "a3",
+        "oa"
+      ],
+      "desc": "which game edition builds this map"
+    },
+    {
+      "name": "world",
+      "type": "string"
+    },
+    {
+      "name": "mission_dir",
+      "type": "string"
+    },
+    {
+      "name": "search_center",
+      "type": "pos2"
+    },
+    {
+      "name": "search_radius_m",
+      "type": "number"
+    },
+    {
+      "name": "fallback_dir_deg",
+      "type": "number"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
   ],
   "rows": [
-    {"id": "altis_airfield", "world": "Altis", "mission_dir": "BloonsOps.Altis", "search_center": [14100, 16300], "search_radius_m": 600, "fallback_dir_deg": 60, "status": "built"}
+    {"id": "altis_airfield", "edition": "a3", "world": "Altis", "mission_dir": "BloonsOps.Altis", "search_center": [14100, 16300], "search_radius_m": 600, "fallback_dir_deg": 60, "status": "built"},
+    {"id": "takistan_rasman", "edition": "oa", "world": "Takistan", "mission_dir": "BloonsOps.Takistan", "search_center": [6000, 11200], "search_radius_m": 700, "fallback_dir_deg": 90, "status": "built"}
   ]
 }

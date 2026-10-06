@@ -6,3 +6,8 @@ __pycache__/
 .hemttprivatekey
 *.biprivatekey
 .biprivatekey
+oa/releases/
+oa/.hemttout/
+# copied in by tools/gen_oa.py from addons/main (generated media)
+oa/addons/main/data/
+oa/addons/main/sounds/

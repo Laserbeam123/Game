@@ -14,6 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from palette import TAN, WHITE, tex_name, tex_path, tower_colours  # noqa: E402
+import gen_oa  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SHEETS = ROOT / "sheets"
@@ -57,7 +58,7 @@ def preflight(sheets):
                 if v == "TBD":
                     errors.append(f"{where}.{cn}: TBD (not yet established)")
                     continue
-                if v is None or (v == "" and not optional) or (v == [] and ct not in ("refs", "groups")):
+                if v is None or (v == "" and not optional) or (v == [] and ct not in ("refs", "groups", "turrets")):
                     errors.append(f"{where}.{cn}: unfilled")
                     continue
                 if ct in ("int",) and not isinstance(v, int):
@@ -70,6 +71,8 @@ def preflight(sheets):
                     errors.append(f"{where}.{cn}: {v!r} not in {c['values']}")
                 if ct == "rgba" and not (isinstance(v, list) and len(v) == 4 and all(0 <= x <= 1 for x in v)):
                     errors.append(f"{where}.{cn}: bad rgba {v!r}")
+                if ct == "turrets" and not (isinstance(v, list) and all(isinstance(t, list) for t in v)):
+                    errors.append(f"{where}.{cn}: turret paths must be a list of lists")
                 if ct == "pos2" and not (isinstance(v, list) and len(v) == 2):
                     errors.append(f"{where}.{cn}: bad position {v!r}")
                 if ct == "status":
@@ -166,10 +169,11 @@ def preflight(sheets):
     for s in sheets["sounds"]["rows"]:
         if not (MAIN / s["file"].replace("\\", "/")).exists():
             errors.append(f"sounds[{s['id']}]: {s['file']} missing (run tools/make_sounds.py)")
-    for d in [MISSIONS / m["mission_dir"] for m in sheets["maps"]["rows"]] + [MISSIONS / "BloonsOps_Test.Altis"]:
+    for d in [MISSIONS / m["mission_dir"] for m in sheets["maps"]["rows"] if m["edition"] == "a3"] + [MISSIONS / "BloonsOps_Test.Altis"]:
         for need in ("mission.sqm", "description.ext", "initServer.sqf", "initPlayerLocal.sqf", "onPlayerRespawn.sqf"):
             if not (d / need).exists():
                 errors.append(f"{d.relative_to(ROOT)}/{need} missing")
+    gen_oa.preflight(sheets, errors)
     return errors, notes, status_count
 
 
@@ -195,6 +199,8 @@ def generate(sheets):
     for name in ("bloons", "towers", "upgrades", "maps", "sounds"):
         out.append(f"BO_{name.capitalize()} = createHashMap;")
         for r in sheets[name]["rows"]:
+            if name == "maps" and r["edition"] != "a3":
+                continue
             out.append(f"BO_{name.capitalize()} set [{sqf(r['id'])}, {row_struct(r)}];")
         out.append("")
     # painted textures for the sphere monkeys (derived from body_rgba / accent_rgba)
@@ -241,7 +247,8 @@ def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "preflight"
     sheets = load()
     if cmd == "gen":
-        generate(sheets)  # generated files count as implemented for the preflight below
+        generate(sheets)
+        gen_oa.generate(sheets)  # generated files count as implemented for the preflight below
     errors, notes, counts = preflight(sheets)
     cells = sum(len(s["rows"]) * len(s["columns"]) for s in sheets.values())
     print(f"preflight: {len(sheets)} sheets, {sum(len(s['rows']) for s in sheets.values())} rows, {cells} cells")

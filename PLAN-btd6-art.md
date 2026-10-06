@@ -1,5 +1,12 @@
 # Plan: real Bloons TD 6 art in Bloons Ops (option 1)
 
+> **Now aimed at the Arma 2: Operation Arrowhead edition** (`oa/`, chosen by the user). The same converter
+> serves both editions. For OA:
+> - Pack the output as an OA addon `@bloonsops_btd6` (CfgPatches `bloonsops_btd6`).
+> - Find a textured plane class OA can show a texture on (a billboard). It isn't known yet: check `UserTexture1m_F`, `UserTexture10m_F` and the `Land_*Billboard*` classes in OA's config, then add it to `sheets/oa_props.json`.
+> - Turn billboards to the camera in `BO_fnc_clientTick` with `setVectorDirAndUp` (OA has it).
+> - OA's `setObjectTexture` is local, so it's applied in `towerLocal` and `bloonLocal`, which already run on every client.
+
 ## Goal
 Towers and bloons in Arma show **the real BTD6 art**, taken from the player's own BTD6 install on their PC.
 - **Monkeys and bloons:** flat cut-outs (billboards) that always face the camera.
