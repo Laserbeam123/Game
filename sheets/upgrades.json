@@ -1,0 +1,25 @@
+{
+  "sheet": "upgrades",
+  "about": "One upgrade per tower in v1. Multipliers apply to the tower row; *_add columns add to it; grants_* set the flag true.",
+  "columns": [
+    {"name": "id", "type": "id"},
+    {"name": "tower", "type": "ref", "ref": "towers"},
+    {"name": "name", "type": "string"},
+    {"name": "cost", "type": "int"},
+    {"name": "range_mult", "type": "number"},
+    {"name": "interval_mult", "type": "number"},
+    {"name": "damage_add", "type": "int"},
+    {"name": "pierce_add", "type": "int"},
+    {"name": "splash_add", "type": "number"},
+    {"name": "grants_lead", "type": "bool"},
+    {"name": "grants_camo", "type": "bool"},
+    {"name": "blurb", "type": "string"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": "veteran_squad", "tower": "dart_squad", "name": "Veteran Squad", "cost": 220, "range_mult": 1.2, "interval_mult": 0.7, "damage_add": 0, "pierce_add": 1, "splash_add": 0, "grants_lead": false, "grants_camo": false, "blurb": "Faster, longer reach, each shot pops 2.", "status": "built"},
+    {"id": "ap_rounds",     "tower": "hmg_nest",   "name": "AP Rounds",     "cost": 350, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 0, "splash_add": 0, "grants_lead": true,  "grants_camo": false, "blurb": "Armour piercing: 2 layers per hit and pops lead.", "status": "built"},
+    {"id": "rapid_bolt",    "tower": "sniper",     "name": "Semi-Auto Rifle","cost": 300, "range_mult": 1.0, "interval_mult": 0.5, "damage_add": 0, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "blurb": "Fires twice as fast.", "status": "built"},
+    {"id": "heavy_shells",  "tower": "mortar",     "name": "Heavy Shells",  "cost": 400, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 15, "splash_add": 4, "grants_lead": false, "grants_camo": false, "blurb": "Bigger blast, 2 layers per hit.", "status": "built"}
+  ]
+}

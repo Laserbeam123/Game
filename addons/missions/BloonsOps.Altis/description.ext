@@ -1,0 +1,32 @@
+author = "Bloons Ops contributors";
+onLoadName = "Bloons Ops";
+onLoadMission = "Pop the bloons before they reach the end of the road.";
+briefingName = "Bloons Ops - Co-op 1-4";
+overviewText = "Tower defense on Altis: build military towers beside the road and pop 20 rounds of bloons. Solo or co-op with up to 4 players.";
+
+class Header {
+    gameType = "Coop";
+    minPlayers = 1;
+    maxPlayers = 4;
+};
+
+respawn = 3;
+respawnDelay = 5;
+respawnOnStart = -1;
+respawnDialog = 0;
+disabledAI = 1;
+joinUnassigned = 1;
+saving = 0;
+
+class CfgDebriefing {
+    class BO_Win {
+        title = "Bloons popped!";
+        subtitle = "All 20 rounds cleared";
+        description = "The road is safe. Mission accomplished.";
+    };
+    class BO_Lose {
+        title = "The bloons got through";
+        subtitle = "Out of lives";
+        description = "Too many bloons reached the end of the road.";
+    };
+};

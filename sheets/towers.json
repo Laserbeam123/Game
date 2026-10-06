@@ -1,0 +1,40 @@
+{
+  "sheet": "towers",
+  "about": "Every buildable tower. object_class is a base-game Arma 3 class. Static weapons get one AI gunner; infantry towers spawn crew_count soldiers of crew_class. Real projectiles are deleted on firing; damage is scripted so nothing stray hits players. impact_ammo (if set) is a real shell dropped on the target for explosive towers.",
+  "columns": [
+    {"name": "id", "type": "id"},
+    {"name": "name", "type": "string"},
+    {"name": "cost", "type": "int"},
+    {"name": "kind", "type": "enum", "values": ["infantry", "static"]},
+    {"name": "object_class", "type": "string", "desc": "static weapon class, or soldier class for infantry"},
+    {"name": "crew_class", "type": "string", "desc": "AI gunner for statics, soldier for infantry"},
+    {"name": "crew_count", "type": "int"},
+    {"name": "range_m", "type": "number"},
+    {"name": "fire_interval_s", "type": "number"},
+    {"name": "damage", "type": "int", "desc": "layers popped per hit"},
+    {"name": "pierce", "type": "int", "desc": "bloons hit per shot (per soldier for infantry)"},
+    {"name": "splash_m", "type": "number", "desc": "0 = single target; else along-track radius"},
+    {"name": "impact_delay_s", "type": "number", "desc": "shell flight time for splash towers, 0 = instant"},
+    {"name": "impact_ammo", "type": "string?", "desc": "real CfgAmmo shell dropped on impact, empty = none"},
+    {"name": "pops_lead", "type": "bool"},
+    {"name": "sees_camo", "type": "bool"},
+    {"name": "mannable", "type": "bool", "desc": "players can take the gun and shoot bloons themselves"},
+    {"name": "upgrade", "type": "ref", "ref": "upgrades"},
+    {"name": "blurb", "type": "string"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": "dart_squad", "name": "Dart Squad", "cost": 200, "kind": "infantry", "object_class": "B_Soldier_F", "crew_class": "B_Soldier_F", "crew_count": 3,
+     "range_m": 25, "fire_interval_s": 1.2, "damage": 1, "pierce": 1, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "",
+     "pops_lead": false, "sees_camo": false, "mannable": false, "upgrade": "veteran_squad", "blurb": "Three riflemen. Cheap, steady, short range.", "status": "built"},
+    {"id": "hmg_nest", "name": "M2 HMG Nest", "cost": 450, "kind": "static", "object_class": "B_HMG_01_high_F", "crew_class": "B_Soldier_F", "crew_count": 1,
+     "range_m": 40, "fire_interval_s": 0.25, "damage": 1, "pierce": 1, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "",
+     "pops_lead": false, "sees_camo": false, "mannable": true, "upgrade": "ap_rounds", "blurb": "Fast .50 cal. Hop on the gun yourself.", "status": "built"},
+    {"id": "sniper", "name": "Sniper", "cost": 350, "kind": "infantry", "object_class": "B_sniper_F", "crew_class": "B_sniper_F", "crew_count": 1,
+     "range_m": 400, "fire_interval_s": 2.0, "damage": 2, "pierce": 1, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "",
+     "pops_lead": false, "sees_camo": true, "mannable": false, "upgrade": "rapid_bolt", "blurb": "Sees camo bloons. Hits anywhere on the track.", "status": "built"},
+    {"id": "mortar", "name": "Mk6 Mortar", "cost": 750, "kind": "static", "object_class": "B_Mortar_01_F", "crew_class": "B_Soldier_F", "crew_count": 1,
+     "range_m": 300, "fire_interval_s": 4.0, "damage": 1, "pierce": 25, "splash_m": 6, "impact_delay_s": 2.0, "impact_ammo": "Sh_82mm_AMOS",
+     "pops_lead": true, "sees_camo": false, "mannable": false, "upgrade": "heavy_shells", "blurb": "Explosive splash. Pops lead. Danger close!", "status": "built"}
+  ]
+}

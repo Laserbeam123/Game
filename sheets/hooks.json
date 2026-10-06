@@ -1,0 +1,75 @@
+{
+  "sheet": "hooks",
+  "about": "Every system and every place the mod hooks into Arma 3. Each row is one SQF function BO_fnc_<id> in addons/main/functions/fn_<id>.sqf; CfgFunctions is generated from this sheet. hook says how Arma reaches it.",
+  "columns": [
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "locality",
+      "type": "enum",
+      "values": [
+        "server",
+        "client",
+        "any"
+      ]
+    },
+    {
+      "name": "hook",
+      "type": "string",
+      "desc": "what calls it (mission event script, remoteExec, event handler, action, other function)"
+    },
+    {
+      "name": "purpose",
+      "type": "string"
+    },
+    {
+      "name": "depends",
+      "type": "refs",
+      "ref": "hooks"
+    },
+    {
+      "name": "generated",
+      "type": "bool",
+      "desc": "written by tools/gen.py from the sheets"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
+  ],
+  "rows": [
+    {"id": "initData", "locality": "any", "hook": "preInit (CfgFunctions preInit=1)", "purpose": "load bloons/towers/upgrades/rounds/economy/maps sheets as hashmaps", "depends": [], "generated": true, "status": "built"},
+    {"id": "now", "locality": "any", "hook": "called by other functions", "purpose": "shared clock: serverTime in MP, time in SP", "depends": [], "generated": false, "status": "built"},
+    {"id": "initServer", "locality": "server", "hook": "mission initServer.sqf", "purpose": "build track, set cash/lives/round, start server tick", "depends": ["initData", "buildPath", "drawTrack", "serverTick"], "generated": false, "status": "built"},
+    {"id": "buildPath", "locality": "server", "hook": "called by initServer", "purpose": "walk Altis roads into a track polyline with cumulative distances", "depends": ["initData"], "generated": false, "status": "built"},
+    {"id": "drawTrack", "locality": "server", "hook": "called by initServer", "purpose": "cones, entry/exit arrows, map markers, respawn marker at exit", "depends": ["buildPath"], "generated": false, "status": "built"},
+    {"id": "pathPos", "locality": "any", "hook": "called by other functions", "purpose": "track distance -> ASL position", "depends": [], "generated": false, "status": "built"},
+    {"id": "initPlayer", "locality": "client", "hook": "mission initPlayerLocal.sqf", "purpose": "wait for track, HUD, JIP sync, client tick, set up unit", "depends": ["setupUnit", "hud", "clientTick", "syncJIP"], "generated": false, "status": "built"},
+    {"id": "setupUnit", "locality": "client", "hook": "initPlayer and mission onPlayerRespawn.sqf", "purpose": "move to track exit, add build tablet / start-round actions, FiredMan EH", "depends": ["tablet", "onFiredMan"], "generated": false, "status": "built"},
+    {"id": "tablet", "locality": "client", "hook": "player addAction 'Build Tablet'", "purpose": "toggle tower build entries and show tower stats", "depends": ["requestBuild"], "generated": false, "status": "built"},
+    {"id": "hud", "locality": "client", "hook": "RscTitles BO_Hud via cutRsc", "purpose": "cash / lives / round readout", "depends": [], "generated": false, "status": "built"},
+    {"id": "notify", "locality": "client", "hook": "remoteExecCall from server", "purpose": "round tips, errors, win/lose messages", "depends": [], "generated": false, "status": "built"},
+    {"id": "startRound", "locality": "server", "hook": "remoteExecCall from 'Start Round' action", "purpose": "spawn the round's groups on schedule, pay bonus when clear", "depends": ["spawnBloons", "gameOver"], "generated": false, "status": "built"},
+    {"id": "spawnBloons", "locality": "server", "hook": "called by startRound / damageBloon", "purpose": "register bloons in server state and broadcast to clients", "depends": ["bloonLocal", "now"], "generated": false, "status": "built"},
+    {"id": "bloonLocal", "locality": "client", "hook": "remoteExecCall from spawnBloons / syncJIP", "purpose": "create local sphere objects for bloons", "depends": [], "generated": false, "status": "built"},
+    {"id": "popLocal", "locality": "client", "hook": "remoteExecCall from damageBloon / serverTick", "purpose": "remove local spheres, pop sound", "depends": [], "generated": false, "status": "built"},
+    {"id": "clientTick", "locality": "client", "hook": "EachFrame mission event handler", "purpose": "move local spheres along the track, track player projectiles", "depends": ["pathPos", "now"], "generated": false, "status": "built"},
+    {"id": "onFiredMan", "locality": "client", "hook": "player FiredMan event handler", "purpose": "start tracking a player's projectile against bloons", "depends": ["clientTick"], "generated": false, "status": "built"},
+    {"id": "damageBloon", "locality": "server", "hook": "remoteExecCall from clients / called by towers", "purpose": "pop layers, pay cash, spawn children", "depends": ["spawnBloons", "popLocal"], "generated": false, "status": "built"},
+    {"id": "serverTick", "locality": "server", "hook": "spawned loop from initServer", "purpose": "leaks cost lives; towers pick targets and fire", "depends": ["towerFire", "gameOver", "popLocal", "remanTower", "bloonLocal"], "generated": false, "status": "built"},
+    {"id": "towerFire", "locality": "server", "hook": "called by serverTick", "purpose": "fire visuals and scripted damage for one tower shot", "depends": ["damageBloon", "pathPos"], "generated": false, "status": "built"},
+    {"id": "requestBuild", "locality": "server", "hook": "remoteExecCall from tablet action", "purpose": "validate cash/placement and build a tower", "depends": ["createTower", "notify"], "generated": false, "status": "built"},
+    {"id": "createTower", "locality": "server", "hook": "called by requestBuild", "purpose": "spawn tower object + crew, coverage along track, actions on every client", "depends": ["towerActions", "towerCoverage"], "generated": false, "status": "built"},
+    {"id": "towerCoverage", "locality": "server", "hook": "called by createTower / requestUpgrade", "purpose": "precompute which stretches of track a tower reaches", "depends": ["pathPos"], "generated": false, "status": "built"},
+    {"id": "towerActions", "locality": "client", "hook": "remoteExec JIP from createTower", "purpose": "upgrade / sell / man-the-gun actions on a tower", "depends": ["requestUpgrade", "requestSell", "manTower"], "generated": false, "status": "built"},
+    {"id": "requestUpgrade", "locality": "server", "hook": "remoteExecCall from tower action", "purpose": "pay and apply the tower's upgrade row", "depends": ["notify", "towerCoverage"], "generated": false, "status": "built"},
+    {"id": "requestSell", "locality": "server", "hook": "remoteExecCall from tower action", "purpose": "refund and remove a tower", "depends": ["notify"], "generated": false, "status": "built"},
+    {"id": "manTower", "locality": "server", "hook": "remoteExecCall from tower action", "purpose": "swap the AI gunner out and put the player on the gun", "depends": ["moveInGunnerLocal"], "generated": false, "status": "built"},
+    {"id": "moveInGunnerLocal", "locality": "client", "hook": "remoteExecCall from manTower", "purpose": "moveInGunner where the player is local", "depends": [], "generated": false, "status": "built"},
+    {"id": "remanTower", "locality": "server", "hook": "called by serverTick when a mannable gun has stood empty for 5 s", "purpose": "put an AI gunner back when the player leaves", "depends": [], "generated": false, "status": "built"},
+    {"id": "syncJIP", "locality": "server", "hook": "remoteExecCall from initPlayer", "purpose": "send live bloons to a player who joined mid-round", "depends": ["bloonLocal"], "generated": false, "status": "built"},
+    {"id": "gameOver", "locality": "server", "hook": "called by serverTick / startRound", "purpose": "end the mission for everyone (BO_Win / BO_Lose debriefing)", "depends": [], "generated": false, "status": "built"}
+  ]
+}

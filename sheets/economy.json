@@ -1,0 +1,27 @@
+{
+  "sheet": "economy",
+  "about": "Global rules and tuning constants. Each row is one constant.",
+  "columns": [
+    {"name": "id", "type": "id"},
+    {"name": "value", "type": "any"},
+    {"name": "unit", "type": "string"},
+    {"name": "desc", "type": "string"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": "start_cash",          "value": 650,  "unit": "$",      "desc": "shared cash pool at mission start", "status": "built"},
+    {"id": "start_lives",         "value": 100,  "unit": "lives",  "desc": "shared lives", "status": "built"},
+    {"id": "round_bonus_base",    "value": 100,  "unit": "$",      "desc": "end-of-round bonus = base + round number", "status": "built"},
+    {"id": "sell_ratio",          "value": 0.7,  "unit": "ratio",  "desc": "refund of everything spent on a tower", "status": "built"},
+    {"id": "max_players",         "value": 4,    "unit": "players","desc": "playable slots in the mission", "status": "built"},
+    {"id": "build_distance",      "value": 4,    "unit": "m",      "desc": "towers appear this far in front of the player", "status": "built"},
+    {"id": "track_clearance",     "value": 5,    "unit": "m",      "desc": "towers may not be built closer than this to the track", "status": "built"},
+    {"id": "tower_spacing",       "value": 3,    "unit": "m",      "desc": "minimum distance between towers", "status": "built"},
+    {"id": "server_tick_s",       "value": 0.1,  "unit": "s",      "desc": "server simulation step (towers, leaks)", "status": "built"},
+    {"id": "bloon_height_m",      "value": 1.6,  "unit": "m",      "desc": "float height above ground", "status": "built"},
+    {"id": "track_target_m",      "value": 900,  "unit": "m",      "desc": "desired track length along roads", "status": "built"},
+    {"id": "track_min_m",         "value": 400,  "unit": "m",      "desc": "shortest acceptable road track before fallback", "status": "built"},
+    {"id": "player_hit_radius_m", "value": 0.9,  "unit": "m",      "desc": "how close a player's bullet must pass a bloon to pop it", "status": "built"},
+    {"id": "final_round",         "value": 20,   "unit": "round",  "desc": "win after clearing this round", "status": "built"}
+  ]
+}

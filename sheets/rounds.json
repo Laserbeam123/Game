@@ -1,0 +1,32 @@
+{
+  "sheet": "rounds",
+  "about": "One row per round. groups spawn in order; each group is [bloon id, count, spacing seconds, delay seconds before the group starts].",
+  "columns": [
+    {"name": "id", "type": "int"},
+    {"name": "groups", "type": "groups", "ref": "bloons"},
+    {"name": "tip", "type": "string?", "desc": "shown to everyone when the round starts"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": 1,  "groups": [["red", 20, 1.0, 0]], "tip": "Bloons follow the cones. Build towers beside the road!", "status": "built"},
+    {"id": 2,  "groups": [["red", 35, 0.7, 0]], "tip": "", "status": "built"},
+    {"id": 3,  "groups": [["red", 25, 0.7, 0], ["blue", 5, 1.0, 2]], "tip": "Blue bloons are faster and hide a red inside.", "status": "built"},
+    {"id": 4,  "groups": [["red", 35, 0.5, 0], ["blue", 18, 0.8, 1]], "tip": "", "status": "built"},
+    {"id": 5,  "groups": [["red", 5, 0.8, 0], ["blue", 27, 0.6, 1]], "tip": "", "status": "built"},
+    {"id": 6,  "groups": [["red", 15, 0.6, 0], ["blue", 15, 0.6, 1], ["green", 4, 1.0, 1]], "tip": "Green bloons! Consider an M2 HMG Nest.", "status": "built"},
+    {"id": 7,  "groups": [["red", 20, 0.5, 0], ["blue", 20, 0.5, 1], ["green", 5, 1.0, 1]], "tip": "", "status": "built"},
+    {"id": 8,  "groups": [["red", 10, 0.5, 0], ["blue", 20, 0.5, 1], ["green", 14, 0.7, 1]], "tip": "", "status": "built"},
+    {"id": 9,  "groups": [["green", 30, 0.6, 0]], "tip": "", "status": "built"},
+    {"id": 10, "groups": [["blue", 60, 0.3, 0]], "tip": "Blue swarm incoming!", "status": "built"},
+    {"id": 11, "groups": [["red", 10, 0.5, 0], ["blue", 10, 0.5, 0], ["green", 12, 0.6, 1], ["yellow", 3, 1.5, 1]], "tip": "Yellow bloons are very fast.", "status": "built"},
+    {"id": 12, "groups": [["blue", 15, 0.5, 0], ["green", 10, 0.6, 1], ["yellow", 5, 1.2, 1]], "tip": "", "status": "built"},
+    {"id": 13, "groups": [["blue", 50, 0.3, 0], ["green", 23, 0.5, 1]], "tip": "", "status": "built"},
+    {"id": 14, "groups": [["red", 40, 0.3, 0], ["blue", 20, 0.4, 0], ["green", 10, 0.5, 1], ["yellow", 9, 0.9, 1]], "tip": "", "status": "built"},
+    {"id": 15, "groups": [["red", 20, 0.4, 0], ["green", 15, 0.5, 1], ["yellow", 10, 0.8, 1], ["pink", 3, 1.5, 1]], "tip": "Pink bloons: the fastest of all.", "status": "built"},
+    {"id": 16, "groups": [["green", 20, 0.4, 0], ["yellow", 8, 0.8, 1]], "tip": "", "status": "built"},
+    {"id": 17, "groups": [["yellow", 12, 0.7, 0]], "tip": "", "status": "built"},
+    {"id": 18, "groups": [["green", 80, 0.2, 0]], "tip": "Lead bloons next round: only the Mk6 Mortar or AP Rounds pop them.", "status": "built"},
+    {"id": 19, "groups": [["green", 10, 0.5, 0], ["yellow", 4, 0.8, 1], ["pink", 5, 0.8, 1], ["lead", 4, 2.0, 1]], "tip": "LEAD! Explosives only.", "status": "built"},
+    {"id": 20, "groups": [["pink", 6, 0.8, 0], ["lead", 6, 1.5, 1], ["camo_green", 6, 1.2, 1]], "tip": "Camo bloons! Only the Sniper (or your own eyes) can see them.", "status": "built"}
+  ]
+}

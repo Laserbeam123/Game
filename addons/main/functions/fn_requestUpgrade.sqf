@@ -1,0 +1,19 @@
+// Server: buy the tower's upgrade row.
+params ["_player", "_t"];
+if (!isServer || { BO_State != "play" } || { isNull _t } || { _t getVariable ["bo_upgraded", true] }) exitWith {};
+private _up = BO_Upgrades get ((BO_Towers get (_t getVariable "bo_type")) get "upgrade");
+if (BO_Cash < (_up get "cost")) exitWith { [format ["Need $%1 for %2.", _up get "cost", _up get "name"], "error"] remoteExecCall ["BO_fnc_notify", _player] };
+BO_Cash = BO_Cash - (_up get "cost");
+publicVariable "BO_Cash";
+private _s = _t getVariable "bo_stats";
+_s set ["range_m", (_s get "range_m") * (_up get "range_mult")];
+_s set ["fire_interval_s", (_s get "fire_interval_s") * (_up get "interval_mult")];
+_s set ["damage", (_s get "damage") + (_up get "damage_add")];
+_s set ["pierce", (_s get "pierce") + (_up get "pierce_add")];
+_s set ["splash_m", (_s get "splash_m") + (_up get "splash_add")];
+if (_up get "grants_lead") then { _s set ["pops_lead", true] };
+if (_up get "grants_camo") then { _s set ["sees_camo", true] };
+_t setVariable ["bo_cover", [getPosATL _t, _s get "range_m"] call BO_fnc_towerCoverage];
+_t setVariable ["bo_upgraded", true, true];
+_t setVariable ["bo_spent", (_t getVariable ["bo_spent", 0]) + (_up get "cost"), true];
+[format ["%1 upgraded: %2!", name _player, _up get "name"], "info"] remoteExecCall ["BO_fnc_notify", 0];

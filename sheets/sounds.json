@@ -1,0 +1,18 @@
+{
+  "sheet": "sounds",
+  "about": "Sound effects synthesised by tools/make_sounds.py (no third-party audio). file is relative to addons/main.",
+  "columns": [
+    {"name": "id", "type": "id"},
+    {"name": "file", "type": "string"},
+    {"name": "freq_hz", "type": "number"},
+    {"name": "length_s", "type": "number"},
+    {"name": "volume", "type": "number", "desc": "playSound3D volume"},
+    {"name": "range_m", "type": "number"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": "pop",   "file": "sounds\\pop.ogg",   "freq_hz": 900, "length_s": 0.12, "volume": 2.0, "range_m": 150, "status": "built"},
+    {"id": "build", "file": "sounds\\build.ogg", "freq_hz": 220, "length_s": 0.35, "volume": 1.5, "range_m": 60,  "status": "built"},
+    {"id": "leak",  "file": "sounds\\leak.ogg",  "freq_hz": 140, "length_s": 0.5,  "volume": 1.0, "range_m": 50,  "status": "built"}
+  ]
+}
