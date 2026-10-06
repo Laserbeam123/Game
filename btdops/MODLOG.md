@@ -23,3 +23,8 @@
 
 ## Balance (from the headless full game)
 - MOAB 80 hp at 0.6x speed; start cash 850; round bonus 150 + 10/round (+100 on MOAB rounds); dart $170 / 0.8 s; M2 $400 / 0.2 s.
+
+## Melty
+- Listing: "Bloon Strike: Altis" (modId ec2625fa-f337-4aa5-9180-843c3c9f5b89, slug bloon-strike-altis), the draft formerly "Bloons Ops", reused as agreed. MIT, remixes allowed. Games: arma-3 (primary), custom-bloons-td-6, custom-arma-2-operation-arrowhead (secondary).
+- Release 0.1.0 submitted as a draft: btdops-0.1.0.zip (main) + btdops-btd6art-0.1.0.zip (converter, setup step). One click: yes. Not published.
+- Recipe: mode installed; `@btdops/` -> `{game}/@btdops`; `btd6art/` -> `{managed}/btd6art`; setup runs the converter and waits for `{game}/@btdops/btdops_art_ready.txt`; launch `-mod=@btdops -skipIntro -noSplash`; multiplayer maxPlayers 4, no connect (Arma has no relay; players join from the server browser).
