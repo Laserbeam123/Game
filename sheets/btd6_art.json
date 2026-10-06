@@ -1,0 +1,31 @@
+{
+  "sheet": "btd6_art",
+  "about": "What Bloons Ops takes from the player's own Bloons TD 6 install (never redistributed). Each row maps one Bloons Ops thing to the BTD6 asset that shows it. Cells marked TBD are filled in by inspecting BTD6's files on the player's PC (see PLAN-btd6-art.md); preflight lists them as unfinished until then.",
+  "columns": [
+    {"name": "id", "type": "id", "desc": "towers or bloons id in Bloons Ops"},
+    {"name": "uses", "type": "enum", "values": ["tower", "bloon", "sound"]},
+    {"name": "btd6_asset", "type": "string", "desc": "asset/sprite/clip name inside BTD6's bundles (TBD until inspected)"},
+    {"name": "btd6_bundle", "type": "string", "desc": "bundle file under BloonsTD6_Data (TBD)"},
+    {"name": "out_file", "type": "string", "desc": "file the converter writes into @bloonsops_btd6 (PAA for images, OGG for sounds)"},
+    {"name": "status", "type": "status"}
+  ],
+  "rows": [
+    {"id": "dart_monkey",  "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_dart_monkey_ca.paa", "status": "designed"},
+    {"id": "boomerang",    "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_boomerang_ca.paa", "status": "designed"},
+    {"id": "bomb_shooter", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_bomb_shooter_ca.paa", "status": "designed"},
+    {"id": "tack_shooter", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_tack_shooter_ca.paa", "status": "designed"},
+    {"id": "ice_monkey",   "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_ice_monkey_ca.paa", "status": "designed"},
+    {"id": "glue_gunner",  "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_glue_gunner_ca.paa", "status": "designed"},
+    {"id": "ninja_monkey", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_ninja_monkey_ca.paa", "status": "designed"},
+    {"id": "super_monkey", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_super_monkey_ca.paa", "status": "designed"},
+    {"id": "banana_farm",  "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_banana_farm_ca.paa", "status": "designed"},
+    {"id": "red",          "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_red_ca.paa", "status": "designed"},
+    {"id": "blue",         "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_blue_ca.paa", "status": "designed"},
+    {"id": "green",        "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_green_ca.paa", "status": "designed"},
+    {"id": "yellow",       "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_yellow_ca.paa", "status": "designed"},
+    {"id": "pink",         "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_pink_ca.paa", "status": "designed"},
+    {"id": "lead",         "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_lead_ca.paa", "status": "designed"},
+    {"id": "camo_green",   "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_camo_green_ca.paa", "status": "designed"},
+    {"id": "pop",          "uses": "sound", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "pop.ogg", "status": "designed"}
+  ]
+}

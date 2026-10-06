@@ -54,6 +54,9 @@ def preflight(sheets):
                     continue
                 v = row[cn]
                 optional = ct.endswith("?")
+                if v == "TBD":
+                    errors.append(f"{where}.{cn}: TBD (not yet established)")
+                    continue
                 if v is None or (v == "" and not optional) or (v == [] and ct not in ("refs", "groups")):
                     errors.append(f"{where}.{cn}: unfilled")
                     continue
