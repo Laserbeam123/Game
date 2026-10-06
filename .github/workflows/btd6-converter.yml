@@ -27,7 +27,7 @@ jobs:
           --paths tools/btd6
           --add-data "sheets/btd6_art.json;."
           --add-binary "libogg.dll;." --add-binary "libvorbis.dll;."
-          --collect-all UnityPy --collect-all texture2ddecoder --collect-all etcpak --collect-all astc_encoder
+          --collect-all UnityPy --collect-data archspec --collect-all texture2ddecoder --collect-all etcpak --collect-all astc_encoder
           --hidden-import fsb5 --hidden-import fsb5.vorbis --hidden-import fsb5.pcm
           --exclude-module fmod_toolkit --exclude-module pyfmodex
           tools/btd6/bloonsops_btd6.py
