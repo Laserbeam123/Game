@@ -9,7 +9,8 @@ BO_check = { params ["_ok", "_what"]; if (!_ok) then { BO_fails = BO_fails + 1 }
 
 // --- data from the sheets
 [count BO_Bloons == 7, "7 bloon rows loaded"] call BO_check;
-[count BO_Towers == 4 && count BO_Upgrades == 4, "4 towers and 4 upgrades loaded"] call BO_check;
+[count BO_Towers == 15 && count BO_Upgrades == 15, "15 towers (6 Arma + 9 BTD) and 15 upgrades loaded"] call BO_check;
+[({ ((BO_Towers get _x) get "section") == "btd" } count BO_TowerOrder) == 9, "9 towers in the BLOONS TD section"] call BO_check;
 [count BO_Rounds == (BO_Cfg get "final_round"), "rounds 1..final_round loaded"] call BO_check;
 
 // --- track: an L-shaped road, 600 m east then 400 m north
@@ -32,7 +33,7 @@ _cov = [[590, 10, 0], 30] call BO_fnc_towerCoverage;
 // --- server state
 BO_T = 0;
 BO_State = "play";
-BO_Live = createHashMap; BO_NextId = 0; BO_SpawnQueue = []; BO_PopQueue = []; BO_LeakQueue = [];
+BO_Live = createHashMap; BO_NextId = 0; BO_SpawnQueue = []; BO_PopQueue = []; BO_LeakQueue = []; BO_RebaseQueue = [];
 BO_Cash = 0; BO_CashDirty = false;
 
 private _ids = [[["pink", 100]]] call BO_fnc_spawnBloons;
@@ -90,6 +91,31 @@ _ids = [[["red", 0]]] call BO_fnc_spawnBloons;
 _r = [(_ids select 0), 1, true] call BO_fnc_damageBloon;
 [!_r && (call BO_t_count) == 1, "no pops after game over"] call BO_check;
 BO_State = "play";
+
+// --- slows and freezes (glue / ice)
+BO_Live = createHashMap; BO_T = 0;
+_ids = [[["red", 100]]] call BO_fnc_spawnBloons;
+BO_T = 1;
+[(_ids select 0), 0.5, 6] call BO_fnc_slowBloon;
+private _e = BO_Live get (_ids select 0);
+[abs ((_e select 1) - 106) < 0.01 && (_e select 3) == 0.5 && (_e select 4) == 7, format ["glue re-bases at 106 m, half speed until t=7: %1", _e]] call BO_check;
+[count BO_RebaseQueue == 1, "the slow is queued for clients"] call BO_check;
+BO_T = 3;
+[abs (([_e, BO_T] call BO_fnc_bloonDist) - 112) < 0.01, "glued red moves 6 m in 2 s (half of 6 m/s)"] call BO_check;
+[(_ids select 0), 0, 1.2] call BO_fnc_slowBloon;
+_e = BO_Live get (_ids select 0);
+BO_T = 4;
+[abs (([_e, BO_T] call BO_fnc_bloonDist) - 112) < 0.01, "frozen bloon stays put"] call BO_check;
+[(_ids select 0), 0.5, 1] call BO_fnc_slowBloon;
+[((BO_Live get (_ids select 0)) select 3) == 0, "a weaker slow does not thaw a freeze"] call BO_check;
+BO_Live = createHashMap; BO_T = 0;
+_ids = [[["blue", 50]]] call BO_fnc_spawnBloons;
+[(_ids select 0), 0, 2] call BO_fnc_slowBloon;
+[(_ids select 0), 1, false] call BO_fnc_damageBloon;
+_kids = call BO_t_values;
+[count _kids == 1 && { ((_kids select 0) select 3) == 0 }, format ["a frozen blue's red stays frozen: %1", _kids]] call BO_check;
+_r = [((call BO_t_keys) select 0), 0, false] call BO_fnc_damageBloon;
+[!_r && (call BO_t_count) == 1, "zero damage (glue) pops nothing"] call BO_check;
 
 // --- every round's total threat, and the start cash can afford a tower
 private _rbe = [];

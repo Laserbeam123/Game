@@ -1,5 +1,8 @@
 // Client: actions and handlers on the player's unit (again after every respawn).
+// Tower actions live on the player and act on the nearest tower (BO_Near, set by the HUD loop), because
+// sphere monkeys and helipads have no geometry for actions of their own.
 params ["_unit"];
+if (BO_Cfg get "players_invincible") then { _unit allowDamage false };
 _unit addAction [
     "<t color='#FFD700' size='1.1'>Start Next Round</t>",
     { remoteExecCall ["BO_fnc_startRound", 2] },
@@ -8,22 +11,13 @@ _unit addAction [
 ];
 _unit addAction [
     "<t color='#00FFFF'>Build Tablet</t>",
-    { [] call BO_fnc_tablet },
+    { [] spawn BO_fnc_tablet },
     nil, 6, false, true, "", "BO_State == 'play' && vehicle _this == _this"
 ];
-{
-    private _row = BO_Towers get _x;
-    _unit addAction [
-        format ["    Build %1 ($%2)", _row get "name", _row get "cost"],
-        {
-            params ["_u", "_caller", "_aid", "_id"];
-            private _pos = _caller getRelPos [BO_Cfg get "build_distance", 0];
-            _pos set [2, 0];
-            [_caller, _id, _pos] remoteExecCall ["BO_fnc_requestBuild", 2];
-            BO_TabletOpen = false;
-            hintSilent "";
-        },
-        _x, 5.9 - _forEachIndex * 0.01, false, true, "", "BO_TabletOpen && vehicle _this == _this"
-    ];
-} forEach BO_TowerOrder;
+BO_ActUp = _unit addAction ["Upgrade", { [player, BO_Near] remoteExecCall ["BO_fnc_requestUpgrade", 2] },
+    nil, 5, false, true, "", "!isNull BO_Near && { !(BO_Near getVariable ['bo_upgraded', true]) } && vehicle _this == _this"];
+BO_ActMan = _unit addAction ["Take the gun", { [player, BO_Near] remoteExecCall ["BO_fnc_manTower", 2] },
+    nil, 4.9, true, true, "", "!isNull BO_Near && { BO_Near getVariable ['bo_mannable', false] } && { !isPlayer (gunner BO_Near) } && vehicle _this == _this"];
+BO_ActSell = _unit addAction ["Sell", { [player, BO_Near] remoteExecCall ["BO_fnc_requestSell", 2] },
+    nil, 1, false, true, "", "!isNull BO_Near && vehicle _this == _this"];
 _unit addEventHandler ["FiredMan", { call BO_fnc_onFiredMan }];

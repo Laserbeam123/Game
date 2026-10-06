@@ -24,6 +24,7 @@ diag_log format ["[BloonsOps] round %1 start", BO_Round];
     waitUntil { sleep 0.5; BO_State != "play" || { count BO_Live == 0 && BO_SpawnQueue isEqualTo [] } };
     if (BO_State != "play") exitWith {};
     private _bonus = (BO_Cfg get "round_bonus_base") + BO_Round;
+    { if (!isNull _x) then { _bonus = _bonus + ((_x getVariable "bo_stats") get "income") } } forEach BO_TowerList;
     BO_Cash = BO_Cash + _bonus;
     BO_CashDirty = true;
     BO_RoundActive = false;
@@ -32,6 +33,6 @@ diag_log format ["[BloonsOps] round %1 start", BO_Round];
     if (BO_Round >= (BO_Cfg get "final_round")) then {
         [true] call BO_fnc_gameOver;
     } else {
-        [format ["Round %1 cleared! +$%2", BO_Round, _bonus], "round"] remoteExecCall ["BO_fnc_notify", 0];
+        [format ["Round %1 cleared! +$%2 (bonus and bananas)", BO_Round, _bonus], "round"] remoteExecCall ["BO_fnc_notify", 0];
     };
 };

@@ -10,7 +10,45 @@ ROOT = Path(__file__).resolve().parent.parent
 W, H = 1024, 512
 
 
+def bloon_textures():
+    """Cartoon bloon skins: saturated colour, soft shading, a big white shine (glossy), camo blotches or a
+    brushed-metal look. Written next to the sphere UVs' likely 'top-left' so the shine shows from most angles."""
+    import json
+    rows = json.loads((ROOT / "sheets" / "bloons.json").read_text())["rows"]
+    out_dir = ROOT / "addons" / "main" / "data"
+    out_dir.mkdir(exist_ok=True)
+    S = 256
+    for r in rows:
+        base = [int(c * 255) for c in r["rgba"][:3]]
+        img = Image.new("RGB", (S, S))
+        d = ImageDraw.Draw(img)
+        for y in range(S):  # light at the top, deeper at the bottom
+            t = y / S
+            k = 1.25 - 0.55 * t
+            d.line([(0, y), (S, y)], fill=tuple(max(0, min(255, int(c * k + 30 * (1 - t)))) for c in base))
+        rnd = random.Random(r["id"])
+        if r["pattern"] == "camo":
+            for _ in range(28):
+                x, y, rad = rnd.randint(0, S), rnd.randint(0, S), rnd.randint(10, 34)
+                c = rnd.choice([(60, 75, 35), (110, 95, 55), (35, 45, 25)])
+                d.ellipse([(x - rad, y - rad * 0.7), (x + rad, y + rad * 0.7)], fill=c)
+        if r["pattern"] == "metal":
+            for y in range(0, S, 3):
+                g = rnd.randint(-18, 18)
+                d.line([(0, y), (S, y)], fill=tuple(max(0, min(255, c + g)) for c in base))
+            for x, y in ((40, 60), (200, 70), (60, 190), (190, 200), (128, 128)):
+                d.ellipse([(x - 6, y - 6), (x + 6, y + 6)], fill=(70, 72, 76))  # rivets
+        for cx, cy in ((S * 0.3, S * 0.25), (S * 0.8, S * 0.25)):  # shine (two, for the sphere's wrap)
+            d.ellipse([(cx - 26, cy - 16), (cx + 26, cy + 16)], fill=(255, 255, 255))
+            d.ellipse([(cx + 18, cy + 14), (cx + 30, cy + 22)], fill=(255, 255, 255))
+        d.rectangle([(0, S - 10), (S, S)], fill=tuple(int(c * 0.45) for c in base))  # dark rim near the knot
+        png = out_dir / f"bloon_{r['id']}_co.png"
+        img.save(png)
+        print("wrote", png.relative_to(ROOT))
+
+
 def main():
+    bloon_textures()
     img = Image.new("RGB", (W, H))
     d = ImageDraw.Draw(img)
     for y in range(H):  # sky to dry hills

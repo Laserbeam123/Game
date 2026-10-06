@@ -37,6 +37,12 @@ class CfgFunctions {
             class gameOver {};
             class selfTest {};
             class menuButton { postInit = 1;};
+            class bloonDist {};
+            class slowBloon {};
+            class rebaseLocal {};
+            class fxLocal {};
+            class draw3D {};
+            class flattenTrack {};
         };
     };
 };

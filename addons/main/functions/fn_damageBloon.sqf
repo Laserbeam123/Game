@@ -5,12 +5,16 @@ if (!isServer) exitWith { false };
 if (!isNil "BO_State" && { BO_State != "play" }) exitWith { false };
 private _b = BO_Live getOrDefault [_id, []];
 if (_b isEqualTo []) exitWith { false };
-_b params ["_type", "_d0", "_t0"];
+_b params ["_type", "_d0", "_t0", "_mult", "_until"];
 private _row = BO_Bloons get _type;
 if ((_row get "needs_lead_popper") && !_popsLead) exitWith { false };
-_dmg = (_dmg max 1) min 5;
+_dmg = _dmg min 5;
+if (_dmg <= 0) exitWith { false };
 BO_Live deleteAt _id;
-private _d = _d0 + (_row get "speed_mps") * ((call BO_fnc_now) - _t0);
+private _now = call BO_fnc_now;
+private _d = [_b, _now] call BO_fnc_bloonDist;
+// children keep a slow/freeze that is still running
+if (_until <= _now) then { _mult = 1; _until = 0 };
 
 private _cash = 0;
 private _spawn = [];
@@ -32,7 +36,7 @@ BO_PopQueue pushBack _id;
 if (_spawn isNotEqualTo []) then {
     // children appear where the parent was, slightly staggered back along the track
     private _list = [];
-    { _list pushBack [_x, (_d - _forEachIndex * 0.8) max 0] } forEach _spawn;
+    { _list pushBack [_x, (_d - _forEachIndex * 0.8) max 0, _mult, _until] } forEach _spawn;
     [_list] call BO_fnc_spawnBloons;
 };
 true

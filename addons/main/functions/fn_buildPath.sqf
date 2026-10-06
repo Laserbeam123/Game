@@ -54,6 +54,9 @@ if ((_best select 1) < _minLen) then {
     };
 };
 
+// gentle rolling ground around the track, then heights
+[_pts2d] call BO_fnc_flattenTrack;
+
 // to ASL at float height, then cumulative distance
 BO_Path = _pts2d apply { private _p = [_x select 0, _x select 1, 0]; _p set [2, (getTerrainHeightASL _p) + _h]; _p };
 BO_PathCum = [0];

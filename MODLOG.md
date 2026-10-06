@@ -54,3 +54,18 @@
 - **Check results:** `validate_recipe` says valid, and `one_click_check` says yes.
 - **Main-menu tile:** a "Play Bloons Ops" spotlight (sheets/ui.json; art from tools/make_art.py, converted with `hemtt utils paa convert`) starts the solo mission.
 - **0.1.1:** on the user's PC (Arma 2.22.154.45), Melty installed and launched the mod, but the spotlight tile didn't appear. Arma's own spotlights probably take the slots. Added `menuButton` (postInit, runs in the main-menu background scene): a red PLAY BLOONS OPS button at the top of RscDisplayMain.
+
+## 0.2.0: playtest feedback
+- **Rounds auto-starting:** the user had most likely opened the Self Test scenario, which auto-builds towers and auto-plays rounds. It's removed from CfgMissions (commented out).
+- **Players invincible:** `allowDamage false` in setupUnit, controlled by the `players_invincible` row in the economy sheet.
+- **15 towers in two sections:**
+  - ARMA 3: the original 4, plus a Ghost Hawk and a Blackfoot that hover over a helipad (AI crew, CARELESS/BLUE, re-issued doMove and setFuel every 5 s).
+  - BLOONS TD: 9 sphere-built cartoon monkeys and a banana farm.
+- **New tower mechanics:** aoe (tack, ice), slow/freeze (`slowBloon` re-bases a bloon as [type, d0, t0, mult, until]; children keep a running slow), and income (farm).
+- **Shot streaks:** drawn as `drawLine3D` lines from server batches (fxLocal).
+- **Tower name tags:** drawn with `drawIcon3D`.
+- **Tablet:** now the BO_TabletDialog dialog, with two button columns built from the towers sheet.
+- **Tower actions** moved onto the player and act on the nearest tower: spheres and helipads have no geometry for actions of their own.
+- **Cartoon bloons:** painted PAA textures from `tools/make_art.py`, plus a knot sphere and a drawn string.
+- **Flatter ground:** `flattenTrack` uses setTerrainHeight on grid points within 80 m of the track. Each point goes to the local track level ±25% of its original bump, capped at 2.5 m, with the edges faded.
+- **Tests:** SQF-VM logic tests cover slow, freeze and inherited-freeze rules, and all pass. HEMTT check is clean.

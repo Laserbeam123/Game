@@ -2,24 +2,79 @@
   "sheet": "upgrades",
   "about": "One upgrade per tower in v1. Multipliers apply to the tower row; *_add columns add to it; grants_* set the flag true.",
   "columns": [
-    {"name": "id", "type": "id"},
-    {"name": "tower", "type": "ref", "ref": "towers"},
-    {"name": "name", "type": "string"},
-    {"name": "cost", "type": "int"},
-    {"name": "range_mult", "type": "number"},
-    {"name": "interval_mult", "type": "number"},
-    {"name": "damage_add", "type": "int"},
-    {"name": "pierce_add", "type": "int"},
-    {"name": "splash_add", "type": "number"},
-    {"name": "grants_lead", "type": "bool"},
-    {"name": "grants_camo", "type": "bool"},
-    {"name": "blurb", "type": "string"},
-    {"name": "status", "type": "status"}
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "tower",
+      "type": "ref",
+      "ref": "towers"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "cost",
+      "type": "int"
+    },
+    {
+      "name": "range_mult",
+      "type": "number"
+    },
+    {
+      "name": "interval_mult",
+      "type": "number"
+    },
+    {
+      "name": "damage_add",
+      "type": "int"
+    },
+    {
+      "name": "pierce_add",
+      "type": "int"
+    },
+    {
+      "name": "splash_add",
+      "type": "number"
+    },
+    {
+      "name": "grants_lead",
+      "type": "bool"
+    },
+    {
+      "name": "grants_camo",
+      "type": "bool"
+    },
+    {
+      "name": "income_add",
+      "type": "int"
+    },
+    {
+      "name": "blurb",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
   ],
   "rows": [
-    {"id": "veteran_squad", "tower": "dart_squad", "name": "Veteran Squad", "cost": 220, "range_mult": 1.2, "interval_mult": 0.7, "damage_add": 0, "pierce_add": 1, "splash_add": 0, "grants_lead": false, "grants_camo": false, "blurb": "Faster, longer reach, each shot pops 2.", "status": "built"},
-    {"id": "ap_rounds",     "tower": "hmg_nest",   "name": "AP Rounds",     "cost": 350, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 0, "splash_add": 0, "grants_lead": true,  "grants_camo": false, "blurb": "Armour piercing: 2 layers per hit and pops lead.", "status": "built"},
-    {"id": "rapid_bolt",    "tower": "sniper",     "name": "Semi-Auto Rifle","cost": 300, "range_mult": 1.0, "interval_mult": 0.5, "damage_add": 0, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "blurb": "Fires twice as fast.", "status": "built"},
-    {"id": "heavy_shells",  "tower": "mortar",     "name": "Heavy Shells",  "cost": 400, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 15, "splash_add": 4, "grants_lead": false, "grants_camo": false, "blurb": "Bigger blast, 2 layers per hit.", "status": "built"}
+    {"id": "veteran_squad", "tower": "dart_squad", "name": "Veteran Squad", "cost": 220, "range_mult": 1.2, "interval_mult": 0.7, "damage_add": 0, "pierce_add": 1, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Faster, longer reach, each shot pops 2.", "status": "built"},
+    {"id": "ap_rounds", "tower": "hmg_nest", "name": "AP Rounds", "cost": 350, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 0, "splash_add": 0, "grants_lead": true, "grants_camo": false, "income_add": 0, "blurb": "Armour piercing: 2 layers per hit and pops lead.", "status": "built"},
+    {"id": "rapid_bolt", "tower": "sniper", "name": "Semi-Auto Rifle", "cost": 300, "range_mult": 1.0, "interval_mult": 0.5, "damage_add": 0, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Fires twice as fast.", "status": "built"},
+    {"id": "heavy_shells", "tower": "mortar", "name": "Heavy Shells", "cost": 400, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 15, "splash_add": 4, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Bigger blast, 2 layers per hit.", "status": "built"},
+    {"id": "minigun_doors", "tower": "ghost_hawk", "name": "Miniguns", "cost": 600, "range_mult": 1.0, "interval_mult": 0.5, "damage_add": 0, "pierce_add": 1, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Door miniguns: twice the fire rate.", "status": "built"},
+    {"id": "hellfire_volley", "tower": "blackfoot", "name": "Rocket Volley", "cost": 1200, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 0, "splash_add": 3, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Bigger rocket salvos, 2 layers per hit.", "status": "built"},
+    {"id": "razor_darts", "tower": "dart_monkey", "name": "Razor Sharp Shots", "cost": 140, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 0, "pierce_add": 2, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Darts pop 4 bloons.", "status": "built"},
+    {"id": "glaives", "tower": "boomerang", "name": "Glaives", "cost": 250, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 0, "pierce_add": 3, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Glaives slice through 7 bloons.", "status": "built"},
+    {"id": "bigger_bombs", "tower": "bomb_shooter", "name": "Bigger Bombs", "cost": 350, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 0, "splash_add": 2, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Bigger blasts, 2 layers per hit.", "status": "built"},
+    {"id": "faster_tacks", "tower": "tack_shooter", "name": "Faster Shooting", "cost": 210, "range_mult": 1.0, "interval_mult": 0.6, "damage_add": 0, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Sprays tacks much faster.", "status": "built"},
+    {"id": "arctic_wind", "tower": "ice_monkey", "name": "Arctic Wind", "cost": 300, "range_mult": 1.6, "interval_mult": 1.0, "damage_add": 0, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Freezes bloons in a much wider area.", "status": "built"},
+    {"id": "corrosive_glue", "tower": "glue_gunner", "name": "Corrosive Glue", "cost": 300, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "The glue also pops a layer.", "status": "built"},
+    {"id": "sharp_shurikens", "tower": "ninja_monkey", "name": "Sharp Shurikens", "cost": 300, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 0, "pierce_add": 2, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Each shuriken pops 4 bloons.", "status": "built"},
+    {"id": "laser_blasts", "tower": "super_monkey", "name": "Laser Blasts", "cost": 2300, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 1, "pierce_add": 1, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 0, "blurb": "Lasers: 2 layers and 2 bloons per shot.", "status": "built"},
+    {"id": "bigger_bunches", "tower": "banana_farm", "name": "Bigger Bunches", "cost": 550, "range_mult": 1.0, "interval_mult": 1.0, "damage_add": 0, "pierce_add": 0, "splash_add": 0, "grants_lead": false, "grants_camo": false, "income_add": 40, "blurb": "+$40 per round.", "status": "built"}
   ]
 }

@@ -7,5 +7,6 @@ BO_Cash = BO_Cash + _refund;
 publicVariable "BO_Cash";
 BO_TowerList = BO_TowerList - [_t];
 { deleteVehicle _x } forEach (_t getVariable ["bo_crew", []]);
+{ deleteVehicle _x } forEach (_t getVariable ["bo_parts", []]);
 deleteVehicle _t;
 [format ["Sold for $%1.", _refund], "info"] remoteExecCall ["BO_fnc_notify", _player];

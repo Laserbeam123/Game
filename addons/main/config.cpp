@@ -14,6 +14,25 @@ class CfgPatches {
 #include "CfgMainMenuSpotlight.hpp"
 
 class RscStructuredText;
+class RscText;
+
+// Build tablet: background only; buttons are created per towers row by BO_fnc_tablet.
+class BO_TabletDialog {
+    idd = 77200;
+    movingEnable = 0;
+    enableSimulation = 1;
+    class controlsBackground {
+        class Bg: RscText {
+            idc = -1;
+            x = "safeZoneX + safeZoneW * 0.18";
+            y = "safeZoneY + safeZoneH * 0.1";
+            w = "safeZoneW * 0.64";
+            h = "safeZoneH * 0.8";
+            colorBackground[] = {0.05, 0.07, 0.05, 0.93};
+        };
+    };
+    class controls {};
+};
 class RscTitles {
     class BO_Hud {
         idd = -1;

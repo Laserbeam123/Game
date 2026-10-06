@@ -15,10 +15,12 @@ class CfgMissions {
             briefingName = "Bloons Ops (Altis)";
             directory = "z\bloonsops\addons\missions\BloonsOps.Altis";
         };
-        class BloonsOps_Test_Altis {
-            briefingName = "Bloons Ops - Self Test";
-            directory = "z\bloonsops\addons\missions\BloonsOps_Test.Altis";
-        };
+        // Developer self-test (auto-builds towers and auto-plays every round). Kept out of the player's
+        // scenario list; uncomment to use it.
+        // class BloonsOps_Test_Altis {
+        //     briefingName = "Bloons Ops - Self Test";
+        //     directory = "z\bloonsops\addons\missions\BloonsOps_Test.Altis";
+        // };
     };
     class MPMissions {
         class BloonsOps_Altis {

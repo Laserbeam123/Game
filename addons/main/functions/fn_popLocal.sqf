@@ -13,6 +13,7 @@ private _sounds = 0;
             _sounds = _sounds + 1;
         };
         deleteVehicle _o;
+        deleteVehicle (_e select 6);
         BO_LocalBloons deleteAt _x;
     };
 } forEach _ids;

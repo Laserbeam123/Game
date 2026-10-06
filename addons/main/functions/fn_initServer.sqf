@@ -5,11 +5,13 @@ if (_map isEqualTo []) exitWith { diag_log format ["[BloonsOps] no maps row for 
 [_map select 0] call BO_fnc_buildPath;
 [] call BO_fnc_drawTrack;
 
-BO_Live = createHashMap;     // id -> [type, d0, t0]
+BO_Live = createHashMap;     // id -> [type, d0, t0, speedMult, slowUntil]
 BO_NextId = 0;
 BO_SpawnQueue = [];          // [id, type, d0, t0] waiting to be broadcast
 BO_PopQueue = [];            // popped ids waiting to be broadcast
 BO_LeakQueue = [];           // leaked ids waiting to be broadcast
+BO_RebaseQueue = [];         // [id, d0, t0, mult] after a slow starts or ends
+BO_FxQueue = [];             // [fromASL, toASL, rgba] shot streaks
 BO_TowerList = [];
 BO_CashDirty = false;
 BO_Cash = BO_Cfg get "start_cash";

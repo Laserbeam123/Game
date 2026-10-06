@@ -1,40 +1,166 @@
 {
   "sheet": "towers",
-  "about": "Every buildable tower. object_class is a base-game Arma 3 class. Static weapons get one AI gunner; infantry towers spawn crew_count soldiers of crew_class. Real projectiles are deleted on firing; damage is scripted so nothing stray hits players. impact_ammo (if set) is a real shell dropped on the target for explosive towers.",
+  "about": "Every buildable tower. Arma towers use base-game Arma 3 classes; BTD towers are cartoon monkeys built from coloured spheres. Real projectiles are deleted on firing and damage is scripted; every shot draws a coloured streak (fx_rgba) to its bloon.",
   "columns": [
-    {"name": "id", "type": "id"},
-    {"name": "name", "type": "string"},
-    {"name": "cost", "type": "int"},
-    {"name": "kind", "type": "enum", "values": ["infantry", "static"]},
-    {"name": "object_class", "type": "string", "desc": "static weapon class, or soldier class for infantry"},
-    {"name": "crew_class", "type": "string", "desc": "AI gunner for statics, soldier for infantry"},
-    {"name": "crew_count", "type": "int"},
-    {"name": "range_m", "type": "number"},
-    {"name": "fire_interval_s", "type": "number"},
-    {"name": "damage", "type": "int", "desc": "layers popped per hit"},
-    {"name": "pierce", "type": "int", "desc": "bloons hit per shot (per soldier for infantry)"},
-    {"name": "splash_m", "type": "number", "desc": "0 = single target; else along-track radius"},
-    {"name": "impact_delay_s", "type": "number", "desc": "shell flight time for splash towers, 0 = instant"},
-    {"name": "impact_ammo", "type": "string?", "desc": "real CfgAmmo shell dropped on impact, empty = none"},
-    {"name": "pops_lead", "type": "bool"},
-    {"name": "sees_camo", "type": "bool"},
-    {"name": "mannable", "type": "bool", "desc": "players can take the gun and shoot bloons themselves"},
-    {"name": "upgrade", "type": "ref", "ref": "upgrades"},
-    {"name": "blurb", "type": "string"},
-    {"name": "status", "type": "status"}
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "section",
+      "type": "enum",
+      "values": [
+        "arma",
+        "btd"
+      ],
+      "desc": "which half of the build tablet"
+    },
+    {
+      "name": "cost",
+      "type": "int"
+    },
+    {
+      "name": "kind",
+      "type": "enum",
+      "values": [
+        "infantry",
+        "static",
+        "heli",
+        "monkey",
+        "farm"
+      ],
+      "desc": "how it is built and how it shows its shots"
+    },
+    {
+      "name": "object_class",
+      "type": "string?",
+      "desc": "Arma class: soldier (infantry), static weapon, helicopter; empty for monkey/farm (built from spheres)"
+    },
+    {
+      "name": "crew_class",
+      "type": "string?",
+      "desc": "AI soldier class for infantry/static; empty otherwise (helis get their default crew)"
+    },
+    {
+      "name": "crew_count",
+      "type": "int"
+    },
+    {
+      "name": "hover_m",
+      "type": "number",
+      "desc": "helicopter hover height above its pad, 0 for others"
+    },
+    {
+      "name": "range_m",
+      "type": "number"
+    },
+    {
+      "name": "fire_interval_s",
+      "type": "number"
+    },
+    {
+      "name": "damage",
+      "type": "int",
+      "desc": "layers popped per hit (0 = no damage, e.g. glue)"
+    },
+    {
+      "name": "pierce",
+      "type": "int",
+      "desc": "bloons hit per shot (per soldier for infantry)"
+    },
+    {
+      "name": "aoe",
+      "type": "bool",
+      "desc": "hits bloons all around it (tack, ice) instead of aiming"
+    },
+    {
+      "name": "splash_m",
+      "type": "number",
+      "desc": "0 = single target; else along-track blast radius"
+    },
+    {
+      "name": "impact_delay_s",
+      "type": "number"
+    },
+    {
+      "name": "impact_ammo",
+      "type": "string?",
+      "desc": "real CfgAmmo shell dropped on impact (players are invincible), empty = none"
+    },
+    {
+      "name": "slow_mult",
+      "type": "number",
+      "desc": "speed multiplier put on hit bloons (1 = none, 0 = frozen)"
+    },
+    {
+      "name": "slow_s",
+      "type": "number"
+    },
+    {
+      "name": "income",
+      "type": "int",
+      "desc": "cash paid at the end of each round (banana farm)"
+    },
+    {
+      "name": "pops_lead",
+      "type": "bool"
+    },
+    {
+      "name": "sees_camo",
+      "type": "bool"
+    },
+    {
+      "name": "mannable",
+      "type": "bool"
+    },
+    {
+      "name": "body_rgba",
+      "type": "rgba",
+      "desc": "monkey fur / farm colour (unused for Arma kinds)"
+    },
+    {
+      "name": "accent_rgba",
+      "type": "rgba",
+      "desc": "monkey hat/headband colour"
+    },
+    {
+      "name": "fx_rgba",
+      "type": "rgba",
+      "desc": "colour of the shot streak drawn to the bloon"
+    },
+    {
+      "name": "upgrade",
+      "type": "ref",
+      "ref": "upgrades"
+    },
+    {
+      "name": "blurb",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
   ],
   "rows": [
-    {"id": "dart_squad", "name": "Dart Squad", "cost": 200, "kind": "infantry", "object_class": "B_Soldier_F", "crew_class": "B_Soldier_F", "crew_count": 3,
-     "range_m": 25, "fire_interval_s": 1.2, "damage": 1, "pierce": 1, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "",
-     "pops_lead": false, "sees_camo": false, "mannable": false, "upgrade": "veteran_squad", "blurb": "Three riflemen. Cheap, steady, short range.", "status": "built"},
-    {"id": "hmg_nest", "name": "M2 HMG Nest", "cost": 450, "kind": "static", "object_class": "B_HMG_01_high_F", "crew_class": "B_Soldier_F", "crew_count": 1,
-     "range_m": 40, "fire_interval_s": 0.25, "damage": 1, "pierce": 1, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "",
-     "pops_lead": false, "sees_camo": false, "mannable": true, "upgrade": "ap_rounds", "blurb": "Fast .50 cal. Hop on the gun yourself.", "status": "built"},
-    {"id": "sniper", "name": "Sniper", "cost": 350, "kind": "infantry", "object_class": "B_sniper_F", "crew_class": "B_sniper_F", "crew_count": 1,
-     "range_m": 400, "fire_interval_s": 2.0, "damage": 2, "pierce": 1, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "",
-     "pops_lead": false, "sees_camo": true, "mannable": false, "upgrade": "rapid_bolt", "blurb": "Sees camo bloons. Hits anywhere on the track.", "status": "built"},
-    {"id": "mortar", "name": "Mk6 Mortar", "cost": 750, "kind": "static", "object_class": "B_Mortar_01_F", "crew_class": "B_Soldier_F", "crew_count": 1,
-     "range_m": 300, "fire_interval_s": 4.0, "damage": 1, "pierce": 25, "splash_m": 6, "impact_delay_s": 2.0, "impact_ammo": "Sh_82mm_AMOS",
-     "pops_lead": true, "sees_camo": false, "mannable": false, "upgrade": "heavy_shells", "blurb": "Explosive splash. Pops lead. Danger close!", "status": "built"}
+    {"id": "dart_squad", "name": "Dart Squad", "section": "arma", "cost": 200, "kind": "infantry", "object_class": "B_Soldier_F", "crew_class": "B_Soldier_F", "crew_count": 3, "hover_m": 0, "range_m": 25, "fire_interval_s": 1.2, "damage": 1, "pierce": 1, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.45, 0.28, 0.12, 1], "fx_rgba": [1, 0.9, 0.4, 1], "upgrade": "veteran_squad", "blurb": "Three riflemen. Cheap, steady, short range.", "status": "built"},
+    {"id": "hmg_nest", "name": "M2 HMG Nest", "section": "arma", "cost": 450, "kind": "static", "object_class": "B_HMG_01_high_F", "crew_class": "B_Soldier_F", "crew_count": 1, "hover_m": 0, "range_m": 40, "fire_interval_s": 0.25, "damage": 1, "pierce": 1, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": true, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.45, 0.28, 0.12, 1], "fx_rgba": [1, 0.8, 0.3, 1], "upgrade": "ap_rounds", "blurb": "Fast .50 cal. Hop on the gun yourself.", "status": "built"},
+    {"id": "sniper", "name": "Sniper Team", "section": "arma", "cost": 350, "kind": "infantry", "object_class": "B_sniper_F", "crew_class": "B_sniper_F", "crew_count": 1, "hover_m": 0, "range_m": 400, "fire_interval_s": 2.0, "damage": 2, "pierce": 1, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": true, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.45, 0.28, 0.12, 1], "fx_rgba": [1, 1, 1, 1], "upgrade": "rapid_bolt", "blurb": "Sees camo bloons. Hits anywhere on the track.", "status": "built"},
+    {"id": "mortar", "name": "Mk6 Mortar", "section": "arma", "cost": 750, "kind": "static", "object_class": "B_Mortar_01_F", "crew_class": "B_Soldier_F", "crew_count": 1, "hover_m": 0, "range_m": 300, "fire_interval_s": 4.0, "damage": 1, "pierce": 25, "aoe": false, "splash_m": 6, "impact_delay_s": 2.0, "impact_ammo": "Sh_82mm_AMOS", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": true, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.45, 0.28, 0.12, 1], "fx_rgba": [1, 0.5, 0.1, 1], "upgrade": "heavy_shells", "blurb": "Explosive splash. Pops lead.", "status": "built"},
+    {"id": "ghost_hawk", "name": "UH-80 Ghost Hawk", "section": "arma", "cost": 900, "kind": "heli", "object_class": "B_Heli_Transport_01_F", "crew_class": "", "crew_count": 0, "hover_m": 25, "range_m": 45, "fire_interval_s": 0.3, "damage": 1, "pierce": 2, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.45, 0.28, 0.12, 1], "fx_rgba": [1, 0.75, 0.2, 1], "upgrade": "minigun_doors", "blurb": "Hovers over its pad; two door gunners rake the road.", "status": "built"},
+    {"id": "blackfoot", "name": "AH-99 Blackfoot", "section": "arma", "cost": 1600, "kind": "heli", "object_class": "B_Heli_Attack_01_dynamicLoadout_F", "crew_class": "", "crew_count": 0, "hover_m": 30, "range_m": 70, "fire_interval_s": 1.2, "damage": 1, "pierce": 12, "aoe": false, "splash_m": 5, "impact_delay_s": 0.5, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": true, "sees_camo": true, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.45, 0.28, 0.12, 1], "fx_rgba": [1, 0.3, 0.1, 1], "upgrade": "hellfire_volley", "blurb": "Attack helicopter: thermal sights see camo, rockets pop lead.", "status": "built"},
+    {"id": "dart_monkey", "name": "Dart Monkey", "section": "btd", "cost": 170, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 22, "fire_interval_s": 0.95, "damage": 1, "pierce": 2, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.85, 0.1, 0.1, 1], "fx_rgba": [0.9, 0.9, 0.9, 1], "upgrade": "razor_darts", "blurb": "The classic. Throws a dart that pops 2 bloons.", "status": "built"},
+    {"id": "boomerang", "name": "Boomerang Monkey", "section": "btd", "cost": 275, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 25, "fire_interval_s": 1.2, "damage": 1, "pierce": 4, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.2, 0.5, 0.9, 1], "fx_rgba": [0.95, 0.75, 0.3, 1], "upgrade": "glaives", "blurb": "Boomerang swings through 4 bloons.", "status": "built"},
+    {"id": "bomb_shooter", "name": "Bomb Shooter", "section": "btd", "cost": 450, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 25, "fire_interval_s": 1.5, "damage": 1, "pierce": 14, "aoe": false, "splash_m": 4, "impact_delay_s": 0.3, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": true, "sees_camo": false, "mannable": false, "body_rgba": [0.15, 0.15, 0.15, 1], "accent_rgba": [0.9, 0.6, 0.1, 1], "fx_rgba": [1, 0.55, 0, 1], "upgrade": "bigger_bombs", "blurb": "Cannon blasts pop groups, and pop lead.", "status": "built"},
+    {"id": "tack_shooter", "name": "Tack Shooter", "section": "btd", "cost": 260, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 14, "fire_interval_s": 1.3, "damage": 1, "pierce": 8, "aoe": true, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.9, 0.4, 0.6, 1], "accent_rgba": [0.8, 0.8, 0.8, 1], "fx_rgba": [0.95, 0.95, 0.95, 1], "upgrade": "faster_tacks", "blurb": "Sprays tacks at every bloon nearby.", "status": "built"},
+    {"id": "ice_monkey", "name": "Ice Monkey", "section": "btd", "cost": 400, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 12, "fire_interval_s": 2.0, "damage": 1, "pierce": 20, "aoe": true, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 0, "slow_s": 1.2, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.6, 0.85, 1, 1], "accent_rgba": [1, 1, 1, 1], "fx_rgba": [0.6, 0.95, 1, 1], "upgrade": "arctic_wind", "blurb": "Freezes every bloon nearby for a moment. Can't pop lead.", "status": "built"},
+    {"id": "glue_gunner", "name": "Glue Gunner", "section": "btd", "cost": 225, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 28, "fire_interval_s": 1.0, "damage": 0, "pierce": 1, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 0.5, "slow_s": 6, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.28, 0.12, 1], "accent_rgba": [0.95, 0.85, 0.1, 1], "fx_rgba": [0.95, 0.9, 0.2, 1], "upgrade": "corrosive_glue", "blurb": "Glues a bloon so it moves at half speed.", "status": "built"},
+    {"id": "ninja_monkey", "name": "Ninja Monkey", "section": "btd", "cost": 400, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 26, "fire_interval_s": 0.6, "damage": 1, "pierce": 2, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": true, "mannable": false, "body_rgba": [0.12, 0.12, 0.12, 1], "accent_rgba": [0.85, 0.05, 0.05, 1], "fx_rgba": [0.8, 0.8, 0.85, 1], "upgrade": "sharp_shurikens", "blurb": "Fast shurikens, and sees camo bloons.", "status": "built"},
+    {"id": "super_monkey", "name": "Super Monkey", "section": "btd", "cost": 2500, "kind": "monkey", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 45, "fire_interval_s": 0.08, "damage": 1, "pierce": 1, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 0, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.15, 0.35, 0.9, 1], "accent_rgba": [0.9, 0.1, 0.1, 1], "fx_rgba": [1, 1, 0.5, 1], "upgrade": "laser_blasts", "blurb": "Throws darts like a machine gun.", "status": "built"},
+    {"id": "banana_farm", "name": "Banana Farm", "section": "btd", "cost": 1000, "kind": "farm", "object_class": "", "crew_class": "", "crew_count": 0, "hover_m": 0, "range_m": 0, "fire_interval_s": 1, "damage": 0, "pierce": 0, "aoe": false, "splash_m": 0, "impact_delay_s": 0, "impact_ammo": "", "slow_mult": 1, "slow_s": 0, "income": 80, "pops_lead": false, "sees_camo": false, "mannable": false, "body_rgba": [0.45, 0.7, 0.2, 1], "accent_rgba": [1, 0.9, 0.15, 1], "fx_rgba": [1, 0.9, 0.15, 1], "upgrade": "bigger_bunches", "blurb": "Pays $80 at the end of every round.", "status": "built"}
   ]
 }

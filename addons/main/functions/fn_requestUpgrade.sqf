@@ -13,6 +13,7 @@ _s set ["pierce", (_s get "pierce") + (_up get "pierce_add")];
 _s set ["splash_m", (_s get "splash_m") + (_up get "splash_add")];
 if (_up get "grants_lead") then { _s set ["pops_lead", true] };
 if (_up get "grants_camo") then { _s set ["sees_camo", true] };
+_s set ["income", (_s get "income") + (_up get "income_add")];
 _t setVariable ["bo_cover", [getPosATL _t, _s get "range_m"] call BO_fnc_towerCoverage];
 _t setVariable ["bo_upgraded", true, true];
 _t setVariable ["bo_spent", (_t getVariable ["bo_spent", 0]) + (_up get "cost"), true];

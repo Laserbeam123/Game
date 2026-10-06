@@ -17,7 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 FUNCS = ROOT / "addons" / "main" / "functions"
-TESTED = ["initData", "pathPos", "spawnBloons", "damageBloon", "towerCoverage"]
+TESTED = ["initData", "pathPos", "bloonDist", "spawnBloons", "slowBloon", "damageBloon", "towerCoverage"]
 
 PRELUDE = """
 BO_t_god = { params ["_h", "_k", "_d"]; if (_k in _h) then { _h get _k } else { _d } };

@@ -7,27 +7,35 @@ reach the end. Play solo, or co-op with up to 4 players sharing cash and lives.
 **Requires:** Arma 3 (base game only, no DLC). It's a regular Arma 3 mod (`@bloonsops`) with no other dependencies.
 
 ## What you get
-- **One Altis map.** The track is built from the island's real road network, marked with cones and map markers.
-- **7 bloon types:**
-  - red, blue, green, yellow and pink, each hiding the next one inside;
-  - **lead**, which only explosives pop;
-  - **camo**, which only the Sniper can see.
-- **4 towers, each with one upgrade:**
-  - **Dart Squad** (3 riflemen) → *Veteran Squad*
-  - **M2 HMG Nest** → *AP Rounds* (pops lead). **You can take the gun yourself.**
-  - **Sniper** (sees camo) → *Semi-Auto Rifle*
-  - **Mk6 Mortar** (explosive splash, pops lead) → *Heavy Shells*
-- **Your own gun pops bloons too.** Bullets pop one layer, and grenades and launchers pop everything in the blast, lead included.
-- **Shared rules:** cash and lives are shared, and you earn an end-of-round bonus. Towers sell back for 70%.
-- **20 rounds,** with a win and a lose screen.
+- **One Altis map.** The track follows the island's real roads, marked with cones. The ground around it is smoothed into gentle rolling terrain.
+- **7 cartoon bloon types:** glossy red, blue, green, yellow and pink, each hiding the next one inside. **Lead** bloons only pop to explosives, and **camo** bloons are invisible to towers that can't see camo.
+- **A build tablet with 15 towers in two sections**, each tower with one upgrade:
+  - **ARMA 3:**
+    - Dart Squad
+    - M2 HMG Nest. *You can take the gun yourself.*
+    - Sniper Team (sees camo)
+    - Mk6 Mortar (pops lead)
+    - **UH-80 Ghost Hawk** and **AH-99 Blackfoot.** These helicopters hover over the pad you place.
+  - **BLOONS TD:**
+    - Dart Monkey
+    - Boomerang Monkey
+    - Bomb Shooter (pops lead)
+    - Tack Shooter
+    - Ice Monkey (freezes bloons)
+    - Glue Gunner (slows bloons)
+    - Ninja Monkey (sees camo)
+    - Super Monkey
+    - Banana Farm (cash every round)
+- **Players are invincible.** Your own gun still pops bloons, and grenades and launchers pop lead.
+- **20 rounds,** with shared cash and lives, round bonuses, and selling towers back for 70%. Solo or co-op for up to 4.
 
 ## How to play
 - **Solo:** Singleplayer → Scenarios → *Bloons Ops (Altis)*.
 - **Co-op:** Multiplayer → Host → *Bloons Ops - Co-op 1-4 (Altis)*. Friends join the hosted game.
 
-1. Open the scroll menu, choose **Build Tablet** and pick a tower. It's placed 4 m in front of you, at least 5 m off the road.
+1. Open the scroll menu, choose **Build Tablet** and pick a tower from the ARMA 3 or BLOONS TD column. It's placed 4 m in front of you, at least 5 m off the road.
 2. Choose **Start Next Round**.
-3. Walk up to a tower to upgrade it, sell it or take the gun.
+3. Stand next to a tower to upgrade it, sell it or take the gun (scroll menu).
 
 ## Building from source
 The design lives in `sheets/*.json`, one row per bloon, tower, upgrade, round, constant and game hook. The code is generated from those rows and checked against them.

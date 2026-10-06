@@ -1,9 +1,10 @@
 // Client, every frame: float the local bloons along the track; check tracked player bullets against them.
 private _now = call BO_fnc_now;
 {
-    _y params ["_o", "_type", "_d0", "_t0", "_v", "_ph"];
-    private _p = [_d0 + _v * (_now - _t0)] call BO_fnc_pathPos;
-    _o setPosASL (_p vectorAdd [0, 0, 0.15 * sin (_now * 180 + _ph)]);
+    _y params ["_o", "_type", "_d0", "_t0", "_v", "_ph", "_k"];
+    private _p = ([_d0 + _v * (_now - _t0)] call BO_fnc_pathPos) vectorAdd [0, 0, 0.15 * sin (_now * 180 + _ph)];
+    _o setPosASL _p;
+    _k setPosASL (_p vectorAdd [0, 0, -0.55]);
 } forEach BO_LocalBloons;
 
 if (BO_Proj isEqualTo []) exitWith {};

@@ -2,25 +2,75 @@
   "sheet": "bloons",
   "about": "Every bloon type. Children spawn where the parent popped. lives_cost must equal 1 + child_count * child.lives_cost (checked by preflight).",
   "columns": [
-    {"name": "id", "type": "id"},
-    {"name": "name", "type": "string"},
-    {"name": "rgba", "type": "rgba", "desc": "sphere colour, 0..1"},
-    {"name": "speed_mps", "type": "number", "desc": "metres per second along the track"},
-    {"name": "child", "type": "ref?", "ref": "bloons", "desc": "bloon left behind when popped, empty = none"},
-    {"name": "child_count", "type": "int"},
-    {"name": "lives_cost", "type": "int", "desc": "lives lost if it leaks (red bloon equivalent)"},
-    {"name": "pop_cash", "type": "int"},
-    {"name": "needs_lead_popper", "type": "bool", "desc": "only explosives / lead-popping towers damage it"},
-    {"name": "camo", "type": "bool", "desc": "only towers with sees_camo can target it"},
-    {"name": "status", "type": "status"}
+    {
+      "name": "id",
+      "type": "id"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "rgba",
+      "type": "rgba",
+      "desc": "sphere colour, 0..1"
+    },
+    {
+      "name": "pattern",
+      "type": "enum",
+      "values": [
+        "glossy",
+        "camo",
+        "metal"
+      ],
+      "desc": "cartoon texture drawn by tools/make_art.py into data/bloon_<id>_co.paa"
+    },
+    {
+      "name": "speed_mps",
+      "type": "number",
+      "desc": "metres per second along the track"
+    },
+    {
+      "name": "child",
+      "type": "ref?",
+      "ref": "bloons",
+      "desc": "bloon left behind when popped, empty = none"
+    },
+    {
+      "name": "child_count",
+      "type": "int"
+    },
+    {
+      "name": "lives_cost",
+      "type": "int",
+      "desc": "lives lost if it leaks (red bloon equivalent)"
+    },
+    {
+      "name": "pop_cash",
+      "type": "int"
+    },
+    {
+      "name": "needs_lead_popper",
+      "type": "bool",
+      "desc": "only explosives / lead-popping towers damage it"
+    },
+    {
+      "name": "camo",
+      "type": "bool",
+      "desc": "only towers with sees_camo can target it"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
   ],
   "rows": [
-    {"id": "red",        "name": "Red Bloon",        "rgba": [0.85, 0.05, 0.05, 1], "speed_mps": 6.0,  "child": "",      "child_count": 0, "lives_cost": 1,  "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
-    {"id": "blue",       "name": "Blue Bloon",       "rgba": [0.10, 0.45, 0.95, 1], "speed_mps": 8.4,  "child": "red",   "child_count": 1, "lives_cost": 2,  "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
-    {"id": "green",      "name": "Green Bloon",      "rgba": [0.20, 0.80, 0.10, 1], "speed_mps": 10.8, "child": "blue",  "child_count": 1, "lives_cost": 3,  "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
-    {"id": "yellow",     "name": "Yellow Bloon",     "rgba": [1.00, 0.90, 0.05, 1], "speed_mps": 19.2, "child": "green", "child_count": 1, "lives_cost": 4,  "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
-    {"id": "pink",       "name": "Pink Bloon",       "rgba": [1.00, 0.45, 0.70, 1], "speed_mps": 21.0, "child": "yellow","child_count": 1, "lives_cost": 5,  "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
-    {"id": "lead",       "name": "Lead Bloon",       "rgba": [0.45, 0.47, 0.50, 1], "speed_mps": 6.0,  "child": "pink",  "child_count": 2, "lives_cost": 11, "pop_cash": 1, "needs_lead_popper": true,  "camo": false, "status": "built"},
-    {"id": "camo_green", "name": "Camo Green Bloon", "rgba": [0.33, 0.42, 0.22, 0.85], "speed_mps": 10.8, "child": "blue", "child_count": 1, "lives_cost": 3, "pop_cash": 1, "needs_lead_popper": false, "camo": true, "status": "built"}
+    {"id": "red", "name": "Red Bloon", "rgba": [0.85, 0.05, 0.05, 1], "pattern": "glossy", "speed_mps": 6.0, "child": "", "child_count": 0, "lives_cost": 1, "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
+    {"id": "blue", "name": "Blue Bloon", "rgba": [0.1, 0.45, 0.95, 1], "pattern": "glossy", "speed_mps": 8.4, "child": "red", "child_count": 1, "lives_cost": 2, "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
+    {"id": "green", "name": "Green Bloon", "rgba": [0.2, 0.8, 0.1, 1], "pattern": "glossy", "speed_mps": 10.8, "child": "blue", "child_count": 1, "lives_cost": 3, "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
+    {"id": "yellow", "name": "Yellow Bloon", "rgba": [1.0, 0.9, 0.05, 1], "pattern": "glossy", "speed_mps": 19.2, "child": "green", "child_count": 1, "lives_cost": 4, "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
+    {"id": "pink", "name": "Pink Bloon", "rgba": [1.0, 0.45, 0.7, 1], "pattern": "glossy", "speed_mps": 21.0, "child": "yellow", "child_count": 1, "lives_cost": 5, "pop_cash": 1, "needs_lead_popper": false, "camo": false, "status": "built"},
+    {"id": "lead", "name": "Lead Bloon", "rgba": [0.45, 0.47, 0.5, 1], "pattern": "metal", "speed_mps": 6.0, "child": "pink", "child_count": 2, "lives_cost": 11, "pop_cash": 1, "needs_lead_popper": true, "camo": false, "status": "built"},
+    {"id": "camo_green", "name": "Camo Green Bloon", "rgba": [0.33, 0.42, 0.22, 0.85], "pattern": "camo", "speed_mps": 10.8, "child": "blue", "child_count": 1, "lives_cost": 3, "pop_cash": 1, "needs_lead_popper": false, "camo": true, "status": "built"}
   ]
 }

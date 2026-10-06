@@ -104,8 +104,20 @@ def preflight(sheets):
     for t in tw.values():
         if t["splash_m"] > 0 and t["impact_delay_s"] <= 0:
             notes.append(f"towers[{t['id']}]: splash with no impact delay")
-        if t["kind"] == "infantry" and t["mannable"]:
-            errors.append(f"towers[{t['id']}]: infantry towers cannot be mannable")
+        if t["kind"] != "static" and t["mannable"]:
+            errors.append(f"towers[{t['id']}]: only static weapons can be mannable")
+        if t["kind"] in ("infantry", "static", "heli") and not t["object_class"]:
+            errors.append(f"towers[{t['id']}].object_class: {t['kind']} needs an Arma class")
+        if t["kind"] in ("infantry", "static") and not t["crew_class"]:
+            errors.append(f"towers[{t['id']}].crew_class: {t['kind']} needs a crew class")
+        if (t["kind"] == "heli") != (t["hover_m"] > 0):
+            errors.append(f"towers[{t['id']}].hover_m: helicopters (and only helicopters) hover")
+        if (t["kind"] == "farm") != (t["income"] > 0):
+            errors.append(f"towers[{t['id']}].income: farms (and only farms) pay income")
+        if t["kind"] != "farm" and (t["range_m"] <= 0 or (t["damage"] <= 0 and t["slow_mult"] >= 1)):
+            errors.append(f"towers[{t['id']}]: a shooting tower needs range and either damage or a slow")
+        if (t["slow_mult"] < 1) != (t["slow_s"] > 0):
+            errors.append(f"towers[{t['id']}]: slow_mult and slow_s disagree")
     eco = {r["id"]: r["value"] for r in sheets["economy"]["rows"]}
     rounds = sorted(r["id"] for r in sheets["rounds"]["rows"])
     if rounds != list(range(1, eco.get("final_round", 0) + 1)):
@@ -139,6 +151,9 @@ def preflight(sheets):
             errors.append(f"ui[{u['id']}]: {u['picture']} missing (run tools/make_art.py + hemtt utils paa convert)")
         if u["mission"] not in mission_classes:
             errors.append(f"ui[{u['id']}].mission: {u['mission']} is not a CfgMissions class")
+    for b in sheets["bloons"]["rows"]:
+        if not (MAIN / "data" / f"bloon_{b['id']}_co.paa").exists():
+            errors.append(f"bloons[{b['id']}]: data/bloon_{b['id']}_co.paa missing (tools/make_art.py + hemtt utils paa convert)")
     for s in sheets["sounds"]["rows"]:
         if not (MAIN / s["file"].replace("\\", "/")).exists():
             errors.append(f"sounds[{s['id']}]: {s['file']} missing (run tools/make_sounds.py)")
