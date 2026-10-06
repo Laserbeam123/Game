@@ -1,11 +1,21 @@
-// Client, every frame: float the local bloons along the track; check tracked player bullets against them.
+// Client, every frame: float the local bloons along the track, turn BTD6 billboards to the camera,
+// check tracked player bullets against the bloons.
 private _now = call BO_fnc_now;
+BO_CamASL = AGLToASL positionCameraToWorld [0, 0, 0];
 {
-    _y params ["_o", "_type", "_d0", "_t0", "_v", "_ph", "_k"];
+    _y params ["_o", "_type", "_d0", "_t0", "_v", "_ph", "_k", "_board"];
     private _p = ([_d0 + _v * (_now - _t0)] call BO_fnc_pathPos) vectorAdd [0, 0, 0.15 * sin (_now * 180 + _ph)];
-    _o setPosASL _p;
-    _k setPosASL (_p vectorAdd [0, 0, -0.55]);
+    if (_board) then {
+        [_o, _p] call BO_fnc_faceBoard;
+    } else {
+        _o setPosASL _p;
+        _k setPosASL (_p vectorAdd [0, 0, -0.55]);
+    };
 } forEach BO_LocalBloons;
+// tower billboards [board, tower anchor, centreASL]; a sold tower takes its board with it
+BO_Boards = BO_Boards select {
+    if (isNull (_x select 1)) then { deleteVehicle (_x select 0); false } else { [_x select 0, _x select 2] call BO_fnc_faceBoard; true };
+};
 
 if (BO_Proj isEqualTo []) exitWith {};
 private _r = BO_Cfg get "player_hit_radius_m";

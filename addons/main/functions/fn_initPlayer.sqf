@@ -5,10 +5,12 @@ if (!isMultiplayer) then {
     // single player: the other co-op slots would be AI squadmates; remove them
     { if (_x != player) then { deleteVehicle _x } } forEach (units group player);
 };
-BO_LocalBloons = createHashMap;   // id -> [object, type, d0, t0, speed, phase]
+BO_LocalBloons = createHashMap;   // id -> [object, type, d0, t0, speed, phase, knot, isBillboard]
 BO_Proj = [];                     // tracked player projectiles [projectile, lastPosASL, popsLead]
 BO_Near = objNull;
 BO_Fx = [];                       // shot streaks [from, to, rgba, untilTick]
+if (isNil "BO_Boards") then { BO_Boards = [] };   // BTD6 tower billboards [board, anchor, centreASL]
+diag_log format ["[BloonsOps] BTD6 art pack: %1", ["not installed (own look)", format ["%1 images, pop %2", count BO_Btd6Has, BO_Btd6Pop]] select (BO_Btd6Has isNotEqualTo [])];
 if (isNil "BO_ClientTowers") then { BO_ClientTowers = [] };
 player setPosATL (BO_SpawnPos vectorAdd [random 4 - 2, random 4 - 2, 0]);
 player setDir (player getDir (BO_Path select -1));

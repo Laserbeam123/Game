@@ -9,6 +9,7 @@ The sheets in sheets/*.json are the source of truth. Generated files:
   addons/main/CfgFunctions.hpp            one class per hooks row
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -83,6 +84,14 @@ def preflight(sheets):
                     for x in v:
                         if x not in ids(sheets, c["ref"]):
                             errors.append(f"{where}.{cn}: '{x}' does not resolve in {c['ref']}")
+                if ct == "patterns":
+                    for pat in v.split("|"):
+                        try:
+                            re.compile(pat)
+                        except re.error as e:
+                            errors.append(f"{where}.{cn}: bad pattern {pat!r} ({e})")
+                if ct == "globs" and any(not g or g.startswith(("/", "\\")) or ".." in g for g in v.split("|")):
+                    errors.append(f"{where}.{cn}: globs must be relative to the BTD6 folder: {v!r}")
                 if ct == "groups":
                     if not v:
                         errors.append(f"{where}.{cn}: round has no groups")
@@ -124,6 +133,28 @@ def preflight(sheets):
             errors.append(f"towers[{t['id']}]: a shooting tower needs range and either damage or a slow")
         if (t["slow_mult"] < 1) != (t["slow_s"] > 0):
             errors.append(f"towers[{t['id']}]: slow_mult and slow_s disagree")
+    art = sheets["btd6_art"]["rows"]
+    outs = [a["out_file"] for a in art]
+    for o in sorted({o for o in outs if outs.count(o) > 1}):
+        errors.append(f"btd6_art: out_file {o} used twice")
+    for a in art:
+        where = f"btd6_art[{a['id']}]"
+        pool = {"tower": tw, "bloon": bl, "sound": ids(sheets, "sounds")}[a["uses"]]
+        if a["id"] not in pool:
+            errors.append(f"{where}: no {a['uses']} with that id")
+        if a["uses"] == "tower" and a["id"] in tw and tw[a["id"]]["kind"] not in ("monkey", "farm"):
+            errors.append(f"{where}: only BLOONS TD towers (monkey/farm) are drawn as BTD6 art")
+        if a["uses"] != "sound" and not re.fullmatch(r"[a-z0-9_]+_ca\.paa", a["out_file"]):
+            errors.append(f"{where}.out_file: images must be <name>_ca.paa (alpha)")
+        if a["uses"] == "sound" and a["out_file"] != "pop.ogg":
+            errors.append(f"{where}.out_file: the converter writes the pop sound as pop.ogg (or pop.wav)")
+    drawn = {a["id"] for a in art}
+    for t in tw.values():
+        if t["kind"] in ("monkey", "farm") and t["id"] not in drawn:
+            notes.append(f"towers[{t['id']}]: no btd6_art row, keeps the sphere look with the BTD6 pack")
+    for b in bl:
+        if b not in drawn:
+            notes.append(f"bloons[{b}]: no btd6_art row, keeps the sphere look with the BTD6 pack")
     eco = {r["id"]: r["value"] for r in sheets["economy"]["rows"]}
     rounds = sorted(r["id"] for r in sheets["rounds"]["rows"])
     if rounds != list(range(1, eco.get("final_round", 0) + 1)):
@@ -145,7 +176,6 @@ def preflight(sheets):
         if f.stem[3:] not in hook_ids:
             errors.append(f"{f.relative_to(ROOT)}: no hooks row")
     # every BO_fnc_x used in code must be a hooks row
-    import re
     used = set()
     for f in list(FUNCS.glob("*.sqf")) + list(MISSIONS.rglob("*.sqf")):
         used |= set(re.findall(r"BO_fnc_(\w+)", f.read_text()))
@@ -211,6 +241,16 @@ def generate(sheets):
     out.append("BO_Cfg = createHashMap;")
     for r in sheets["economy"]["rows"]:
         out.append(f"BO_Cfg set [{sqf(r['id'])}, {sqf(r['value'])}];")
+    out.append("")
+    out.append("// BTD6 art the converter may have made (used only when CfgPatches bloonsops_btd6 says it did)")
+    out.append("BO_Btd6Art = createHashMap;")
+    out.append("BO_Btd6Has = [];   // ids the pack has art for")
+    out.append("BO_Btd6Pop = \"\";   // pop sound file in the pack, or empty")
+    out.append("private _pack = configFile >> \"CfgPatches\" >> \"bloonsops_btd6\";")
+    out.append("if (isClass _pack) then { BO_Btd6Has = getArray (_pack >> \"art\"); BO_Btd6Pop = getText (_pack >> \"pop\") };")
+    for a in sheets["btd6_art"]["rows"]:
+        if a["uses"] != "sound":
+            out.append(f"BO_Btd6Art set [{sqf(a['id'])}, {sqf(chr(92) + 'z' + chr(92) + 'bloonsops_btd6' + chr(92) + a['out_file'])}];")
     out.append("BO_TowerOrder = " + sqf([r["id"] for r in sheets["towers"]["rows"]]) + ";")
     (FUNCS / "fn_initData.sqf").write_text("\n".join(out) + "\n")
 

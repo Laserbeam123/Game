@@ -38,6 +38,13 @@ sleep 1;
     [_player, _t] call BO_fnc_requestUpgrade;
 } forEach BO_TowerList;
 if !([count BO_TowerList == count BO_TowerOrder, format ["%1 of %2 towers built", count BO_TowerList, count BO_TowerOrder]] call _check) then { _fails = _fails + 1 };
+if (hasInterface && { BO_Btd6Has isNotEqualTo [] }) then {
+    private _want = { (_x getVariable ["bo_type", ""]) in BO_Btd6Has } count BO_TowerList;
+    private _boards = missionNamespace getVariable ["BO_Boards", []];
+    if !([count _boards == _want && { _boards findIf { (getObjectTextures (_x select 0)) isEqualTo [] } < 0 }, format ["%1 BTD6 tower billboards with textures (want %2)", count _boards, _want]] call _check) then { _fails = _fails + 1 };
+} else {
+    "INFO BTD6 art pack not installed: towers and bloons use the Bloons Ops look" call _log;
+};
 
 for "_r" from 1 to (BO_Cfg get "final_round") do {
     if (BO_State != "play") exitWith {};

@@ -5,6 +5,12 @@
     {
       "slug": "arma-3",
       "role": "primary"
+    },
+    {
+      "slug": "custom-bloons-td-6",
+      "role": "secondary",
+      "optional": true,
+      "note": "Optional. With Bloons TD 6 installed on Steam, towers and bloons use real BTD6 art converted locally from your own copy."
     }
   ],
   "components": [
@@ -14,6 +20,13 @@
       "label": "Bloons Ops mod (@bloonsops)",
       "kind": "main",
       "required": true
+    },
+    {
+      "id": "btd6",
+      "fileName": "bloonsops-btd6-converter-*.zip",
+      "label": "BTD6 art converter (makes @bloonsops_btd6 from your own Bloons TD 6)",
+      "kind": "tool",
+      "required": true
     }
   ],
   "requirements": [],
@@ -22,20 +35,35 @@
       "component": "main",
       "from": "@bloonsops/",
       "to": "{game}/@bloonsops"
+    },
+    {
+      "component": "btd6",
+      "from": "@bloonsops/btd6/",
+      "to": "{game}/@bloonsops/btd6"
     }
   ],
   "launch": {
     "kind": "game",
     "args": [
-      "-mod=@bloonsops",
+      "-mod=@bloonsops;@bloonsops_btd6",
       "-skipIntro",
       "-noSplash"
     ]
   },
   "notes": {
-    "firstLaunch": "On Arma 3's main menu, click the red PLAY BLOONS OPS button at the top to play solo (it is also under Singleplayer > Scenarios). For co-op, the host picks Multiplayer > Host > Bloons Ops - Co-op 1-4, and friends join that server."
+    "firstLaunch": "On Arma 3's main menu, click the red PLAY BLOONS OPS button at the top to play solo (it is also under Singleplayer > Scenarios). For co-op, the host picks Multiplayer > Host > Bloons Ops - Co-op 1-4, and friends join that server. If you own Bloons TD 6 on Steam, the BLOONS TD towers and the bloons show as real BTD6 art made from your own copy (re-run @bloonsops/btd6/bloonsops_btd6.exe after a BTD6 update)."
   },
   "multiplayer": {
     "maxPlayers": 4
+  },
+  "setup": {
+    "kind": "run",
+    "run": "{game}/@bloonsops/btd6/bloonsops_btd6.exe",
+    "args": [
+      "--arma",
+      "{game}"
+    ],
+    "doneFile": "{game}/@bloonsops_btd6/done",
+    "note": "Converts your own Bloons TD 6 monkey and bloon art into a local mod. Nothing is uploaded. Without BTD6 it just creates an empty @bloonsops_btd6 and the game keeps its own look."
   }
 }

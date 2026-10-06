@@ -1,0 +1,5 @@
+# Bundled into bloonsops_btd6.exe (all permissive licences; FMOD is deliberately left out)
+UnityPy==1.25.4      # MIT
+numpy                # BSD-3-Clause
+Pillow               # MIT-CMU (HPND)
+pyinstaller          # GPL-2.0 with bootloader exception (build tool only)

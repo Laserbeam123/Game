@@ -10,3 +10,13 @@ if (!isServer) then {
 if (!hasInterface) exitWith {};
 if (isNil "BO_ClientTowers") then { BO_ClientTowers = [] };
 BO_ClientTowers = (BO_ClientTowers select { !isNull _x }) + [_t];
+// With the player's BTD6 art pack, a BLOONS TD tower shows as its BTD6 cut-out: the spheres are hidden here only.
+private _type = _t getVariable ["bo_type", ""];
+if (_type in BO_Btd6Has) then {
+    if (isNil "BO_Boards") then { BO_Boards = [] };
+    { hideObject _x } forEach ([_t] + attachedObjects _t);
+    private _size = BO_Cfg get "btd6_tower_size_m";
+    private _c = getPosASL _t;
+    _c set [2, (getTerrainHeightASL _c) + _size / 2];
+    BO_Boards pushBack [[BO_Btd6Art get _type, _c, _size] call BO_fnc_billboard, _t, _c];
+};

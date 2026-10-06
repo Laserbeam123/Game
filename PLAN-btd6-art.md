@@ -38,7 +38,9 @@ This was decided in the cloud session; that session had no BTD6, no Arma and no 
    - Screenshot: real BTD6 monkeys on Altis next to an Arma helicopter. That's the new cover.
    - Then the user publishes.
 
-## Current state
-- **Listing:** "Bloons Ops" on Melty (modId `ec2625fa-f337-4aa5-9180-843c3c9f5b89`), draft. Release 0.2.1 has been submitted, and there's one real screenshot.
-- **The game itself works in Arma.** Per the user, it currently looks "like something made completely in Arma" because nothing from BTD6 is used.
-- **Known visual issue:** `Sign_Sphere*` helper spheres glow and turn see-through, so monkeys look like yellow blobs even with painted PAA textures.
+## Current state (0.3.0)
+- **Steps 2–5 are built** (see MODLOG 0.3.0): sheet patterns + preflight, converter in `tools/btd6/` with a Windows exe
+  workflow, billboards on the Arma side with fallback, recipe changes. HEMTT check/release clean.
+- **Open, needs the user's PC:** confirm sprite names with `inspect`, run the converter, play-test (billboard facing,
+  sizes), screenshot, Melty upload + validate_recipe + Test + publish.
+- **Listing:** "Bloons Ops" on Melty (modId `ec2625fa-f337-4aa5-9180-843c3c9f5b89`), draft. 0.2.1 submitted; 0.3.0 not yet uploaded.

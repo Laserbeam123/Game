@@ -6,6 +6,13 @@ reach the end. Play solo, or co-op with up to 4 players sharing cash and lives.
 
 **Requires:** Arma 3 (base game only, no DLC). It's a regular Arma 3 mod (`@bloonsops`) with no other dependencies.
 
+**Optional: real Bloons TD 6 art.** If you also own **Bloons TD 6** on Steam, the BLOONS TD towers and the bloons
+show as the real BTD6 monkeys and bloons (flat cut-outs that always face you), and pops use BTD6's pop sound.
+The art is made **on your own PC from your own copy** by `@bloonsops/btd6/bloonsops_btd6.exe` (Melty runs it once
+before the first launch). It writes a local `@bloonsops_btd6` mod next to Arma; nothing from BTD6 is uploaded or
+shared, and this mod ships none of it. Without BTD6 everything keeps the Bloons Ops look. After a BTD6 update, run
+the exe again.
+
 ## What you get
 - **One Altis map.** The track follows the island's real roads, marked with cones. The ground around it is smoothed into gentle rolling terrain.
 - **7 cartoon bloon types:** glossy red, blue, green, yellow and pink, each hiding the next one inside. **Lead** bloons only pop to explosives, and **camo** bloons are invisible to towers that can't see camo.
@@ -47,12 +54,29 @@ hemtt release                  # build @bloonsops into releases/
 SQFVM=path/to/sqfvm python3 tests/run_sqfvm.py   # headless logic tests (SQF-VM)
 ```
 
+### The BTD6 art converter (`tools/btd6/`)
+`sheets/btd6_art.json` says which BTD6 sprite (by name patterns) shows each tower and bloon, and which clip is the pop.
+`bloonsops_btd6.py` finds BTD6 and Arma 3 through Steam's `libraryfolders.vdf`, indexes BTD6's asset bundles with
+UnityPy, trims and pads each sprite to a power-of-two square, writes DXT5 PAAs and `pop.ogg`, and packs an unsigned
+`@bloonsops_btd6/addons/bloonsops_btd6.pbo` (CfgPatches `bloonsops_btd6`). The game checks for that CfgPatches and
+falls back to its own look without it.
+
+```
+python3 tools/btd6/bloonsops_btd6.py inspect          # list BTD6 sprite/clip names (writes btd6_inspect.txt)
+python3 tools/btd6/bloonsops_btd6.py                  # build @bloonsops_btd6 in your Arma 3 folder
+python3 tools/btd6/test_armafmt.py path/to/hemtt      # PAA/PBO writers checked by HEMTT's readers
+python3 tools/btd6/sample_test.py python3 tools/btd6/bloonsops_btd6.py   # end-to-end on public Unity samples
+```
+The Windows exe is built by `.github/workflows/btd6-converter.yml` (PyInstaller). Bundled pieces and licences:
+`tools/btd6/THIRD_PARTY.md`.
+
 To test it in game, play Singleplayer → Scenarios → *Bloons Ops - Self Test*. It plays every round by itself and writes `[BloonsOps][TEST] PASS/FAIL` lines to the RPT log.
 
 ## Credits
 - Made with Claude Code. All code, sheets and sound effects are original. Sounds are synthesised by `tools/make_sounds.py`.
 - Built with [HEMTT](https://github.com/BrettMayson/HEMTT).
-- Arma 3 © Bohemia Interactive. Bloons TD 6 © Ninja Kiwi. This is a fan-made homage: it ships no files or assets from either game.
+- BTD6 converter: [UnityPy](https://github.com/K0lb3/UnityPy) (MIT), [fsb5](https://github.com/HearthSim/python-fsb5) (MIT), libogg/libvorbis (BSD), numpy, Pillow. See `tools/btd6/THIRD_PARTY.md`.
+- Arma 3 © Bohemia Interactive. Bloons TD 6 © Ninja Kiwi. This is a fan-made homage: it ships no files or assets from either game. The optional BTD6 art is converted on each player's own PC from their own copy and never leaves it.
 
 ## License
 MIT (see LICENSE). Others may remix it on Melty.

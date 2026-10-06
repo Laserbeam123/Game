@@ -127,4 +127,30 @@ BO_Cfg set ["flatten_max_dev_m", 2.5];
 BO_Cfg set ["flatten_window_m", 150];
 BO_Cfg set ["players_invincible", true];
 BO_Cfg set ["player_speed_mult", 2.5];
+BO_Cfg set ["btd6_tower_size_m", 2.2];
+BO_Cfg set ["btd6_bloon_size_m", 1.1];
+BO_Cfg set ["btd6_board_side", 1];
+
+// BTD6 art the converter may have made (used only when CfgPatches bloonsops_btd6 says it did)
+BO_Btd6Art = createHashMap;
+BO_Btd6Has = [];   // ids the pack has art for
+BO_Btd6Pop = "";   // pop sound file in the pack, or empty
+private _pack = configFile >> "CfgPatches" >> "bloonsops_btd6";
+if (isClass _pack) then { BO_Btd6Has = getArray (_pack >> "art"); BO_Btd6Pop = getText (_pack >> "pop") };
+BO_Btd6Art set ["dart_monkey", "\z\bloonsops_btd6\tower_dart_monkey_ca.paa"];
+BO_Btd6Art set ["boomerang", "\z\bloonsops_btd6\tower_boomerang_ca.paa"];
+BO_Btd6Art set ["bomb_shooter", "\z\bloonsops_btd6\tower_bomb_shooter_ca.paa"];
+BO_Btd6Art set ["tack_shooter", "\z\bloonsops_btd6\tower_tack_shooter_ca.paa"];
+BO_Btd6Art set ["ice_monkey", "\z\bloonsops_btd6\tower_ice_monkey_ca.paa"];
+BO_Btd6Art set ["glue_gunner", "\z\bloonsops_btd6\tower_glue_gunner_ca.paa"];
+BO_Btd6Art set ["ninja_monkey", "\z\bloonsops_btd6\tower_ninja_monkey_ca.paa"];
+BO_Btd6Art set ["super_monkey", "\z\bloonsops_btd6\tower_super_monkey_ca.paa"];
+BO_Btd6Art set ["banana_farm", "\z\bloonsops_btd6\tower_banana_farm_ca.paa"];
+BO_Btd6Art set ["red", "\z\bloonsops_btd6\bloon_red_ca.paa"];
+BO_Btd6Art set ["blue", "\z\bloonsops_btd6\bloon_blue_ca.paa"];
+BO_Btd6Art set ["green", "\z\bloonsops_btd6\bloon_green_ca.paa"];
+BO_Btd6Art set ["yellow", "\z\bloonsops_btd6\bloon_yellow_ca.paa"];
+BO_Btd6Art set ["pink", "\z\bloonsops_btd6\bloon_pink_ca.paa"];
+BO_Btd6Art set ["lead", "\z\bloonsops_btd6\bloon_lead_ca.paa"];
+BO_Btd6Art set ["camo_green", "\z\bloonsops_btd6\bloon_camo_green_ca.paa"];
 BO_TowerOrder = ["dart_squad","hmg_nest","sniper","mortar","ghost_hawk","blackfoot","dart_monkey","boomerang","bomb_shooter","tack_shooter","ice_monkey","glue_gunner","ninja_monkey","super_monkey","banana_farm"];

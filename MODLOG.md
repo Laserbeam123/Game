@@ -70,3 +70,48 @@
 - **Flatter ground:** `flattenTrack` uses setTerrainHeight on grid points within 80 m of the track. Each point goes to the local track level ±25% of its original bump, capped at 2.5 m, with the edges faded.
 - **Tests:** SQF-VM logic tests cover slow, freeze and inherited-freeze rules, and all pass. HEMTT check is clean.
 - **0.2.1:** from the first real playtest screenshot (co-op with friends worked): monkeys looked washed-out yellow because flat colours wash out on the helper spheres, so they now use painted PAA textures (tools/palette.py) like the bloons. The HUD heart glyph rendered as "d", so it says "Lives" now. Added `player_speed_mult` (setAnimSpeedCoef 2.5).
+
+## 0.3.0: real BTD6 art from the player's own copy (option 1)
+Done in a cloud session again (no Steam, BTD6, Arma or Melty there), so everything that needs the user's PC is
+built to run there and listed under "Still needs the user's PC" below.
+
+- **btd6_art sheet filled.** BTD6's Addressables bundle file names contain content hashes that change with every
+  BTD6 update, so exact bundle names would break on the next patch. The two TBD columns are now typed:
+  `btd6_asset` = `patterns` (|-separated regexes, best first, full-match, case-insensitive) and
+  `btd6_bundle` = `globs` (relative to the BTD6 folder: the aa/StandaloneWindows64 bundles plus `*.assets`).
+  The converter resolves them on the PC and writes the exact asset and bundle to `@bloonsops_btd6/manifest.json`.
+  The patterns follow BTD6's sprite naming as used by BTD6 modders (`DartMonkey000` portraits, `Red`, `Lead`,
+  `GreenCamo`...), with fallbacks. They are **not yet confirmed against a real install**, so the rows stay
+  `designed`; `inspect` dumps every sprite/clip name to pin them. Preflight checks the regexes, the globs,
+  the ids (only monkey/farm towers, bloons, the pop sound), `_ca.paa` names and duplicates.
+- **Converter** (`tools/btd6/`): Python, built into `bloonsops_btd6.exe` by a GitHub Actions workflow (windows-latest,
+  PyInstaller), because a Windows exe can't be built from this Linux container. Steps: Steam registry +
+  `libraryfolders.vdf` + `appmanifest_960090.acf` (build id) → UnityPy index of Sprite/Texture2D/AudioClip names
+  (cached by size+mtime) → regex resolve → trim to visible pixels, pad to a centred square, Lanczos to 512 (towers)
+  or 256 (bloons), bleed colour into transparent pixels → own numpy DXT5 encoder + PAA writer (full mip chain,
+  LZO1X literal-run framing for ≥64 px, the AVGC/MAXC/FLAG/OFFS taggs HEMTT writes) → pop clip as OGG (FSB5
+  Vorbis rebuilt by the MIT `fsb5` package with BSD libogg/libvorbis) → unsigned PBO with SHA1 and prefix
+  `z\bloonsops_btd6`, plain-text config.cpp with CfgPatches `bloonsops_btd6` (`art[]`, `pop`, `btd6Build`) → `done`.
+  Without BTD6 it still makes the folder and `done`, without the PBO, so `-mod=@bloonsops;@bloonsops_btd6` always
+  resolves. FMOD is excluded from the exe (not redistributable); UnityPy's import of it is stubbed.
+- **Verified here:** `test_armafmt.py`: HEMTT decodes the PAAs (8 mips, colour error 1.6, alpha 0.3) and accepts the
+  PBO (prefix, SHA1, files). `sample_test.py`: end to end on UnityPy's public sample bundles: an atlas-packed
+  sprite, a plain sprite and an FSB5 Vorbis clip resolve, convert and pack, also with FMOD blocked.
+- **Arma side:** `initData` (generated) sets `BO_Btd6Has` / `BO_Btd6Pop` from the pack's CfgPatches on every machine.
+  `billboard` makes a local `UserTexture1m_F` simple object with the converter's PAA; `faceBoard` stands it upright,
+  turned to the camera, then re-applies `setObjectScale` (setVectorDirAndUp resets scale). Bloons with art become
+  1.1 m billboards (no knot/string); BLOONS TD towers hide their spheres locally (`hideObject` on the anchor and its
+  attachedObjects) and get a 2.2 m billboard that goes away when the tower is sold. Pops use the BTD6 pop when the
+  pack has one. Each machine decides for itself, so co-op mixes players with and without BTD6. Sizes and the facing
+  sign are economy rows (`btd6_tower_size_m`, `btd6_bloon_size_m`, `btd6_board_side`).
+- **Recipe:** `melty.json` gets the converter component, a `setup` step (run the exe with `--arma {game}`, wait for
+  `@bloonsops_btd6/done`), BTD6 as an optional second game and `-mod=@bloonsops;@bloonsops_btd6`. The field names
+  for setup and the optional game were written without Melty's schema at hand: **re-run validate_recipe and
+  one_click_check** and adjust to what Melty accepts.
+- HEMTT 0.3.0: check clean (47 SQF compiled, 6 configs), release zip built.
+
+### Still needs the user's PC
+1. Run `bloonsops_btd6.exe inspect` (or the .py) once: confirms the sprite names; pin them in btd6_art.json.
+2. Run the converter, launch with `-mod=@bloonsops;@bloonsops_btd6`, check the RPT line `[BloonsOps] BTD6 art pack: N images`.
+3. In game: if billboards are invisible from the front, set `btd6_board_side` to -1. Screenshot: BTD6 monkeys on Altis next to a helicopter.
+4. Melty: upload 0.3.0 + converter zip, validate the recipe, Test, set the screenshot as cover, publish.

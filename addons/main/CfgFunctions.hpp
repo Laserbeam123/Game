@@ -43,6 +43,8 @@ class CfgFunctions {
             class fxLocal {};
             class draw3D {};
             class flattenTrack {};
+            class billboard {};
+            class faceBoard {};
         };
     };
 };

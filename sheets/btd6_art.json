@@ -1,31 +1,58 @@
 {
   "sheet": "btd6_art",
-  "about": "What Bloons Ops takes from the player's own Bloons TD 6 install (never redistributed). Each row maps one Bloons Ops thing to the BTD6 asset that shows it. Cells marked TBD are filled in by inspecting BTD6's files on the player's PC (see PLAN-btd6-art.md); preflight lists them as unfinished until then.",
+  "about": "What Bloons Ops takes from the player's own Bloons TD 6 install (never redistributed). Each row maps one Bloons Ops tower or bloon (or the pop sound) to the BTD6 asset that shows it. BTD6's Addressables bundles carry content hashes in their file names and change with every BTD6 update, so a row names its asset by name patterns, tried in order, and its bundle by a file glob; tools/btd6/bloonsops_btd6.py resolves them on the player's PC and records the exact asset and bundle in @bloonsops_btd6/manifest.json. A row with no match keeps the Bloons Ops look. Rows stay 'designed' until a real BTD6 install has confirmed them (run the converter's inspect command and pin the names here).",
   "columns": [
-    {"name": "id", "type": "id", "desc": "towers or bloons id in Bloons Ops"},
-    {"name": "uses", "type": "enum", "values": ["tower", "bloon", "sound"]},
-    {"name": "btd6_asset", "type": "string", "desc": "asset/sprite/clip name inside BTD6's bundles (TBD until inspected)"},
-    {"name": "btd6_bundle", "type": "string", "desc": "bundle file under BloonsTD6_Data (TBD)"},
-    {"name": "out_file", "type": "string", "desc": "file the converter writes into @bloonsops_btd6 (PAA for images, OGG for sounds)"},
-    {"name": "status", "type": "status"}
+    {
+      "name": "id",
+      "type": "id",
+      "desc": "towers or bloons id in Bloons Ops"
+    },
+    {
+      "name": "uses",
+      "type": "enum",
+      "values": [
+        "tower",
+        "bloon",
+        "sound"
+      ]
+    },
+    {
+      "name": "btd6_asset",
+      "type": "patterns",
+      "desc": "|-separated regexes (case-insensitive, full match) on Sprite/Texture2D names (AudioClip for sounds), best first"
+    },
+    {
+      "name": "btd6_bundle",
+      "type": "globs",
+      "desc": "|-separated file globs relative to the BTD6 install folder"
+    },
+    {
+      "name": "out_file",
+      "type": "string",
+      "desc": "file the converter writes into @bloonsops_btd6 (PAA for images, OGG for sounds)"
+    },
+    {
+      "name": "status",
+      "type": "status"
+    }
   ],
   "rows": [
-    {"id": "dart_monkey",  "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_dart_monkey_ca.paa", "status": "designed"},
-    {"id": "boomerang",    "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_boomerang_ca.paa", "status": "designed"},
-    {"id": "bomb_shooter", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_bomb_shooter_ca.paa", "status": "designed"},
-    {"id": "tack_shooter", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_tack_shooter_ca.paa", "status": "designed"},
-    {"id": "ice_monkey",   "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_ice_monkey_ca.paa", "status": "designed"},
-    {"id": "glue_gunner",  "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_glue_gunner_ca.paa", "status": "designed"},
-    {"id": "ninja_monkey", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_ninja_monkey_ca.paa", "status": "designed"},
-    {"id": "super_monkey", "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_super_monkey_ca.paa", "status": "designed"},
-    {"id": "banana_farm",  "uses": "tower", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "tower_banana_farm_ca.paa", "status": "designed"},
-    {"id": "red",          "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_red_ca.paa", "status": "designed"},
-    {"id": "blue",         "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_blue_ca.paa", "status": "designed"},
-    {"id": "green",        "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_green_ca.paa", "status": "designed"},
-    {"id": "yellow",       "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_yellow_ca.paa", "status": "designed"},
-    {"id": "pink",         "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_pink_ca.paa", "status": "designed"},
-    {"id": "lead",         "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_lead_ca.paa", "status": "designed"},
-    {"id": "camo_green",   "uses": "bloon", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "bloon_camo_green_ca.paa", "status": "designed"},
-    {"id": "pop",          "uses": "sound", "btd6_asset": "TBD", "btd6_bundle": "TBD", "out_file": "pop.ogg", "status": "designed"}
+    {"id": "dart_monkey", "uses": "tower", "btd6_asset": "DartMonkey000|DartMonkeyPortrait|DartMonkey-?Icon|DartMonkey\\d{3}|DartMonkey.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_dart_monkey_ca.paa", "status": "designed"},
+    {"id": "boomerang", "uses": "tower", "btd6_asset": "BoomerangMonkey000|BoomerangMonkeyPortrait|BoomerangMonkey-?Icon|BoomerangMonkey\\d{3}|BoomerangMonkey.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_boomerang_ca.paa", "status": "designed"},
+    {"id": "bomb_shooter", "uses": "tower", "btd6_asset": "BombShooter000|BombShooterPortrait|BombShooter-?Icon|BombShooter\\d{3}|BombShooter.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_bomb_shooter_ca.paa", "status": "designed"},
+    {"id": "tack_shooter", "uses": "tower", "btd6_asset": "TackShooter000|TackShooterPortrait|TackShooter-?Icon|TackShooter\\d{3}|TackShooter.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_tack_shooter_ca.paa", "status": "designed"},
+    {"id": "ice_monkey", "uses": "tower", "btd6_asset": "IceMonkey000|IceMonkeyPortrait|IceMonkey-?Icon|IceMonkey\\d{3}|IceMonkey.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_ice_monkey_ca.paa", "status": "designed"},
+    {"id": "glue_gunner", "uses": "tower", "btd6_asset": "GlueGunner000|GlueGunnerPortrait|GlueGunner-?Icon|GlueGunner\\d{3}|GlueGunner.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_glue_gunner_ca.paa", "status": "designed"},
+    {"id": "ninja_monkey", "uses": "tower", "btd6_asset": "NinjaMonkey000|NinjaMonkeyPortrait|NinjaMonkey-?Icon|NinjaMonkey\\d{3}|NinjaMonkey.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_ninja_monkey_ca.paa", "status": "designed"},
+    {"id": "super_monkey", "uses": "tower", "btd6_asset": "SuperMonkey000|SuperMonkeyPortrait|SuperMonkey-?Icon|SuperMonkey\\d{3}|SuperMonkey.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_super_monkey_ca.paa", "status": "designed"},
+    {"id": "banana_farm", "uses": "tower", "btd6_asset": "BananaFarm000|BananaFarmPortrait|BananaFarm-?Icon|BananaFarm\\d{3}|BananaFarm.*Portrait.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "tower_banana_farm_ca.paa", "status": "designed"},
+    {"id": "red", "uses": "bloon", "btd6_asset": "Red|RedBloon|BloonRed|RedBloon-?Icon|BloonIconRed|RedIcon", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_red_ca.paa", "status": "designed"},
+    {"id": "blue", "uses": "bloon", "btd6_asset": "Blue|BlueBloon|BloonBlue|BlueBloon-?Icon|BloonIconBlue|BlueIcon", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_blue_ca.paa", "status": "designed"},
+    {"id": "green", "uses": "bloon", "btd6_asset": "Green|GreenBloon|BloonGreen|GreenBloon-?Icon|BloonIconGreen|GreenIcon", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_green_ca.paa", "status": "designed"},
+    {"id": "yellow", "uses": "bloon", "btd6_asset": "Yellow|YellowBloon|BloonYellow|YellowBloon-?Icon|BloonIconYellow|YellowIcon", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_yellow_ca.paa", "status": "designed"},
+    {"id": "pink", "uses": "bloon", "btd6_asset": "Pink|PinkBloon|BloonPink|PinkBloon-?Icon|BloonIconPink|PinkIcon", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_pink_ca.paa", "status": "designed"},
+    {"id": "lead", "uses": "bloon", "btd6_asset": "Lead|LeadBloon|BloonLead|LeadBloon-?Icon|BloonIconLead|LeadIcon", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_lead_ca.paa", "status": "designed"},
+    {"id": "camo_green", "uses": "bloon", "btd6_asset": "GreenCamo|CamoGreen|GreenCamoBloon|CamoGreenBloon|Green.*Camo.*|Camo.*Green.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "bloon_camo_green_ca.paa", "status": "designed"},
+    {"id": "pop", "uses": "sound", "btd6_asset": "Pop|Pop\\d+|BloonPop\\d*|Pop.*Bloon.*|Bloon.*Pop.*", "btd6_bundle": "BloonsTD6_Data/StreamingAssets/aa/StandaloneWindows64/*.bundle|BloonsTD6_Data/*.assets", "out_file": "pop.ogg", "status": "designed"}
   ]
 }

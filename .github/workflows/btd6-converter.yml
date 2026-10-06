@@ -1,0 +1,52 @@
+# Builds bloonsops_btd6.exe, the converter that turns the player's own BTD6 art into @bloonsops_btd6 on their PC.
+# Only the converter is built and shipped; it contains no BTD6 files.
+name: btd6-converter
+on:
+  push:
+    paths: ["tools/btd6/**", "sheets/btd6_art.json", ".github/workflows/btd6-converter.yml"]
+  workflow_dispatch:
+jobs:
+  exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install -r tools/btd6/requirements.txt
+          python -m pip uninstall -y fmod_toolkit pyfmodex
+          python -m pip download pyogg==0.6.14a1 --no-deps --only-binary :all: -d dl
+          python -c "import zipfile,glob; z=zipfile.ZipFile(glob.glob('dl/*.whl')[0]); [open(n.split('/')[-1],'wb').write(z.read(n)) for n in ('pyogg/libogg.dll','pyogg/libvorbis.dll')]"
+      - name: Preflight sheets
+        run: python tools/gen.py preflight
+      - name: Build exe
+        run: >
+          pyinstaller --onefile --console --name bloonsops_btd6
+          --paths tools/btd6
+          --add-data "sheets/btd6_art.json;."
+          --add-binary "libogg.dll;." --add-binary "libvorbis.dll;."
+          --collect-all UnityPy --collect-all texture2ddecoder --collect-all etcpak --collect-all astc_encoder
+          --hidden-import fsb5 --hidden-import fsb5.vorbis --hidden-import fsb5.pcm
+          --exclude-module fmod_toolkit --exclude-module pyfmodex
+          tools/btd6/bloonsops_btd6.py
+      - name: Smoke test (no BTD6 on the runner, so it must still write the folder and the done marker)
+        shell: bash
+        run: |
+          dist/bloonsops_btd6.exe --out smoke --btd6 nonexistent_dir
+          test -f smoke/done && test -f smoke/manifest.json
+      - name: End-to-end test on public Unity sample bundles (atlas sprite, sprite, FSB5 Vorbis clip)
+        run: python tools/btd6/sample_test.py dist/bloonsops_btd6.exe
+      - name: Package
+        shell: bash
+        run: |
+          mkdir -p pkg/@bloonsops/btd6
+          cp dist/bloonsops_btd6.exe tools/btd6/THIRD_PARTY.md pkg/@bloonsops/btd6/
+          cp LICENSE pkg/@bloonsops/btd6/LICENSE.txt
+          ver=$(python -c "import re;t=open('.hemtt/project.toml').read();print('.'.join(re.search(k+r' = (\d+)',t).group(1) for k in ('major','minor','patch')))")
+          cd pkg && 7z a ../bloonsops-btd6-converter-$ver.zip @bloonsops >/dev/null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bloonsops-btd6-converter
+          path: bloonsops-btd6-converter-*.zip

@@ -2,7 +2,7 @@
 params ["_ids", ["_leak", false]];
 if (!hasInterface || { isNil "BO_LocalBloons" }) exitWith {};
 private _snd = BO_Sounds get (["pop", "leak"] select _leak);
-private _path = "z\bloonsops\addons\main\" + (_snd get "file");
+private _path = if (!_leak && { BO_Btd6Pop != "" }) then { "z\bloonsops_btd6\" + BO_Btd6Pop } else { "z\bloonsops\addons\main\" + (_snd get "file") };
 private _sounds = 0;
 {
     private _e = BO_LocalBloons getOrDefault [_x, []];
